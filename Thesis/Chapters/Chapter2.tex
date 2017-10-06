@@ -1,0 +1,817 @@
+
+% Chapter 1
+
+\chapter{Construcció del Grup $K_0$} % Main chapter title
+
+La dimensió és un invariant dels espais vectorials que els classifica, és a dir, dos espais vectorials sobre un cos $K$ són isomorfs si i només si tenen la mateixa dimensió, en concret podem crear una bijecció entre la col·lecció de classes d'isomorfisme de $K$-espais vectorials i $\mathbb{N}$, a més, la suma directa ens permet sumar espais vectorials, de forma que $\dim(V \oplus W) = \dim (V) + \dim (W)$. Per afegitó, podem completar el monoide $\mathbb{N}$  a un grup abelià $\mathbb{Z}$ que conté totes les diferències d'enters no negatius $m-n$. Similarment, podem completar el monoide de la col·lecció de les classes de isomorfia d'espais vectorials al grup $K_0(K)$, aquest grup és isomorf a $\mathbb{Z}$ i consisteix en les diferències $c(V)-c(W)$ on $c$ denota la classe d'isomorfisme dels espais vectorials. \\
+\indent Al generalitzar el cas d'un cos $K$ a un anell arbitrari $R$ tenim que els $R$-mòduls no tenen necessàriament una base, per tant el concepte de dimensió desapareix, però si restringim la nostre atenció a la classe dels $R$-mòduls projectius, tenim que el grup abelià $K_0(R)$ segueix intacte com el fantasma desaparegut de la dimensió. L'estructura de $K_0(R)$ reflecteix la generalització del concepte de dimensió dels espais vectorials sobre $R$-mòduls. En particular si $R$ no és un cos, $K_0(R)$ no és necessàriament isomorf a $\mathbb{Z}$. \\ 
+\indent En aquest capítol presentarem $K_0(R)$, començarem definint-lo a partir de classes d'isomorfisme de mòduls projectius i després usarem la relació entre mòduls projectius i els idempotents per a presentar $K_0$ a partir de classes d'equivalència de matrius idempotents. Aquestes caracteritzacions ens permetran mostrar amb facilitat propietats del grup. Després estudiem $K_0$ per a cossos, dominis d'ideals principals i anells locals. A la darrera secció introduirem el grup $K_0$ relatiu, aquest grup ens permetrà trobar una successió exacta que generalitzarem al següent capítol relacionant els grups $K_0$ i $K_1$. Finalment veurem que $K_0$ també es pot definir per a anells sense unitat.
+\\
+\indent La referència bibliogràfica essencial d'aquest capítol és [1], a més s'ha usat [2] com a referència puntulament, també hem usat [7]  per l'\textit{Eilenberg swindle}, [9] per el Lema de Nakayama i el seu corol·lari, i un resultat puntual de [8] que no hem provat però està explícitament referenciat durant el capítol.
+
+\label{Chapter1} % For referencing the chapter elsewhere, use \ref{Chapter1} 
+
+%----------------------------------------------------------------------------------------
+
+% Define some commands to keep the formatting separated from the content 
+\newcommand{\keyword}[1]{\textbf{#1}}
+\newcommand{\tabhead}[1]{\textbf{#1}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\file}[1]{\texttt{\bfseries#1}}
+\newcommand{\option}[1]{\texttt{\itshape#1}}
+
+%----------------------------------------------------------------------------------------
+
+
+\section{$K_0$ a partir de mòduls projectius}
+L'objectiu d'aquesta secció és definir $K_0$ a través de mòduls projectius, en primer lloc notarem la importància de considerar el conjunt de classes d'isomorfisme de mòduls projectius en lloc de prendre la col·lecció de tots els mòduls projectius, posteriorment presentem el grup de Grothendieck i finalment definim $K_0$.
+\begin{definition}
+Donat un anell $R$, denotem per $\proj R$ a les classes d'isomorfisme de mòduls projectius finitament generats. 
+\end{definition}
+La següent Proposició justifica perquè prenem classes d'isomorfisme, però abans necessitem un Lema:
+\begin{lema}
+La col·lecció de tots els singletons no és un conjunt. (Un singletó és un conjunt format per un únic element).
+\end{lema}
+\begin{proof}
+Si $A$ és un conjunt que conté tots els singletons, per l'axioma de la unió ( l'axioma de la unió afirma que per a un conjunt arbitrari $A$, existeix el conjunt $\bigcup A$ que consisteix en els elements dels elements del conjunt), $\cup A$ és un conjunt, però és el conjunt que conté tots els conjunts, per la paradoxa de Russell no pot ser un conjunt . Per tant $A$ no és un conjunt.
+\end{proof}
+
+\begin{prop}
+Sigui $P$ la col·lecció de tots els $R$-mòduls projectius finitament generats, llavors $P$ no és un conjunt.
+\end{prop}
+\begin{proof}
+Observem que donats dos elements diferents  $\bullet \neq \star$, el mòdul $(\{\bullet\},+,\cdot)$ amb estructura $\bullet+\bullet=\bullet$ i $r \cdot \bullet = \bullet$ per a tot $r\in R$; és un mòdul diferent del mòdul $(\{\star\},\oplus,\odot)$ amb estructura $\star \oplus \star = \star$ i $r\odot \star=\star$ per a tot $r\in R$.
+\\
+Així doncs, per cada conjunt format per un únic element (singletó), podem crear un $R$-mòdul finitament generat, i com que la col·lecció de tots els singletons no és un conjunt, la col·lecció de tots els $R$-mòduls tampoc pot ser un conjunt.
+\end{proof}
+
+Així doncs, hem de considerar $\text{Proj} \ R$ com el conjunt de classes d'isomorfia, és a dir, per a cada classe d'isomorifa escollim un, i només un, mòdul que la representi.
+
+
+\begin{prop}
+ $\proj R$ amb l'operació binària $\oplus$ té estructura de semigrup (un semigrup és un conjunt $S$ junt amb una operació binària associativa $\cdot: S \times S \rightarrow S$). 
+\end{prop}
+\begin{proof}
+Si $P,Q \in \proj R$, al ser $R$-mòduls projectius finitament generats existeixen dos $R$-mòduls $P',Q'$ i dos enters positius $n,m$ tal que $P\oplus P' \cong R^m$ i $Q \oplus Q' \cong R^n$. Aleshores usant que $\oplus$ és associativa tenim
+$$
+(P\oplus Q) \oplus (P' \oplus Q') \cong (P \oplus P') \oplus (Q \oplus Q') \cong R^m \oplus R^n \cong R^{n+m}
+$$
+Observem que la suma directa està ben definida, ja que si $P\cong P'$ i $Q\cong Q'$, aleshores $P\oplus Q \cong P' \oplus Q'$. \\
+De fet, $\proj R$ té estructura de monoide, ja que té per element identitat el mòdul $0$. 
+\end{proof}
+Tenim doncs que $\proj R$ té estructura de semigrup, però en general no té estructura de grup. El següent Teorema ens permet forçar l'estructura de grup a $\proj R$. La idea que ens permetrà dotar d'estructura de grup és una generalització de la construcció del grup abelià additiu $\mathbb{Z}$ a partir dels enters positius, o de la construcció de $\mathbb{Q}^\times$ a partir dels enters no nuls, consisteix a introduir inverses formals per a certs elements.
+
+\begin{theorem} \label{GG} Sigui $S$ un semigrup commutatiu (sense necessitat de tenir element unitat). Existeix un grup abelià $G$, anomenat \textbf{grup de Grothendieck} o grup completat de $S$, junt amb un homomorfisme de semigrups $\varphi: S \rightarrow G$, tal que per a tot grup $H$ i tot homomorfisme $\psi : S \rightarrow H$, hi ha un únic homomorfisme $\theta: G\rightarrow H$ amb $\psi = \theta \circ \varphi$.
+
+
+
+
+\begin{figure}[!htb]
+\minipage{0.32\textwidth}
+\begin{flushright}
+	\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
+  {
+     S & G \\
+     H &  \\};
+  \path[-stealth]
+  	(m-1-1.east|-m-1-2) edge node [below] {$\varphi$}
+            node [above] {} (m-1-2)
+	(m-1-1) edge node [right] {$\psi$} (m-2-1)
+	(m-1-2) edge node [left] {$\theta$} (m-2-1);
+    %edge [dashed,-] (m-2-1);
+	\end{tikzpicture}
+\end{flushright}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+\textit{La unicitat es compleix en el sentit que si $\varphi ': S\rightarrow G'$ és una altra parella amb la mateixa propietat, aleshores existeix un isomorfisme $\alpha: G \rightarrow G'$ amb $\varphi ' = \alpha \circ \varphi$.}
+
+
+\endminipage\hfill
+\minipage{0.32\textwidth}%
+		\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
+  {
+     S & G' \\
+     H &  \\};
+  \path[-stealth]
+  	(m-1-1.east|-m-1-2) edge node [below] {$\varphi '$}
+            node [above] {} (m-1-2)
+	(m-1-1) edge node [right] {$\psi '$} (m-2-1)
+	(m-1-2) edge node [left] {$\theta$} (m-2-1);
+    %edge [dashed,-] (m-2-1);
+	\end{tikzpicture}
+\endminipage
+\end{figure}
+\end{theorem}
+
+\begin{proof}
+Definim $G$ com el conjunt de les classes d'equivalència de parelles $(x,y)$ amb $x,y\in S$, on $(x,y) \sim (u,v)$ si i només si hi ha un $t\in S$ tal que 
+$$
+x+v+t = u+y+t \ \text{ a } S .
+$$
+Denotem per $ [(x,y)] $ a la classe d'equivalència de $(x,y)$. Aleshores definim la suma per
+$$
+[(x,y)]+[(x',y')]=[(x+x',y+y')]
+$$
+La suma de classes està ben definida, ja que si $(x,y)\sim (u,v)$,  i $(x',y') \sim (u',v')$ aleshores existeixen $t,t' \in S$ tal que 
+\begin{eqnarray*}
+\begin{cases}
+x+v+t&=y+u+t \\ 
+x'+v'+t'&=y'+u'+t'
+\end{cases}
+\Rightarrow 
+x+x'+v+v'+t+t'=y+y'+u+u'+t+t'
+\end{eqnarray*}
+ Al ser $S$ un semigrup, $t+t'\in S$ i per tant
+ $$(x,y)+(x',y')=(x+x',y+y')\sim (u+u',v+v') = (u,v)+(u',v').$$
+\noindent Com que l'associativitat se segueix complint, tenim que $G$ amb la suma té estructura de semigrup. A més, com que $S$ és commutatiu tenim que $x+y=y+x$ i per tant $[(x,x)]=[(y,y)]$, observem que aquest element és element neutre de $G$, i.e., $0_G$. De fet aquest element dóna estructura de monoide a $G$.
+També es compleix que tot element de $G$ té invers:
+$$
+[(x,y)]+ [(y,x)] = [(x+y,x+y)] = 0,
+$$
+per tant $G$ és un grup. Definim $\varphi: S\rightarrow G$ com
+$$
+\varphi(x)=[(x+x,x)]
+$$
+es compleix $\varphi(x)+\varphi(y)=\varphi(x+y)$, per tant és un homomorfisme de semigrups. 
+\\ Observem que la imatge de $\varphi$ genera $G$ com a grup ja que 
+$$
+[(x,y)]=\varphi(x)-\varphi(y)
+$$
+ Donat un grup $H$ i un homomorfisme $\psi: S\rightarrow H$, el homomorfisme $\theta: G\rightarrow H$ amb $\psi = \theta \circ \phi$ es defineix per
+$$
+\theta([(x,y)])=\psi(x)-\psi(y).
+$$
+\indent  Una manera alternativa de definir $G$ és definir-lo com el grup generat per $[x]$, amb $x\in S$, sota la relació $[x]+[y]=[z]$ a $G$ si $x+y=z$ a $S$. Observem que $[(x,y)]$ de la construcció anterior correspon a $[x]-[y]$ d'aquesta relació. L'aplicació $\varphi$ és $x\mapsto [x]$, i tot homomorfisme de $S$ a un grup $H$ ha de factoritzar a través de $G$ per construcció. \\
+
+Per provar la unicitat, suposa que $\varphi '  :  S \rightarrow G'$ té la mateixa propietat universal. En primer lloc, $\varphi ' (S)$ ha de generar $G'$ ja que, en cas contrari, si $G''$ és el subgrup generat per la imatge de $\varphi ' $, aleshores hi ha dos homomorfismes $\theta : G' \rightarrow G' \oplus G'/G''$ amb
+$$
+(\varphi ',0) = \theta \circ \varphi ' 
+$$
+aquests són $\theta = (id,0)$ i $\theta = (id,q)$ on $q$ és la projecció canònica. \\
+Aplicant la propietat universal per a $G$ i $G'$, han d'existir aplicacions $\alpha :  G \rightarrow G'$ amb  $\varphi ' = \alpha \circ \varphi$ i $\beta: G'\rightarrow G$ amb  $\varphi = \beta \circ \varphi '$. 
+A més $\alpha \circ \beta = id$ a la imatge de $\varphi'$, i.e., a tot $G'$, i per tant té inversa per l'esquerra $\beta$. Similarment $\beta \circ \alpha = id$ a la imatge de $\varphi$, per tant també tenim que $\alpha$ és inversa per la dreta de $\beta$.
+ \end{proof}
+ \begin{obs}
+ L'assignació $S \leadsto G=G(S)$ és de fet un functor de la categoria de semigrups abelians a la categoria de grups abelians, ja que si $\gamma: S \rightarrow S'$ és un homomorfisme de semigrups, indueix un diagrama commutatiu
+\begin{center}
+		\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
+  {
+     S & S' \\
+     G(S) & G(S')  \\};
+  \path[-stealth]
+  	(m-1-1.east|-m-1-2) edge node [below] {$\gamma '$}
+            node [above] {} (m-1-2)
+	(m-1-1) edge node [right] {$\varphi$} (m-2-1)
+	(m-1-2) edge node [right] {$\varphi '$} (m-2-2)
+	(m-2-1.east|-m-2-2) edge node [below] {}
+            node [above] {} (m-2-2);
+    %edge [dashed,-] (m-2-1);
+	\end{tikzpicture}
+\end{center}
+ on l'aplicació $G(S)\rightarrow G(S')$ és unívocament determinada per la propietat universal de G(S) que acabem de demostrar.
+ 
+
+\end{obs}
+\begin{obs}
+ L'aplicació $\varphi: S \rightarrow G$ (en el context del Teorema \ref{GG}) és injectiva si i només si la propietat cancel·lativa es compleix a $S$, i.e. $(x+z=y+z \Rightarrow x=y)$ per a tot $x,y,z\in S$
+\footnote{
+Si tenim $x,y\in S$ elements diferents tals que $[x+x,x]=[y+y,y]$, aleshores $x+x+y=y+y+x$, si prenem $z=x+y$ tenim $x+z=y+z$ però per hipòtesi $x\neq y$, per tant no es compleix la propietat cancel·lativa. Podem invertir el raonament per veure el recíproc.}. Els semigrups sense propietat cancel·lativa són generalment difícils de tractar, en canvi tractar el seus grup de Grothendieck pot ser més senzill.
+ \end{obs}
+
+Veiem ara un exemple de càlcul específic del grup de Grothendieck d'un semigrup específic. \\
+\textup{\textbf{Exemple.}
+Sigui $S$ el monoide abelià amb elements $a_{n,m}$, on $n\in \mathbb{N}$, i
+$$
+\begin{cases}
+m=0 \ \text{ si } n=0 \ \text{o} \  1\\
+m\in \mathbb{Z} \ \text{ si } \  n=2 \\
+m\in \mathbb{Z}/2 \ \text{ si } \ n\geq 3
+\end{cases}
+$$
+amb l'operació de semigrup donada per la fórmula
+$$
+a_{n,m}+a_{n',m'}=a_{n+n',m+m'}
+$$
+on $m+m'$ es calcula a $\mathbb{Z}$ si $n+n' \leq 2$ ia $\mathbb{Z}/2$ si $n+n' \geq 3$. \\
+\indent Per calcular el grup de Grothendieck $G(S)$ del monoide, nota primer que $\varphi$ no és injectiva, ja que per $m,n\in \mathbb{Z}$ amb $m \equiv n\ (2)$ i $m\neq n$, compleix que $\varphi((2,n))=\varphi((2,m))$. Així doncs usant l'observació anterior tenim que la propietat cancel·lativa a $S$ no es compleix. \\
+Usarem que $G(S)$ ve generat per $\varphi(S)$, per tant convé calcular
+\begin{eqnarray*}
+\varphi:&S & \rightarrow  G(S)\\
+&(0,0) & \mapsto  [(0,0),(0,0)] \sim (0,0) \\
+&(1,0) & \mapsto  [(2,0),(1,0)] \sim (1,0) \\
+&(2,n) & \mapsto  [(4,2n),(2,n)] \sim (2,n \ \text{mod} \ 2) \\
+&(m,0) & \mapsto  [(2m,0),(m,0)] \sim (m,0) \\
+&(m,1) & \mapsto  [(2m,2),(m,1)] \sim (m,1)
+\end{eqnarray*}
+per $n,m\in \mathbb{Z}$ i $m \geq 3$. Tenim doncs que aquests elements formen el grup $$G(S)\cong\mathbb{Z}\times \mathbb{Z}/2\mathbb{Z}.$$
+}
+
+\begin{definition} Sigui $R$ un anell amb unitat. Aleshores $K_0(R)$ és el \textbf{grup de Grothendieck} (en el mateix sentit que en el Teorema \ref{GG}) del semigrup $\proj R$ (semigrup format per classes d'isomorfisme de $R$-mòduls projectius finitament generats).
+\end{definition}
+
+Podríem provar que $K_0$ és un \textbf{functor}, en el sentit que si $\varphi: R \rightarrow R'$ és un homomorfisme d'anells, hi ha un homomorfisme induït $K_0(\varphi)=\varphi_*:K_0(R)\rightarrow K_0(R')$, aquest fet esdevindrà trivial a partir de la caracterització dels mòduls projectius a través de classes de matrius idempotents.
+
+\section{$K_0$ a partir d'idempotents.}
+L'objectiu d'aquesta secció és caracteritzar el grup $K_0$ a partir de les classes d'equivalència d'idempotents, en lloc de fer-ho a partir de les classes d'isomorfia de mòduls projectius com hem fet a la secció anterior. Aquesta caracterització ens facilitarà provar propietats rellevants per al càlcul de $K$-grups. 
+
+\indent Si $P$ és $R$-m.p.f.g,\footnote{Usem l'abreviatura $R$-m.p.f.g. per a referir-nos a $R$-mòduls projectius finitament generats.} usant la caracterització dels mòduls projectius (Teorema \ref{carProj}) podem assumir sota isomorfisme que $P\oplus Q = R^n$ per algun $n$, a més per la Proposició \ref{primer}  existeix automorfisme de $R$-mòduls idempotent sobre $R^n$ que consisteix per ser la identitat sobre $P$ i 0 sobre $Q$. Si a més tenim en compte que tot homomorfisme de $R$-mòduls $R^n\rightarrow R^n$ ve determinat per la imatge dels $n$ vectors bàsics, aquest homomorfisme es correspon a una matriu $n\times n$ que actua per la dreta. Per tant, el mòdul projectiu $P$ queda determinat per una matriu idempotent $p$ de dimensions $n\times n$.
+\\
+\indent
+No obstant hi ha matrius idempotents diferents que poden donar lloc a la mateixa classe de mòduls projectius.
+Per exemple en el cas d'un cos l'únic invariant d'un mòdul projectiu és la seva dimensió, que es correspon amb el rang de $p$.\\
+Per tant, si pretenem caracteritzar $K_0(R)$ a partir de matrius idempotents, és indispensable descriure una relació d'equivalència entre les matrius idempotents de forma que cada classe de matrius idempotents es correspongui a una i només una classe de mòduls projectius.
+
+\begin{lema}
+Si $p$ i $q$ són matrius idempotents, possiblement de diferents mides, sobre un anell $R$; els corresponents $R$-m.p.f.g. són isomorfs si i només si podem augmentar la mida de les matrius $p$ i $q$ afegint zeros a la cantonada inferior-dreta de forma que tinguin la mateixa mida $N\times N$ i siguin conjugades sota el grup $GL(N,R)$ de matrius $N\times N$ invertibles sobre $R$. 
+\end{lema}
+
+\begin{proof}
+Si $u\in GL(N,R)$ i $upu^{-1}=q$, aleshores el producte per la dreta indueix un isomorfisme de $R^Nq$ a $R^Np$, per tant la condició és suficient. Per a provar que la condició és necessària suposem que $p$ i $q$ són matrius de mida $n\times n$ i $m\times m$ respectivament, i que $R^np \cong R^mq$. Podem extendre aquest isomorfisme $\alpha : R^np\rightarrow R^mq$ a un homomorfisme de $R$-mòduls $R^n \rightarrow R^m$ a partir de prendre $\alpha =0$ en el complementari del mòdul $R^n(1-p)$, i veure la imatge de $R^mq$ incrustada a $R^m$. Similarment extenem $\alpha^{-1}$ a un homomorfisme de $R$-mòduls $\beta : R^m \rightarrow R^n$ el qual pren valors 0 sobre $R^m(1-q)$.
+Aleshores $\alpha$ ve donada per la multiplicació per la dreta per una matriu $\alpha$ d mida $n\times m$ i $\beta$ ve donada per multiplicar per la dreta per una matriu $b$ de mida $m\times n$. A més, tenim les relacions $ab=p, ba=q, a=pa=aq, b=qb=bp$. La gràcia de la prova consisteix en prendre $N=n+m$ i notar que 
+$$
+\left( \begin{matrix}
+  1-p & a \\
+  b & 1-q
+ \end{matrix} \right)^2
+ =
+ \left( \begin{matrix}
+  1 & 0 \\
+  0 & 1
+ \end{matrix} \right)
+$$
+complint la conjugació
+$$
+\left( \begin{matrix}
+  1-p & a \\
+  b & 1-q
+ \end{matrix} \right)
+ \left( \begin{matrix}
+  p & 0 \\
+  0 & 0
+ \end{matrix} \right)
+ \left( \begin{matrix}
+  1-p & a \\
+  b & 1-q
+ \end{matrix} \right)
+ =
+ \left( \begin{matrix}
+  1-p & a \\
+  b & 1-q
+ \end{matrix} \right)
+ \left( \begin{matrix}
+  0 & a \\
+  0 & 0
+ \end{matrix} \right)
+ =
+  \left( \begin{matrix}
+  0 & 0 \\
+  0 & q
+ \end{matrix} \right) .
+$$
+per tant $\left( \begin{matrix}
+  1-p & a \\
+  b & 1-q
+ \end{matrix} \right)$ és una matriu de $GL(N,R$)que conjuga $p\oplus 0$ amb $0\oplus q$, finalment i per acabar observem que $0\oplus q$ és conjugat de $q\oplus 0$ a partir de la matriu permutació.
+\end{proof}
+
+Ara estem en condicions de descriure $\proj R$.
+
+\begin{definition} \label{incrustacio}
+Sigui $R$ un anell, deontem $M(n,R)$ a la col·lecció de matrius $n\times n$ sobre un anell $R$ i $GL(n,R)$ al grup de matrius invertibles $n\times n$ sobre $R$. Incrustem $M(n,R)$ a $M(n+1,R)$ a partir de $a \mapsto
+ \left( \begin{matrix}
+  a & 0 \\
+  0 & 0
+ \end{matrix} \right)$ i incrustem $GL(n,R)$ a $GL(n+1,R)$ a partir de l'homomorfisme de grups
+  $a \mapsto 
+ \left( \begin{matrix}
+  a & 0 \\
+  0 & 1
+ \end{matrix} \right)$.
+ Denotem per $M(R)$ i $GL(R)$ la unió infinita dels grups $M(n,R)$ i $GL(n,R)$ respectivament, observem que tota matriu d'aquests grups té una mida finita. Denotarem $\idem R$ al conjunt de matrius idempotents a $M(R)$, a més, observem que $GL(R)$ actua a $\idem R$ per conjugació com hem vist al Lema anterior.
+\end{definition}
+
+\begin{theorem}
+Per a tot anell $R$, podem identificar $\proj R$ com el conjunt d'òrbites de l'acció de $GL(R)$ a $\idem R$. L'operació de semigrup és induïda per 
+$
+(p,q)\mapsto 
+ \left( \begin{matrix}
+  p & 0 \\
+  0 & q
+ \end{matrix} \right) .
+$
+Per tant $K_0(R)$ és el grup de Grothendieck d'aquest semigrup.
+\end{theorem}
+
+Per acabar veiem que $K_0$ és invariant sota el pas de $R$ a $M_n(R)$ i un Corol·lari del Teorema anterior que ens serà molt útil per a calcular $K$-grups.
+
+\begin{theorem}[Invariància de Morita]
+Per a tot anell $R$ i tot enter positiu $n$ hi ha un isomorfisme natural 
+$$K_0(R)\leftrightarrow K_0(M_n(R)).$$
+\end{theorem}
+\begin{proof}
+Usant la identificació $M_k(M_n(R))$ amb $M_{kn}(R)$, tenim que 
+$$
+\idem (M_n(R)) = \idem (R) \ \text{i} \ GL(M_n(R)) = GL(R).
+$$
+Per tant aquest resultat és un corol·lari del Lema anterior.
+\end{proof}
+
+\begin{cor} \label{K0Cartesian}
+Donats dos anells $R_1$ i $R_2$,
+$$
+K_0(R_1\times R_2) \cong K_0(R_1) \oplus K_0(R_2).
+$$ 
+\end{cor}
+\begin{proof}
+Usant la identificació $M_{2n}(R)$ amb $M_{n}(R)\times M_n(R)$ tenim que
+$$\idem(R_1\times R_2) = (R_1) \times \idem (R_2)$$, a més, $GL(R_1\times R_2) = GL(R_1)\times GL(R_2)$ actua per conjugació sobre aquest semigrup, per tant $\proj (R_1\times R_2) \cong \proj R_1 \times \proj R_2$, i per tant $$K_0(R_1\times R_2) \cong K_0(R_1) \oplus K_0(R_2).$$ Aquest raonament es pot generalitzar per a productes finits.
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{El cas d'un cos}
+En aquesta secció estudiarem $K_0$ sobre un cos i notarem el motiu pel qual restringim la definició de $K_0$ sobre mòduls projectius finitament generats.
+\begin{prop}
+ Si $R$ és un cos, $K_0(R)\cong \mathbb{Z}$.
+\end{prop}
+\begin{proof}
+Si $R$ és un cos tot $R$-m.p.f.g. és un $R$-espai vectorial, i per tant té una base i una dimensió ben definides. De fet, la dimensió és l'únic isomorfisme invariant del mòdul, per tant tenim $\proj R \cong \mathbb{N}$, considerat com el monoide additiu dels nombres naturals. Com que la compleció (grup de Grothendieck) del semigup $\mathbb{N}$ és $\mathbb{Z}$, tenim $K_0(R)\cong \mathbb{N}$.
+\end{proof}
+\begin{obs}
+El mateix argument de la prova anterior mostra que $K_0(R)\cong \mathbb{Z}$ si $R$ és un anell de divisió.
+\end{obs}
+\begin{obs}
+Si $R$ és un cos i en lloc de calcular el grup de Grothendieck de $\proj R$ calculem el grup de Grothendieck del monoide format per les classes d'isomorfisme dels mòduls projectius \textbf{numerablement generats}, amb el mateix argument que el de la prova anterior tenim que aquest monoide és isomorf a $\mathbb{N} \cup \infty$, amb la norma habitual $n+\infty = \infty$ per a tot $n$. Observem en aquest monoide no es compleix la propietat cancel·lativa, de fet dos elements qualsevols esdevenen isomorfs si sumem $\infty$ a cada banda. Per tant el grup de Grothendieck d'aquest monoide és trivial. Així doncs és raonable usar només mòduls \textbf{finitament generats} per definir $K_0$.
+\end{obs}
+
+De fet podem generalitzar l'observació anterior sobre un anell $R$ qualsevol.
+
+\begin{prop}["Eilenberg swindle"]
+Si $R$ és un anell, el grup de Grothendieck del semigrup de les classes d'isomorfia dels $R$-mòduls projectius numerablement generats desapareix, i.e., és trivial.
+\end{prop}
+
+\begin{proof}
+Si $R^\infty$ és un mòdul lliure infinitament generat numerablement i $P$ és un mòdul projectiu tal que $P\oplus Q \cong R^n$,  per commutativitat de la suma directa es compleix $Q \oplus P \cong R^n$. Així doncs tenim 
+\begin{eqnarray*}
+P\oplus R^\infty  \cong  P\oplus(Q\oplus P) \oplus (Q \oplus P) \dots 
+ \cong  (P \oplus Q) \oplus (P \oplus Q) \dots 
+\cong  R^\infty .
+\end{eqnarray*}
+A més si $P\oplus R^m \cong R^\infty$, amb $m\neq \infty$, aleshores $P\cong R^\infty$. També es compleix la propietat $R^\infty \cong R^\infty \oplus R^\infty$. \\
+Així doncs, $P\oplus R^\infty \cong R^\infty \oplus R^\infty$ implica que per a qualsevol parella d'elements del semigrup existeix un element $(R^{\infty})$ que els fa isomorfs, per tant el grup de Grothendieck ha de ser trivial.
+\end{proof}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{El cas dels DIPs}
+En aquesta secció estudiarem $K_0$ sobre un domini d'ideals principals, en particular veurem que té sentit el concepte de dimensió en els $R$-mòduls sobre DIPs, i presentarem el grup $K_0$ reduït.
+
+\begin{definition}{} Un $DIP$ (\textbf{domini d'ideals principals}) és un domini d'integritat (anell sense divisors de zero) commutatiu en el que tot ideal és generat per un únic element.
+\end{definition}
+
+\begin{theorem}[] \label{defRangDIP}
+Si $R$ és un DIP, tot submòdul d'un $R$-m.ll.f.g. és lliure, a més és isomorf a $R^n$ per a un únic $n$, anomenarem a aquest $N$ rang del mòdul.
+\end{theorem}
+\begin{proof}
+Sigui $M$ un $R$-m.ll.f.g., podem assumir que existeix un enter $n$ tal que $M$ estigui inclòs a $R^n$. \\ Usarem inducció sobre $n$ per a veure que si $M$ està inclòs a $R^n$, $M$ és isomorf a $R^k$ per algun $k<n$. 
+El cas $n=0$ es compleix, assumim cert per a valors més petits que $n$, comprovem que és cert per a $n$. \\
+Sigui $\pi: R^n \rightarrow R$ la projecció a la darrera coordenada, observem que $\pi$ envia $M$ a un $R$-submòdul de $R$, i.e., un ideal. Si $\pi(M)=0$ podem veure $M$ inclòs a $\ker \pi \cong R^{n-1}$ i usar la hipòtesi d'inducció. En cas contrari $\pi(M)$ és un ideal no nul, a més és principal, ja que $R$ és un DIP, i per tant és isomorf a $R$ com a $R$-mòdul.\footnote{Si $\alpha$ és un generador de l'ideal principal $\pi(M)=\{\alpha r ; r\in R\}$, considera l'homomorfisme $f:R\rightarrow \pi(M)$ donat per $1\mapsto \alpha$, és homomorfisme ja que $f(m+n)=\alpha(m+n) = \alpha m + \alpha n = f(m)+f(n)$, és injectiu gràcies a que $R$ és un domini , i és exhaustiu per construcció.} Aleshores $M$ és isomorf a $\ker \pi |_M \oplus R$. Com que $\ker \pi |_M$ ha d'estar inclòs a $R^{n-1}$ podem aplicar la hipòtesi d'inducció per afirmar que és isomorf a $R^{k'}$ per $k'\leq n-1$. Per tant $M\cong R^k$ amb $$k=k'+1\leq (n-1)+1=n.$$ 
+D'altra banda, observem que si $K$ és el cos de fraccions de $R$, podem caracteritzar $n$ com la dimensió de l'espai vectorial format pel $K$-mòdul $K \otimes_R M$, d'aquí es dedueix la unicitat de $n$.
+
+\end{proof}
+
+\begin{cor} \label{RD}
+Si $R$ és un DIP, tot $R$-m.p.f.g. és isomorf a $R^n$ per a un únic $n$.
+\end{cor}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%corolari%%%%%%%%%%
+\begin{figure}[!htb]
+    \centering
+    \begin{minipage}{.66\textwidth}
+        \begin{obs} \ref{RD}
+         	Usant la functorialitat del grup de Grothendieck, tenim que si $R$ és un DIP, el rang dels $R$-mòduls definit al Teorema \ref{defRangDIP} indueix un isomorfisme $K_0(R) \leftrightarrow \mathbb{Z}$.
+         	\end{obs}
+        
+    \end{minipage}%
+    \begin{minipage}{0.33\textwidth}
+       \begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
+  {
+     \mathbb{N} & \proj R \\
+     \mathbb{Z} & K_0(R) \\};
+  \path[-stealth]
+    (m-2-1.east|-m-2-2) edge node [below] {}
+            node [above] {} (m-2-2)
+    (m-1-2) edge node [right] {$\pi '$} (m-2-2)
+    (m-1-1) edge node [below] {$\gamma$} (m-1-2)
+    (m-1-1) edge node [right] {$\pi $} (m-2-1)
+    (m-2-2) edge node [left] {} (m-2-1)
+    (m-1-2) edge node [below] {} (m-1-1);
+\end{tikzpicture}
+    \end{minipage}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%remark
+\begin{figure}[!htb]
+    \centering
+    \begin{minipage}{.66\textwidth}
+        \begin{obs}
+Per a tot anell $R$ podem definir l'homomorfisme d'anells $\iota:\mathbb{Z}\rightarrow R$ definit per enviar $1$ a $1_R$. Tenint en compte que $\mathbb{Z}$ és un DIP i aplicant el Corol·lari \ref{RD} es dedueix $\ko (\mathbb{Z}) \cong \mathbb{Z}$. Usant la functorialitat de $\ko$ tenim que existeix una aplicació induïda $\iota_*: \mathbb{Z} \rightarrow \ko(R)$. La imatge de $\iota_*$ és el subgrup de $\ko(R)$ generat pels $R$-m.ll.f.g.
+\end{obs}
+    \end{minipage}%
+    \begin{minipage}{0.33\textwidth}
+       \begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
+  {
+     \mathbb{Z} & R \\
+     K_0(\mathbb{Z})\cong \mathbb{Z} & K_0(R) \\};
+  \path[-stealth]
+    (m-2-1.east|-m-2-2) edge node [below] {$\iota_*$}
+            node [above] {} (m-2-2)
+    (m-1-2) edge node [right] {$\pi '$} (m-2-2)
+    (m-1-1) edge node [below] {$\iota$} (m-1-2)
+    (m-1-1) edge node [right] {$\pi $} (m-2-1);
+\end{tikzpicture}
+    \end{minipage}
+\end{figure}
+%%%%%%%%%%%%%%%%
+
+\begin{definition}
+Donat un anell $R$ definim el \textbf{$K_0$ grup reduït} per
+$$
+\tilde{K}_0(R):=K_0(R)/\iota_*(\mathbb{Z})
+$$
+\end{definition}
+En general $\tilde{K}_0(R)$ mesura la part no òbvia de $K_0(R)$, de moment hem vist que $\tilde{K}_0(R)$ desapareix si $R$ és un anell de divisió o un DIP.
+
+\section{El cas dels anells locals}
+En aquesta secció presentem el concepte d'anell local amb alguns exemples i algunes de les seves propietats fonamentals que ens permetran calcular $K_0$ per aquesta estructura algebraica.  \\
+
+\begin{definition} 
+Un anell $R$, no necessàriament commutatiu, és \textbf{local} si els elements no invertibles de $R$ formen un ideal propi bilàter $M$ de $R$.
+\end{definition}
+
+\begin{prop} \label{clocals}
+Un anell $R$ és local si i només si $R$ té un únic ideal maximal per l'esquerra, i un únic ideal maximal per la dreta, i aquests coincideixen.
+\end{prop}
+\begin{proof}
+Veiem primer $(\Rightarrow)$, si $R$ és local i $M$ és el seu ideal d'elements no invertibles, no pot existir cap ideal per l'esquerra (o dreta) propi que tingui algun element de $R\backslash M$, ja que l'ideal generat per un element invertible és tot l'anell $R$, per tant $M$ és l'únic ideal maximal per l'esquerra (o dreta). Veiem ara $(\Leftarrow)$, donat un $x\in R$, si $x$ no té inversa per l'esquerra tenim que $Rx$ és un ideal per l'esquerra propi, aquest ideal propi ha d'estar contingut en algun ideal maximal per l'esquerra, i per hipòtesi aquest ideal és únic. Similarment si $x$ no té inversa per la dreta pertany a un ideal maximal únic per la dreta. La hipòtesi de coincidència ens permet afirmar que l'ideal d'elements invertibles és bilàter.
+\end{proof}
+
+\begin{corollary}
+En un anell local, si un element té inversa per un costat, és invertible.
+\end{corollary}
+\begin{proof}
+Suposem que en un anell local existeix un element $x$ diferent de zero que té inversa per la dreta i no per l'esquerra, per una banda al tenir inversa per la dreta $x$ no pot pertànyer a cap ideal propi per la dreta. D'altra banda, com que $x$ té inversa per l'esquerra $x$ pertany a un ideal propi per l'esquerra. Usant la Proposició \ref{clocals}, tenim que $x\in M$ i $x\not \in M$.
+\end{proof}
+
+
+\begin{prop}\label{Zp}
+Sigui $p$ un nombre primer i $k>0$, aleshores l'anell $\mathbb{Z}/(p^k \mathbb{Z})$ és local.
+\end{prop}
+\begin{proof}
+Un ideal és en particular un subgrup, els subgrups de $\mathbb{Z}/p^k\mathbb{Z}$ són de la forma $p^{k'}\mathbb{Z}/p^k\mathbb{Z}$ amb $0\leq k' \leq k$. Per tant tots els ideals de $\mathbb{Z}/p^k\mathbb{Z}$ són principals, a més, el seu únic ideal maximal és $p\mathbb{Z}/p^k \mathbb{Z}$, usant la Proposició \ref{clocals} tenim que és un anell local.
+\end{proof}
+
+\begin{prop} \label{K[x]preLocal}
+Per a tot cos $K$, i tot $p(x)\in K[x]/(x^n)$, $p(x)$ és invertible si i només si $p(0)\neq 0$. 
+\end{prop}
+\begin{proof}
+En primer lloc observem que tots els elements de $ K[x]/(x^n)$ són de la forma
+$$
+a_0+a_1y+a_2y^2+\dots + a_n y^{n-1},
+$$
+on $y=x + (x^n)$. A més, observem que per a tot $n_1,n_2\in \mathbb{N}$, $y^{n_1}y^{n_2}=y^{n_1+n_2}$ si $n_1+n_2<n$, i en cas contrari $y=(x^n)$. Observem que en particular, $y$ és un element nilpotent, i.e. $y^n=0+(x^n)$. Feta aquesta observació, comencem la prova.
+\\
+Donat un $p(x)$ tal que $p(0)\neq 0$, per l'observació anterior tenim que té inversa. D'altra banda, si $p(x)$ és invertible i $p(0)=0$, existeix una expressió de la forma $$p(x)=a_1y+\dots a_{n-1}y^n,$$ per tant podem expressar $p(x)$ com a combinació lineal d'elements nilpotents, i usant el Teorema del binomi tenim que $p(x)$ és nilpotent. Tanmateix si $p(x)$ és nilpotent no pot ser invertible, provant l'altra implicació.
+\end{proof}
+
+\begin{cor} \label{K[x]local} $p(x)\in K[x]/(x^n)$ és un anell local.
+\end{cor}
+\begin{proof}
+Per la Proposició \ref{K[x]preLocal} tenim que els element no invertibles són els que compleixen $p(0)=0$, en particular formen un ideal bilàter.
+\end{proof}
+
+\begin{definition}
+Per a qualsevol anell $R$ anomenem \textbf{radical} (o radical de Jacobson) de $R$ a la intersecció dels ideals maximals per l'esquerra. Per la Proposició \ref{clocals}, en un anell local el radical coincideix amb l'ideal maximal, i.e., l'ideal format pels elements no invertibles de $R$.
+\end{definition}
+
+\begin{prop}\label{radbilater}
+Per a qualsevol anell $R$ el seu radical és un ideal bilàter. 
+\end{prop}
+\begin{proof}
+És suficient veure que $\rad R = \bigcap_{I \text{ ideal max. per l'esquerra}} \ann_R(R/I)$\footnote{$\ann_R(S)=\{r\in R | \forall s\in S, rs=0 \}$.} ja que l'anul·lador és un ideal bilàter i intersecció d'ideals bilàters és un ideal bilàter.
+Per a veure ($\supset$) observem que donat un ideal maximal per l'esquerra $I$, l'anu·lador de $R/I$ clarament està contingut a $I$, per tant 
+$$
+\bigcap_{I \text{ ideal max. per l'esquerra}} \ann_R (R/I) \subset \bigcap_I I = \rad R
+$$
+Per a veure ($\subset$) usem el fet que
+$$
+\ann_R (R/I) = \bigcap_{\dot{x} \in R/I, \dot{x} \neq 0} \ann_R (\dot{x}),
+$$
+i.e., l'anul·lador de $R/I$ és intersecció d'ideals maximals per l'esquerra.
+\end{proof}
+
+\begin{obs}
+Tenint en compte la prova anterior i usant que tot $R$-mòdul simple és isomorf a un quocient $R/m$ on $m$ és un ideal maximal de $R$ (es poden veure tots els detalls d'aquest resultat a [8]), tenim que $\rad R$ és el conjunt d'elements que anul·len tots els $R$-mòduls simples. A més, com que tot mòdul simple per $M_n(R)$ és isomorf a un de la forma $R^n \otimes_R M$ on $M$ és un $R$-mòduls simple, tota matriu amb entrades a $\rad R$ ha d'anul·lar tots aquests mòduls, i per tant pertany al radical de $M_n(R)$.
+
+\end{obs}
+
+\begin{corollary}\label{rradRdivring}
+ Si $R$ és un anell local, $R/\rad R$ és un anell de divisió\footnote{$R$ és de divisió si és un anell no zero en que tot element diferent de zero és invertible, i.e., per a tot element $x\in R$ amb $x\neq 0_R$ existeix un $a\in R$ tal que $a\cdot x = x\cdot a = 1_R$}. Si $R$ és commutatiu, $R/\rad R$ és un cos.
+\end{corollary}
+\begin{proof}En primer lloc observem que l'anell quocient està ben definit gràcies a la Proposició \ref{radbilater}.
+Usant la Proposició \ref{clocals} tenim que $\rad R$ és maximal, com que el quocient d'un anell per un ideal maximal ha de ser un anell simple, $R/\rad R$ és simple (un anell és simple si és un anell no nul que no té més ideals bilàters que el zero i ell mateix), de fet en el cas commutatiu és un cos. A més, tot element no zero ha de tenir inversa gràcies al fet que $\rad R$ en el cas dels anells locals és l'ideal format pels elements no invertibles de $R$.
+\end{proof}
+
+
+
+\begin{prop}\label{crad}
+Per un anell $R$, $\rad R = \{ x\in R : \forall a \in R, 1-ax \ \text{té inversa per l'esquerra} \}$
+\end{prop}
+\begin{proof}
+Veiem primer ($\subset$), si $x$ pertany a tot ideal maximal per l'esquerra, aleshores $Rx$ ha de pertànyer a tot ideal maximal per l'esquerra\footnote{La intersecció d'ideals per l'esquerra és un ideal per l'esquerra.}. Suposem que existeix un $a\in R$ tal que $1-ax$ no tingui inversa. Aleshores $1-ax$ ha de pertànyer a un ideal propi, i per tant en un ideal maximal per l'esquerra. Com que $ax\in M$ tenim que $1_R \in M$, que contradiu que $M$ sigui maximal \footnote{Un ideal maximal ha de ser propi.}.
+Per a veure ($\supset$), suposem que per a tot $a\in R$, $1-ax$ té inversa per l'esquerra. Sigui $M$ un ideal maximal per l'esquerra, si $x\not \in M$, aleshores $Rx+M = R$. Per tant per algun $a\in R$, $1-a\in M$, fet que contradiu que $1-a$ tingui inversa per l'esquerra.
+\end{proof}
+
+\begin{prop}
+Per un anell $R$ el radical coincideix amb la intersecció dels ideals maximals per la dreta.
+\end{prop}
+\begin{proof}
+Podem definir el radical per la dreta de la següent forma:
+$$
+\text{r-rad} \ R = \bigcap \text{ideals max. per la dreta} = \{x\in R: \forall a\in R, 1-xa \ \text{té inversa per la dreta}\}
+$$
+Anem a provar que $\rad R\subset r-\rad R$, l'altre inclusió és simètrica.
+Usant la Proposició \ref{radbilater} tenim que $\rad R$ és un ideal per la dreta, per tant si $x\in \rad R$, per a tot $a\in R$ tenim que $xa\in \rad R$. Aplicant la Proposició \ref{crad} sobre $xa$ i usant el fet que per a tot element $b\in R$ existeix un $c\in R$ tal que $(1-c)=b$ ($c:=1-b$) tenim que si $x\in \rad R$ i $a\in R$, existeix un $c\in R$ tal que $(1-c)(1-xa)=1$, d'aquí es dedueix $-c-xa=-cxa$, i aquesta igualtat dóna lloc a $(1-xa)(1-c)=1+xac-cxa$. Observem que $1+xac-cxa$ ha de tenir una inversa per l'esquerra, ja que $x\in \rad R$ i $xac-cxa\in \rad R$. Per tant, $(1-c)$ té una inversa per l'esquerra, a més, com que ($1-xa$) és una inversa per la dreta, i les inverses han de coincidir \footnote{El fet que les inverses coincideixin és fruit de l'associativitat de $R$, sigui $x\in R$ un element que té $y\in R$ per inversa per l'esquerra i $z\in R$ per inversa per la dreta, per una banda tenim $(yx)z = z$, d'altra banda $y(xz)=y$, per tant $y=z$, i.e., la inversa per la dreta coincideix amb la inversa per l'esquerra. }, $1-xa$ també és inversa per l'esquerra, i per tant $1-xa$ és invertible amb inversa $1-c$. Així doncs $\rad R \subset \text{r-rad}\ R$. 
+\end{proof}
+
+\begin{theorem}[Lema de Nakyama]
+Suposem que $R$ és un anell i $M$ és un $R$-m.f.g tal que $(\rad R)M=M$. Aleshores $M=0$.
+\end{theorem}
+
+\begin{proof}
+Si $M\neq 0$, considerem un conjunt de generadors $x_1,\dots ,x_m \in M$ amb $m$ tan petit com sigui possible. Observem que per construcció s'ha de complir $x_j\neq 0$, ja que si existís algun $x_j=0$, $m$ no seria tan petita com seria possible. Per hipòtesi tenim que $(\rad R) M = M$, usant aquesta hipòtesi i el conjunt generador $x_1,\dots , x_m$, tenim que existeixen $r_1, \dots ,r_m \in \rad R$, tal que $x_m=r_1x_1 + \dots + r_m x_m$. D'aquí es dedueix $$(1-r_m)x_m=r_1x_1+\dots + r_{m-1}x_{m-1}.$$
+Usant la Proposició \ref{crad} tenim que $(1-r_m)$ és invertible i en conseqüència podem expressar $x_m$ com a combinació lineal de $x_1,\dots , x_{m-1}$, i per tant $m$ no és mínim, contradicció.
+\end{proof}
+
+\begin{corollary}\label{cNakayamas} Si $R$ és un anell, $M$ un $R$-m.f.g. i $x_1,\dots x_m \in M$, aleshores $x_1,\dots,x_m$ generen $M$ si i només si les imatges $\dot{x}_1\dots \dot{x}_m$ generen $M/(\rad R) M$ com a $R/\rad R$-mòdul.
+\end{corollary}
+\begin{proof}
+Si $x_1,\dots ,x_m$ generen $M$ és trivial veure que $\dot{x}_1,\dots,\dot{x}_m$ generen $M/\rad (R)M$.
+Veiem la implicació no trivial, sigui $N=M/(\sum_i Rx_i)$, tenim que $$N/\rad(R)N=M/(\rad R M + (\sum_i Rx_i))=M/M=0,$$ per tant $\rad(R)N=N$. Aplicant ara la proposició anterior tenim que $N=0$, i en conseqüència $M=(\sum_i Rx_i)$.
+
+\end{proof}
+
+\begin{theorem}
+Si $R$ és un anell local, no necessàriament commutatiu, aleshores tot $R$-m.p.f.g. és lliure amb un rang unívocament determinat. En particular $K_0(R) \cong \mathbb{Z}$ i té per element generador la classe de mòduls de rang 1.
+\end{theorem}
+\begin{proof}
+Pel Corol·lari \ref{rradRdivring} tenim que $D:=R/\rad R$ és un anell de divisió, recorda que tot anell de divisió és un DIP. Si $M$ és un $R$-m.p.f.g podem assumir $M\oplus N=R^k$ per algun $k$. Aleshores $M/(\rad R) M$ i $N/(\rad R)N$ són $D$-mòduls, usant el Teorema \ref{defRangDIP} tenim que són lliures. Si denotem per $m$ i $n$ als seus respectius rangs cal que es compleixi $m+n=k$. Així doncs podem triar elements bàsics d'aquests mòduls i tiar-los enrere de forma que tinguem $x_1,\dots , x_m\in M$ i $x_{m+1}, \dots , x_k \in N$. Pel Corol·lari \ref{cNakayamas}, aquests elements generen $R^k$. Falta veure que $x_1, \dots ,x_k$ són una base de $R^k$. Això mostrarà en particular que $x_1, \dots, x_m$ són un conjunt generador de $M$ linealment independent, per tant $M$ és lliure amb un rang inequívocament determinat
+$$
+\rank M  = \dim_D M / (\rad R)M.
+$$
+\indent Sigui $e_1,\dots , e_k$ una base estàndard de $R^k$. Com que tenim dos conjunts generadors de $R^k$, cada conjunt generador pot ser expressat en termes de l'altre, i.e., existeixen elements $a_{ij}, b_{ij}\in R$ amb 
+$$
+e_i = \sum_{j=1}^k a_{ij}x_j, \  x_i = \sum_{j=1}^k b_{ij}e_j
+$$
+Per tant tenim
+$$
+e_i = \sum_{j=1}^k a_{ij} \sum_{l=1}^k b_{jl}e_l,
+$$
+i conseqüentment
+$$
+\sum_{j=1}^{k} \sum_{l=1}^k (a_{ij}b_{jl}-\delta_{il})e_l=0,
+$$
+i si $A=(a_{ij})$, $B=(b_{ij})$, significa que , com que els $e_l$ són linealment independents, $AB=I$. Amb una substitució simètrica tenim
+$$
+\sum_{j=1}^{k} \sum_{l=1}^k (b_{ij}a_{jl}-\delta_{il})x_l=0,
+$$
+i com que els $x_l$ són linealment independents mòdul el radical de $R$, usant l'observació que precedeix la Proposició \ref{radbilater} tenim que $BA-I \in M_n (\rad R) \subset \rad M_n(R)$. Per la proposició \ref{crad}, $BA$ és invertible, per tant $B$ és invertible. Com que $A$ era inversa per l'esquerra de $B$, això mostra que també és inversa per la dreta, i.e., $BA=I$. Provant que $x_1,\dots,x_m$ és una base de $R^k$
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{El grup $K_0$ relatiu i el Teorema d'Excisió}
+El primer objectiu d'aquesta secció és definir el grup relatiu $K_0(R,I)$ i trobar la successió exacta que relaciona $K_0(R)$ amb $K_0(R/I)$, aquesta successió l'extendrem en el següent capítol i ens permetrà calcular $K$-grups. El segon objectiu d'aquesta secció és provar un anàleg de l'axioma de l'excisió de teoria de la homologia, de fet durant aquesta secció es pot veure que hi ha cert paral·lelisme entre la teoria de la homologia i $K$-teoria algebraica; aquest anàleg ens permetrà definir $K_0(I)$ on $I$ és un anell sense necessitat de tenir element unitat, i veurem la relació entre $K_0(I)$ i el $K_0$ relatiu. \\ \\
+\indent  Per a trobar una successió exacta que relacioni $K_0(R/I)$ i $K_0(R)$ necessitem saber que és una successió exacta.
+\begin{definition}
+Diem que una successió de grups i homomorfismes de grups 
+$$
+G_0 \xrightarrow{f_1} G_1 \xrightarrow{f_2} G_2 \xrightarrow{f_3} \dots \xrightarrow{f_n} G_n
+$$
+és \textbf{exacta} si la imatge de cada homomorfisme és igual al nucli del següent, i.e., $\im (f_k) = \ker (f_{k+1})$. Aquesta successió d'homomorfismes i grups pot ser finita o infinita.  En particular ens interessen les successions \textbf{exactes  i curtes}, que són successions de la forma:
+$$
+0 \rightarrow A \xrightarrow{f} B \xrightarrow{g} C \rightarrow 0,
+$$
+una successió exacta curta ha de complir que $f$ sigui un \textit{monomorfisme}\footnote{Un monomorfisme és un homomorfisme injectiu.} i $g$ un \textit{epimorfisme}\footnote{Els epimorfismes és un homomorfisme exhaustiu.}. Una successió exacta és \textbf{escindida} si és curta i existeix un homomorfisme $h: C\rightarrow B$ tal que $g\circ h$ sigui la identitat sobre $C$.
+\end{definition}
+Introduïm ara els conceptes necessaris per definir $K_0(R/I)$.
+\begin{definition}
+Sigui $R$ un anell i $I\subset R$ un ideal (en aquesta secció els ideals sempre seran bilàters). El \textbf{doble d'un anell} $R$ sobre $I$ és el subanell del producte cartesià $R\times R$ donat per
+$$
+D(R,I) = \{ (x,y)\in R\times R: x-y\in I \}
+$$
+
+
+\end{definition}
+
+\begin{obs}
+Si $p_1: D(R,I) \rightarrow R$ és la projecció a la primera coordenada, podem identificar $I$ com a $\ker p_1$, per tant existeix una successió exacta curta
+$$
+0 \rightarrow I \rightarrow D(R,I) \xrightarrow{p_1} R\rightarrow 0,
+$$
+a més si definim $h: R \rightarrow R\times R$ a l'assignació diagonal $x\mapsto (x,x)$, tenim que $p_1 \circ h$ és la identitat a $C$, i per tant la successió exacta escindeix.
+
+\end{obs}
+
+\begin{definition} \label{K0relatiu}
+El grup \textbf{$K_0$-relatiu} d'un anell $R$ i un ideal $I$ ve definit per 
+$$
+K_0(R,I) = \ker ((p_1)_*): K_0(D(R,I)) \rightarrow K_0(R)).
+$$
+\end{definition}
+
+Un fenomen íntimament relacionat amb l' estudi de K-teoria relativa és el fet que tota matriu sobre $R/I$ pot ser pujada a una matriu sobre $R$; tanmateix una matriu invertible no sempre pot ser pujada a una matriu invertible. 
+ 
+\begin{lema} \label{InvAsc} \label{matrixlifting}
+Sigui $R$ un anell i $I\subset R$ un ideal.\\Aleshores si $A\in GL(n,R/I)$,    $\left( \begin{matrix}
+  A & 0 \\
+  0 & A^{-1}
+ \end{matrix} \right) \in GL(2n,R/I)$ puja a una matriu $GL(2n,R)$.
+\end{lema}
+
+
+\begin{proof}
+En primer lloc, observem que es compleix
+\begin{equation}
+\left( \begin{matrix}
+  A & 0 \\
+  0 & A^{-1}
+ \end{matrix} \right)
+ =
+ \left( \begin{matrix}
+  1 & A \\
+  0 & 1
+ \end{matrix} \right)
+ \left( \begin{matrix}
+  1 & 0 \\
+  -A^{-1} & 1
+ \end{matrix} \right)
+\left( \begin{matrix}
+  1 & A \\
+  0 & 1
+ \end{matrix} \right)
+\left( \begin{matrix}
+  0 & -1 \\
+  1 & 0
+ \end{matrix} \right) 
+\end{equation}
+La prova consisteix a constatar que cada matriu del producte de la factorització anterior puja a una matriu invertible. En concret la matriu $\left( \begin{matrix}
+  0 & -1 \\
+  1 & 0
+ \end{matrix} \right) $ clarament puja a una matriu invertible. Siguin $B,C\in M_n(R)$ les preimatges de les matrius $A$ i $A^{-1}$ respectivament; $B$ i $C$ no són necessàriament invertibles, però les matrius 
+
+ $$\left( \begin{matrix}
+  1 & B \\
+  0 & 1
+ \end{matrix} \right) 
+  i 
+\left( \begin{matrix}
+  1 & 0 \\
+  -C & 1
+ \end{matrix} \right) 
+ $$
+ sí que ho són.
+
+\end{proof}
+
+\begin{theorem}\label{K0relatiuT}
+Sigui $R$ un anell i $I\subset R$ un ideal. Aleshores existeix una successió exacta curta
+$$
+K_0(R,I) \rightarrow K_0(R) \xrightarrow{q_*} K_0(R/I)
+$$
+on $q_*$ és induïda per l'aplicació quocient $q:R\rightarrow R/I$ i l'aplicació $K_0(R,I) \rightarrow K_0(R)$ és induïda per $p_2: D(R,I)\rightarrow R$ (la projecció a la segona component).
+\end{theorem}
+
+\begin{proof}
+Per simplicitat si $A$ és un element de $R$ o una matriu amb entrades a $R$, sovint denotarem $q(A)$, la matriu corresponent amb entrades sobre $R/I$, per $\dot{A}$. \\
+En primer lloc volem veure que la imatge de la primera aplicació està continguda en el nucli de la segona. Sigui $[e]-[f]\in K_0(R,I)$, on $e=(e_1,e_2)$, $f=(f_1,f_2)\in \idem (D(R,I)).$ 
+Usant el Corol·lari \ref{K0Cartesian} tenim que $K_0(R\times R)\cong K_0(R)\times K_0(R)$, aleshores la imatge de $[e]-[f]$ és $([e_1]-[f_1],[e_2]-[f_2])$, per tant
+$$
+q_* \circ(p_2)_* ([e]-[f]) = q_* ([e_2]-[f_2])=[\dot{e}_2]-[\dot{f}_2],$$
+mentre que $[e_1]-[f_1]=0$, ja que per hipòtesi $[e]-[f]\in \ker(p_1)_*$. Però com que $e,f\in \idem D(R,I)$, $\dot{e_1}=\dot{e_2}$ i $\dot{f_1}=\dot{f_2}$. Per tant
+$$
+[\dot{e_2}]-[\dot{f_2}] =  [\dot{e_1}]-[\dot{f_1}] = q_*([e_1]-[f_1])=0
+$$
+Per tant la imatge de la primera aplicació està continguda al nucli de la segona. Veiem ara el recíproc; siguin $e,f\in \idem (R)$ dels que $q_*([e]-[f])=0$. Aleshores existeix un $r$ prou gran tal que
+$$
+\dot{e} \oplus \dot{1}_r = q(e\oplus 1_r) \sim \dot{f} \oplus \dot{1}_r = q(f \oplus 1_r)
+$$
+a $GL(R/I)$. Canviant $e$ per $e \oplus 1_r$ i $f$ per $f \oplus 1_r$, podem assumir que $\dot{f}$ i $\dot{g}$ són conjugades, i.e., existeix una matriu $\dot{g}\in GL(R)$ tal que $\dot{f} = \dot{g} \dot{e} (g)^{-1}$. Observem que la matriu $\dot{g} \oplus (\dot{g})^{-1}$ conjuga $\dot{e}\oplus \dot{0}$ a $\dot{f}\oplus \dot{0}$, i usant el Lema \ref{matrixlifting} puja a una matriu $h\in GL(R)$. Per tant podem canviar $f$ per $f\oplus 0$ i $e$ per $h(e\oplus 0)h^{-1}$ sense canviar $[e]$ i $[f$], i reduir-nos al cas en que $\dot{e}=\dot{f}$. Així doncs $(e,f)\in \idem (D(R,I))$. Aleshores la imatge de la classe $[(e,e)]-[(e,f)]\in K_0(D(R,I)$ és $0$ per $(p_1)*$ i $[e]-[f]$ per $(p_2)_*$.
+\end{proof}
+
+Ara veurem que té sentit definir $K_0$ sobre un anell sense unitat, a més veurem que el grup relatiu $K_0(R,I)$ és isomorf a $K_0(I)$, on $I$ és un anell sense unitat.
+
+\begin{definition}
+Sigui $I$ un anell que no tingui necessàriament element unitat. Anomenem \textbf{anell obtingut al afegir un element unitat a $I$} a el grup abelià $I \oplus \mathbb{Z}$ amb el producte definit per 
+$$
+(x,n)\cdot (y,m) = (xy+ny+mx, mn),
+$$
+$x,y \in I;$ $m,n\in \mathbb{Z}$. Aquest anell el denotarem $I_+$. Notem que l'element $(0,1)\in I_+$ és el seu element unitat.
+\end{definition}
+
+\begin{obs}
+
+Si $\alpha :  I \rightarrow I'$ és un homomorfisme de la categoria d'anells sense unitat, llavors $\alpha$ estén a un únic homomorfisme d'anells amb unitat $I_+ \xrightarrow{\alpha_+}I'_+$. 
+Observem que en el cas que $I$ tingui element unitat, existeix un isomorfisme unitari\footnote{Una aplicació es unitària si envia la imatge de l'element unitat és element unitat. En aquest cas $\alpha (0,1) = (e,1)$.} $\alpha: I_+ \rightarrow I \times \mathbb{Z}$ definit per
+$$
+\alpha (x,n) = (x+ne, n),
+$$
+ja que 
+
+\begin{align*} 
+\alpha((x,n)\cdot (y,m)) &= \alpha(xy+ny+mx, mn) \\
+&=(xy+ny+mx+mne,mn)\\
+&=(x+ne,n) \cdot (y+me, m) \\
+&=\alpha (x,n) \cdot \alpha (y,m)
+\end{align*}
+
+\end{obs}
+
+
+\begin{definition}
+Sigui $I$ un anell el que no tingui necessàriament element unitat. Llavors existeix una successió exacta curta escindida
+\begin{equation} \label{suc}
+0 \rightarrow I \rightarrow I_+ \xrightarrow{\rho} \mathbb{Z} \rightarrow 0.
+\end{equation}
+on $\rho$ està definida per $\rho(x,n)=n$. En aquest context definim
+$$
+K_0(I):=\ker (\rho_*: K_0(I_+)\rightarrow K_0(\mathbb{Z})\cong \mathbb{Z}).
+$$
+Pot semblar que la definició és ambigua, ja que si $I$ té unitat hem donat dues definicions diferents de $K_0(I)$. En aquest cas veiem que les definicions són coincidents, ja que si $I$ té unitat. $$I_+ \cong I \times \mathbb{Z},$$ i usant l'observació anterior $K_0(I_+) \cong K_0(I) \oplus K_0(\mathbb{Z})$, i $\ker \rho_*$ només està format per elements del primer sumand. Per tant la nova definició coincideix amb l'anterior.
+\end{definition}
+
+
+\begin{theorem}[Escisió]
+Si $I$ és un ideal bilàter en un anell $R$, aleshores $K(R,I)\cong K_0(I)$ (i per tant no depèn de $R$, només en l'estructura de $I$ com a anell sense unitat).
+\end{theorem}
+
+
+
+ 
+ 
+ 
+ \begin{figure}[!htb]
+    \centering
+    \begin{minipage}{.66\textwidth}
+\begin{proof}\renewcommand{\qedsymbol}{}         
+         Definim l'homomorfisme unitari \\$\gamma: I_+ \rightarrow D(R,I)$ per
+ $$
+ (x,n) \mapsto (n \cdot 1, n\cdot 1 + x),$$ amb   $x\in I$,  $n \in \mathbb{Z}$, observem que el diagrama commuta. \\Per tant $\gamma_*: K_0(I_+) \rightarrow K_0(D(R,I))$ envia $\ker \rho_*$ a $\ker (p_1)_*$, i.e., envia $K_0(I)$ a $K_0(R,I)$.
+ \end{proof}
+    \end{minipage}%
+    \begin{minipage}{0.33\textwidth}
+            \begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
+  {
+     I_+ & D(R,I) \\
+     \mathbb{Z} & R \\};
+  \path[-stealth]
+    (m-2-1.east|-m-2-2) edge node [below] {}
+            node [above] {$\iota$} (m-2-2)
+    (m-1-2) edge node [left] {$p_1$} (m-2-2)
+    (m-1-1) edge node [above] {$\gamma$} (m-1-2)
+    (m-1-1) edge node [left] {$\rho $} (m-2-1);
+\end{tikzpicture}
+    \end{minipage}
+\end{figure}
+\begin{proof}[]
+\indent Per a veure que l'aplicació és exhaustiva considerem una classe classe $[e]-[f]\in K_0(R,I)$, on $e=(e_1,e_2)$, $f=(f_1,f_2)\in \idem (D(R,I))$ i $[e_1]=[f_1]$ a $K_0(R)$.
+ A partir de canviar $e$ i $f$ per $e\oplus 1_r$ i $f\oplus 1_r$ respectivament per a una $r$ prou gran, podem assumir que $e_1$ i $f_1$ són conjugats a $GL(R)$, i.e., existeix una matriu invertible $g$ tal que $e_1=gf_1g^{-1}$. Així doncs si canviem $(f_1,f_2)$ per $(gf_1g^{-1}, gf_2g^{-1})$ podem assumir que $f_1=e_1$.  D'altra banda si $e$ és una matriu $s\times s$, podem canviar $e$ i $f$ per $e\oplus (1_s-e_1,1_s-e_1)$ i $f\oplus (1_s-e_1,1_s-e_1)$ respectivament, obsevem que hi ha una matriu invertible $h$ de mida $2s\times 2s$ amb entrades a $R$ que conjuga $e_1\oplus (1_s-e_1)$ i $1_s\oplus 0_s$. Conjugant-ho tot per $h$ ens reduim en el cas on $e=(1_s\oplus 0_s, e_2)$, $f=(1_s \oplus 0_s, f_2)$, a més, com que $e$ i $f$ són matrius sobre $D(R,I)$, $e_2-(1_s \oplus 0_s)$ i $f_2-(1_s\oplus 0_s)$ tenen entrades a $I$. Així doncs observem que $[e]-[f]$ és la imatge de $K_0(I)$.
+\\ \indent Faflta veure que $\gamma_*$ és injectiva, tot element de $K_0(I)$ pot ser expresat com $[e]-[f]$, on $e,f\in \text{Idem}(I_+)$ i $\text{rank} \ \rho(e) = \text{rank} \ \rho (f)$. De la mateixa forma que a la prova de l'exhaustivitat, a partir de prendre suma directa amb $1_r-f$ i conjugar podrem assumir que $f=1_r$, $\text{rank} \ \rho (e)=r$. A més podem assumir que $g\rho (e) g^{-1}=1_r$ per algún $g\in GL(\mathbb{Z})$. Considerant $g$ com un element de $GL(I_+)$ via la successió exacta escindida (\ref{suc}) podem reemplaçar $e$ per $geg^{-1}$ i assumir que $\rho(e)=1_r$. Ara si $\gamma_*([e]-[1_r])=0$ significa que 
+$$
+[(1_r,e)]=[(1_r,1_r)] \ \text{a} \ K_0(D(R,I)).
+$$
+Si és necessari podem estabilitzar a través d'augmentar $r$ i assumir que existeix una matiru $(g_1,g_2)\in GL(D(R,I))$ amb 
+$$
+g_11_rg_1^{-1}=1_r, \ g_2e_2g_2^{-1}=1_r.
+$$
+Aleshores $(1, g_1^{-1}g_2) \in GL(D(R,I))$ i 
+$$
+(
+(g_1^{-1}g_2)e(g_1^{-1}g_2)^{-1} = g_1^{-1}(g_2eg_2^{-1})g_1 = g_1^{-1}1_rg_1 = 1_r.
+$$
+Com que $g_1^{-1}g_2 \cong 1 \mod I$, $g_1^{-1}g_2$ pertany a $GL(I_+)$ i això significa que $[e]-[1_r]=0$ a $K_0(I)$, i per tant el nucli $\gamma_*$ és trivial.
+\end{proof}
+

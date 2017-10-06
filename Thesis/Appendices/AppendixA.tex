@@ -1,0 +1,635 @@
+% Appendix A
+
+\chapter{Conceptes de Mòduls i Estructures Algebraiques} % Main appendix title
+
+\label{AppendixA} % For referencing this appendix elsewhere, use \ref{AppendixA}
+
+
+%-----------------------------------
+%	SUBSECTION 1
+%-----------------------------------
+L'objectiu d'aquest annex és introduir un bagatge de resultats que convé tenir presents durant la lectura del treball. El lector familiaritzat amb conceptes de mòduls pot prescindir d'aquest annex. Aquest annex permet que el treball sigui essencialment autocontingut, en el sentit que qualsevol recent graduat, estigui familiaritzat o no amb la teoria de mòduls, podrà seguir tots els conceptes exposats amb detall.\\
+\indent Per la redacció de l'annex ens hem basat en [10] i [2]. 
+\label{Chapter1} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
+
+\section{Recordatori}
+\begin{definition}
+Un \textbf{semigrup} $(S, \cdot )$ és un conjunt amb una operació binària $\cdot : S\times S \rightarrow S$ tal que satisfà la propietat associativa, és a dir, $(a \cdot b) \cdot c = a \cdot (b \cdot c)$ per a tot $a,b,c\in S$.
+\end{definition}
+
+\begin{definition}
+ Un \textbf{grup} $(G,+)$ és un conjunt $G$ amb una operació binària $+: G\times G \rightarrow G$ tal que satisfà:
+\begin{itemize}
+\item Associativitat: $(a+b)+c = a+(b+c)$ per a tot $a,b,c\in G$.
+\item Té un elment neutre: existeix $e\in G$ tal que $e+a=a+e=a$ per tot $a\in G$.
+\item Per tot $a\in G$ existeix un element invers $b\in G$ tal que $a+b=b+a=e$. \footnote{Si a l'operació binària que defineix el grup la denotem $\cdot$, a l'invers de $a$ el denotarem $a^{-1}$, de forma que $aa^{-1} = a^{-1}a = e$, en aquest cas a l'element neutre també el podem denotar per 1. Si el context permet entendre que $*$ és l'operació tal que $(G,*)$ sigui un grup, denotarem a $G$ a aquest grup. }
+\end{itemize}
+Diem que $(G,+)$ és un grup (o un semigrup) \textbf{commutatiu} (o abelià) si l'operació és commutativa, i.e., $a+b=b+a$ per tot $a, b\in G$. 
+\end{definition}
+
+\begin{definition} Diem que $H\subset G$ és un \textbf{subgrup} de $G$ si $H$ amb l'operació binària de $G$ és un grup. Un subgrup $N$ d'un grup $(G,\dot)$ és \textbf{normal}, i ho denotarem $N\trianglelefteq G$, si és invariant sota conjugació, és a dir, la conjugació d'un element de $N$ per un element de $G$ pertany a $N$:
+$$
+N\trianglelefteq G \Leftrightarrow \forall n\in N, \ \forall g\in G: \  gng^{-1}\in N
+$$
+\end{definition}
+
+\begin{definition}\label{defGrupQuocient}
+Sigui $N$ un subgrup normal d'un grup $(G,\cdot)$, $G/N:=\{aN: a\in G\}$. Com que $N$ és normal, si $a,b\in G$ s'ha de complir 
+$$
+(aN)(bN)=a(Nb)N=a(bN)N=(ab)NN=ab(N)
+$$
+Per tant podem estendre l'operació del grup $G$ a $G/N$ usant aquest fet, així doncs $G/N$ és un grup, que anomenem \textbf{grup quocient}.
+
+\end{definition}
+
+\begin{definition} Un \textbf{anell} $(R,+,\cdot )$ és un conjunt $R$ amb dues operacions binàries $+: \ R\times R \rightarrow R$ (suma) i $\cdot : R\times R \rightarrow R$ (producte) tals que satisfan:
+
+\begin{enumerate}[a)]
+\item $(R,+)$ és un grup abelià. (denotem per $0\in R$ l'element neutre).
+
+\item $a\cdot (b \cdot c) = (a \cdot b) \cdot c$ per a tot $a,b,c\in R$ (el producte és associatiu i.e. $(R,\cdot )$ és un semigrup).
+\item Té un element identitat: existeix $1\in R$ tal que $r\cdot 1=1\cdot r =r$ per tot $r\in R$.
+\item $a \cdot (b+c)=a\cdot b+a \cdot c$ i $(b+c)\cdot a=b\cdot a + c\cdot a$ per a tot $a,b,c\in R$ (el producte és distributiu respecte la suma).
+\end{enumerate}
+Diem que $(R,+,\cdot )$ és un anell \textbf{commutatiu} si $ab=ba$ per a tot $a,b\in R$.
+\end{definition}
+
+\begin{definition}
+ Un \textbf{subanell} $S$ d'un anell $R$ és un subconjunt $S$ de $R$ tal que sota les operacions suma i producte de $R$, és un anell. 
+\\ \indent Per tant, $S$ és un subanell de $R$ si i només si $S$ és un subgrup additiu de $R$ tancat sota el producte. 
+\end{definition}
+
+\begin{definition} Una funció $f:R\rightarrow S$, on $R$ i $S$ són anells, és un \textbf{morfisme d'anells} si 
+\begin{enumerate}[(1)]
+\item $f(a+b)=f(a)+f(b)$ i $f(ab)=f(a)f(b)$ per a tot $a,b\in R$.
+\item $f(1_R)=1_S$ on $1_R$ és la identitat de $R$ i $1_S$ la identitat de $S$.
+\end{enumerate}
+\indent De (1) es dedueix que $f(-r)=-f(r)$ i $f(0_R)=0_S$.
+\\ 
+\indent Donat un morfisme $f$, definim el \textbf{nucli} de $f$ com $\text{Ker}(f)=\{ r\in R : f(r)=0 \}$ i la \textbf{imatge} com $\text{Im} f = \{ x\in S : s=f(r) \ \text{per algún} \ r\in R \}$. Observem que $\text{Ker} f$ i $\text{Im}f$ són subanells de $R$ i  és un subanell de $S$ respectivament.
+\\ 
+\indent Si $f$ és invertible (i.e. existeix un morfisme d'anells $g:S\rightarrow R$ tal que $f \circ g =1_S$ i $g \circ f=1_R$), aleshores diem que $f$ és un \textbf{isomorfisme} d'anells, per tant $f$ és un isomorfisme d'anells si i només si és un morfisme d'anells bijectiu.
+\\
+A més, $f$ és injectiu si i només si $\text{Ker} f = 0$, i tautològicament, $f$ és exhaustiu si i només si $\text{Im} f=S$.
+\end{definition}
+
+\begin{definition}
+Sigui $R$ un anell, diem que $I\subset R$. és un ideal de $R$ si i només si 
+\begin{enumerate}[(1)]
+\item $I$ és un subgrup additiu de $R$.
+\item $rI\subset I$ per a tot $r\in R$
+\item $Ir\subset I$ per a tot $r\in R$
+\end{enumerate}
+\hspace{.25cm}Un subconjunt $I\subset R$ tal que satisfaci (1) i (2) s'anomena \textbf{ideal per l'esquerra} de $R$, i similarment, si $I$ satisfà (1) i (3) s'anomena \textbf{ideal per la dreta} de $R$. Per tant un ideal de $R$ és un ideal per l'esquerra i per la dreta. \\
+Diem que el ideal $I$ és \textbf{propi} si $a\subset R$ amb $a\neq R$ i $a \neq \{ 0 \}$.
+\\
+\hspace{.25cm}Si $R$ és commutatiu els conceptes de ideal per l'esquerra, d'ideal per la dreta i ideal són el mateix, però per anells no commutatius generalment són conceptes diferents.
+\end{definition}
+
+\textbf{Motivació de la definició d'ideal:} De teoria de grups, sabem que no tot subgrup d'un grup pot ser el nucli d'un morfisme de grups, cal que el subgrup sigui normal.  En el cas de un morfisme d'anells $f:R\rightarrow S$, $\text{Ker}(f)=\{a\in R \ : \ f(a)=0\}$ és normal ja que és subgrup respecte la suma del grup abelià $(R,+)$. \\
+Observem que l'estructura multiplicativa imposa sobre l'anell $\text{Ker}(f)$ una condició més forta que la ser anell, que és la de ser ideal, és a dir, es compleix que si $a\in \text{Ker}(f)$ i $r\in R$, aleshores $f(ar)=f(a)f(r)=0f(r)=0$ i $f(ra)=f(r)f(a)=f(r)0=0$, per tant $ar\in \text{Ker}(f)$ i $ra\in \text{Ker}(f)$ per a qualsevols $a\in \text{Ker}(f)$ i $r\in R$.
+\\ \\
+\hspace{.25cm} \textbf{Suma d'ideals.} Observem que si $I$ i $J$ són ideals (ideal per l'esquerra, o dreta), la seva suma $I+J=\{ a+b : a \in I, \ b\in J \  \}$ és també un ideal (ideal per l'esquerra o dreta) de $R$
+\\
+\\
+\begin{definition} Donat un ideal $I$ de $R$, diem que $r,s\in R$ són congruents mòdul $R$ si $r-a\in I$ (també es denota com $r\equiv s \text{ (mod $I$)}$. La relació de congruència és una relació d'equivalència sobre $R$. La classe de congruència es denota $\overline{r}=\{ r+x : x\in I \}$, $R/I$ és el conjunt de totes aquestes classes, definim una suma i un producte sobre $R/I$ de la forma següent: $$\overline{r}+\overline{s}=\overline{r+s},$$ $$\overline{r}\cdot \overline{s}=\overline{rs}.$$ Aleshores $R/I$ és un anell amb element neutre $\overline{0}$ i identitat $\overline{1}$. Aquest anell s'anomena \textbf{anell quocient de $R$ respecte $I$}.
+\end{definition}
+
+\noindent \textbf{Exemple.} Un exemple bàsic d'anell residu, que justifica el nom és quan considerem $R$ l'anell dels enters $\mathbb{Z}$ i $I=n\mathbb{Z}$ per algún $n>0$. Qualsevol enter $a$ pot ser escrit de la forma $a=qn+r$ amb $0\leq r <n$. L'enter $r$ és el residu i $q$ el quocient, per tant l'anell residu $\mathbb{Z}/n\mathbb{Z}$ consisteix en totes les classes de residus: $\overline{0},\overline{1},\dots, \overline{n-1}$.
+
+\begin{theorem}[Primer teroema d'isomorfia]
+Sigui $f: R \rightarrow S$ un morfisme d'anells. Aleshores $R/\text{Ker}(f) \cong \text{Im}(f)$.
+\end{theorem}
+
+\begin{theorem}[Segon teroema d'isomorfia]
+Sigui $R$ un anell, $I\subset R$ un ideal i $S\subset R$ un subanell. Aleshores $S+I$ és un subanell de $R$, $I$ és un ideal de $S+I$, $S\cap I$ és un ideal de $S$, i hi ha un isomorfisme d'anells
+$$
+(S+I)/I \cong S/(S\cap I)
+$$
+\end{theorem}
+\begin{theorem}[Tercer teroema d'isomorfia] Sigui $R$ un anell, siguin $I$ i $J$ ideals de $R$ tals que $I\subset J$. Aleshores $J/I$ és un ideal de $R/I$ i
+$$
+R/J \cong (R/I)/(J/I)
+$$
+\end{theorem}
+\begin{theorem}[Teorema de correspondència]
+Sigui $R$ un anell, $I\subset R$ un ideal de $R$ i $\pi: R \rightarrow R/I$ l'aplicació natural ($r\mapsto \overline{r}$). Aleshores la funció $S\rightarrow S/I$ defineix una correspondència bijectiva entre entre el conjunt de tots els subanells de $R$ que contenen $I$ i el conjunt de tots els subanells de $R/I$. Sota aquesta correspondència, els ideals de $R$ que contenen $I$ corresponen a ideals de $R/I$.
+\end{theorem}
+\begin{lemma}
+ Sigui $R$ un anells i $\{S_{\alpha}\}_{\alpha \in A}$ una família de subanells (resp. ideals) de $R$. Aleshores $S=\bigcap_{\alpha \in A}S_\alpha$ és un subanell (resp. ideal) de $R$.
+\end{lemma} 
+\begin{proof} Sigui $a,b \in S$, aleshores existeix $a,b\in S_\alpha$ per algun $\alpha \in A$, per tant $a-b$ i $ab\in S_\alpha$, per tant $S$ és un subanell de $R$. \\
+Si cada $S_\alpha$ és un ideal i $r\in R$, aleshores $ar$ i $ra\in S_\alpha$ per tot $\alpha \in A$, per tant $ar,ra\in S$ i en conseqüència $S$ és un ideal. 
+\end{proof}
+
+\begin{definition}
+Sigui $R$ un anell i $X$ un subconjunt de $R$, definim el \textbf{subanell generat per $X$} com el subanell més petit de $R$ que conte $X$, similarment definim com a \textbf{ideal generat per $X$} com el ideal més petit de $R$ que contingui $X$. 
+\\
+Pel Lema anterior, aquest anell (resp. ideal) és la intersecció de totes els subanells (resp. ideals) que contenen $X$.  \\
+Usarem la notació $\langle X \rangle$ per denotar el ideal generat per $X$.
+\end{definition}
+
+\begin{lema} Sigui $X\subset R$ un conjunt no buit de $R$.
+\begin{enumerate}[(1)]
+\item Si $R$ és un anell amb identitat, aleshores el ideal de $R$ generat per $X$ és el conjunt
+$$
+XRX= \scalebox{1.5}{\{}  \sum_{i=1}^n r_i x_i s_i : r_i ,s_i \in R , x_i\in X, n \geq 1 \scalebox{1.5}{\}} 
+$$
+\item Si $R$ és un anell commutatiu amb identitat, aleshores el ideal de $R$ generat per $X$ és el conjunt 
+$$
+RX= \scalebox{1.5}{\{}  \sum_{i=1}^n r_i x_i : r_i  \in R , x_i\in X, n \geq 1 \scalebox{1.5}{\}} 
+$$
+\end{enumerate}
+\end{lema} 
+\begin{proof} (1) tot ideal que contingui $X$ clarament ha de contenir $RXR$, només cal observar que $RXR$ és un ideal de $R$, i per tant és el ideal més petit de $R$ que conté $X$. (2) és conseqüència directa de la commutativitat de $R$.
+\end{proof}
+
+\begin{theorem}[Teorema de l'aplicació induïda (per anells)]
+Sigui $f:R\rightarrow S$ un morfisme d'anells.  Aleshores existeix un únic morfisme d'anells injectiu $\overline{f}:R/ \text{Ker}f \rightarrow S$ tal que $\overline{f}\circ \pi=f$, on $\pi$ és el morfisme natural $R\rightarrow R/\text{Ker} (f)$ definit per $r\mapsto \overline{r}$.
+\end{theorem}
+\begin{proof}
+Aquest morfisme és $\overline{f}(\overline{r})=f(r)$. El morfisme $\overline{f}$ sovint és anomenat \textbf{morfisme induït}.
+\end{proof}
+\begin{definition} Siguin $a\neq 0$ i $b\neq 0$ elements d'un anell $R$ tal que $ab=0$, aleshores $a$ i $b$ s'anomenen \textbf{divisors de zero} de l'anell $R$.
+\end{definition}
+\begin{definition} Sigui $R$ un anell, un element $a\in R$ és diu \textbf{element unitari} si té una inversa multiplicativa, és a dir, existeix $b\in R$ tal que $ab=1=ba$. Denotem per $R^*$ al conjunt d'elements unitaris de $R$.
+\end{definition}
+\begin{definition}
+\textbf{Definició.} Un anell $R$ és un \textbf{domini de integritat} si és un anell conmutatiu tal que no té divisors de zero.
+\end{definition}
+\begin{definition}
+\textbf{Definició.} Un anell $R$ amb identitat és un \textbf{anell de divisió} si $R^*=R \backslash \{0\}$, i.e., tot element no zero de $R$ té un invers multiplicatiu.
+\end{definition}
+\begin{definition}
+\textbf{Definició.} Un \textbf{cos} és un anell de divisió commutatiu.
+\end{definition}
+\begin{definition}
+\textbf{Definició.} Un grup unitari que juga un rol fonamental en $K$-teoria és el següent, donat un anell $R$ i un nombre natural $n$, el grup unitari $M_n(R)^*$ de l'anell de matrius $M_n(R)$ s'anomena grup lineal general de grau $n$, i s'escriu $GL_n(R)$.
+\end{definition}
+
+\section{Definició de Mòduls}
+Els mòduls són una generalització dels espais vectorials d'àlgebra lineal, on els \textit{escalars} poden ser d'un anell arbitrari en lloc d'un cos.
+
+\begin{definition} 
+Sigui $R$ un anell. 
+\begin{enumerate}
+\item Un \textbf{$R$-mòdul per l'esquerra} és un grup abelià additiu $M$ amb una operació binària $\cdot : R\times M \rightarrow M$, $(r,m)\rightarrow rm$, tal que
+\begin{enumerate}[$a_l$)]
+\item $r(m+n)=rm+rn$
+\item $(r+s)m=rm+sm$
+\item $(rs)m=r(sm)$
+\item $1m=m$
+\end{enumerate}
+Per tot $r,s\in R$ i $m,n\in M$, per a un $1\in R$.
+\item Un \textbf{$R$-mòdul per la dreta} és un grup abelià additiu $M$ amb una operació binària $\cdot : M\times R \rightarrow M$, $(m,r)\rightarrow mr$, tal que
+\begin{enumerate}[$a_l$)]
+\item $(m+n)r=mr+nr$
+\item $m(r+s)=mr+ms$
+\item $m(rs)=(mr)s$
+\item $m1=m$
+\end{enumerate}
+Per tot $r,s\in R$ i $m,n\in M$, per a un $1\in R$. 
+
+\end{enumerate}
+\end{definition}
+
+\begin{obs}
+
+ Si $R$ és un anell conmutatiu, aleshores qualsevol  $\tensor[_R]{M}{}$ mòdul també té estructura de $M_R$ mòdul definint $mr=rm$.
+\\ \\
+ Sigui $R$ un anell arbitrari, considerem $R ^{\text{op}}$, que és l'anell format pels elements de $R$, amb la mateixa suma que $R$ però amb multiplicació $\cdot $ donada per $a\cdot b = ba$. 
+\\
+Aleshores qualsevol $\tensor[_R]{M}{}$ mòdul és un $M_{R^\text{op}}$ mòdul.
+
+\end{obs}
+
+\noindent \textbf{Notació.}  Els resultats per mòduls per la dreta i per l'esquerra són paral·lels, per tant per evitar repetir els resultats, treballarem generalment amb $R$-mòduls per l'esquerra, que els denotarem \textbf{$R$-mòduls} o \textbf{mòduls sobre $R$.} \\ Si necessitem indicar per quina banda volem considerar el mòdul, denotarem per $M_R$ un $R$-mòdul per la dreta i $\tensor[_R]{M}{}$ un mòdul per l'esquerra. 
+
+\begin{definition}
+Sigui $R$ un anell i $M$, $N$ $R$-mòduls. Una aplicació $f: M\rightarrow N$ és un \textbf{homomorfisme de $R$-mòduls} si compleix
+\begin{enumerate}[(1)]
+\item $f(m_1+m_2)=f(m_1)+f(m_2)$ per a tot $m_1,m_2\in M$ 
+\item  $f(rm)=rf(m)$ per a tot $r\in R$ i $m\in M$.
+\end{enumerate}
+
+Denotem per $\text{Hom}_R(M,N)$ a el conjunt de tots els homeomorifmes de $R$-mòduls de $M$ a $N$, si $M=N$ en lloc de homeomorfismes els podem denotar \textbf{endomorfismes}, i al conjunt d'endomorfismes d'un $R$-mòdul el denotem per $\text{End}_R(M)$. \\
+Si $f\in \text{End}_R(M)$ és invertible, aleshores s'anomena \textbf{automorfisme }de $M$. El grup de tots els automorfismes  de $R$-mòduls de $M$ es denota per $\text{Aut}_R(M)$ 
+\end{definition}
+
+\begin{definition}
+\begin{enumerate}[(1)]
+\item Sigui $K$ un cos, aleshores un $K$-mòdul $V$ s'anomena espai vectorial sobre $K$.
+\item Si $V$ i $W$ són espais vectorials sobre un cos $F$, aleshores una transformació lineal de $V$ a $W$ és un homomorfisme de $F$-mòduls de $V$ a $W$.
+\end{enumerate}
+\end{definition}
+
+\textbf{Exemples}. \begin{enumerate}[(1)]
+\item Un anell $R$ pot ser vist com un $R$-mòdul per la dreta (esquerra), usant la seva suma i producte d'anell com a suma i producte de mòdul per la dreta (esquerra). De forma més general, qualsevol ideal per la dreta (esquerra) de $R$ és un $R$-mòdul per la dreta (esquerra).
+\item Sigui $G$ un grup abelià i $g\in G$. Si $n\in \mathbb{Z}$ definim el producte per escalars $ng$ com
+$$
+ng=\begin{cases}
+g+\dots + g  \  \text{($n$ sumands si $n>0$)} \\
+0 \ \text{si $n=0$.}\\
+(-g)+\dots (-g) \  \text{($-n$ sumands si $n<0$)}
+\end{cases}
+$$
+Usant aquest producte per escalars $G$ és un $\mathbb{Z}$-mòdul. \\
+A més, si $G$ i $H$ són grups abelians i $f:G\rightarrow H$ és un homomorfisme, aleshores $f$ també és un homomorfisme de $\mathbb{Z}$-mòduls ja que per a $n>0$
+$$
+f(ng)=f(g+\dots g)=f(g)+\dots f(g)=nf(g)
+$$
+i $f(-g)=-f(g)$
+
+
+\item Sigui $R$ un anell arbitrari. Aleshores $R^n$ és un $R$-mòdul, tant per la dreta com per l'esquerra, considerant el producte per escalars
+\begin{eqnarray*}
+a(b_1,\dots ,b_n)=(ab_1 , \dots , a_bn) \\
+(b_1,\dots ,b_n)a=(b_1 a, \dots , b_n a)
+\end{eqnarray*}
+\item Sigui $R$ un anell, aleshores el conjunt de les matrius $M_{m,n}(R)$ és un $R$-mòdul, tant per la dreta com per l'esquerra, considerant el producte per escalars
+\begin{eqnarray*}
+(aA)_{i,j}=a(A)_{i,j} \\
+(Aa)_{i,j}=(A)_{i,j}a
+\end{eqnarray*}
+\item L'aplicació producte de matrius
+\begin{eqnarray*}
+M_m(R) \times M_{m,n}(R)& \rightarrow  &M_{m,n}(R)\\
+(A,B)&\mapsto & AB
+\end{eqnarray*}
+permet considerar $M_{m,n}$ com un $M_m(R)$-mòdul per l'esquerra, i similarment, la següent aplicació producte de matrius
+\begin{eqnarray*}
+M_{m,n}(R) \times M_{n}(R)& \rightarrow  &M_{m,n}(R)\\
+(A,B)&\mapsto & AB
+\end{eqnarray*}
+permet considerar $M_{m,n}$ com un $M_n(R)$-mòdul per la dreta.
+
+\item Si $R$ és un anell i $I\subset R$ un ideal, aleshores l'anell quocient $R/I$ és un $R$-mòdul tant per la dreta i per l'esquerra considerant les aplicacions producte
+\begin{eqnarray*}
+R \times R/I & \rightarrow & R/I \\
+(a,b+I) & \mapsto & ab+I
+\end{eqnarray*}
+\begin{eqnarray*}
+R/I \times R & \rightarrow & R/I \\
+(a+I,b) & \mapsto & ab+I
+\end{eqnarray*}
+
+\item Diem que $M$ és una \textbf{$R$-àlgebra} si $M$ és un $R$-mòdul i un anell, tals que la seva suma com a anell és la mateixa que com a mòdul, i la multiplicació a $M$ i la multiplicació escalar per $R$ satisfà:
+$$
+r(m_1m_2)=(rm_1)m_2=m_1(rm_2)
+$$
+Per a cada $r\in R$, $m_1,m_2\in M$.
+\begin{enumerate}
+\item Tot anell és una $\mathbb{Z}$-àlgebra.
+\item Si $R$ és un anell abelià, $R$ és una $R$-àlgebra.
+\item Si $R$ és una anell commutatiu, aleshores l'anell de polinomis $R[X]$ i l'anell de matrius $M_n(R)$ són $R$-àlgebres.
+\item Donats dos anells $R$ i $S$, i un homomorfisme d'anells $\phi: R \rightarrow S$ amb $\text{Im}(\phi)\subset Z(S):=\{a\in S : ab=ba \text{ per a tot } b\in S\}$, el centre de $S$.  Si $M$ és un $S$-mòdul, aleshores $M$ també és un $R$-mòdul usant la multiplicació escalar $am=(\phi (a))m$. \\
+Com que $S$ és un $S$-mòdul, tenim que $S$ és un $R$-mòdul, a més, com que $\text{Im}(\phi)\subset C(S)$, podem concloure que $S$ és una $R$-àlgebra. 
+\end{enumerate}
+\item Si $M$ i $N$ són $R$-mòduls, aleshores $\text{Hom}_R(M,N)$ és un grup abelià amb la suma $(f+g)(m)=f(m)+g(m)$.\\ Si $R$ és commutatiu, podem considerar $\text{Hom}_R(M,N)$ com un $R$-mòdul definint el producte $(af)(m)=a(f(m))$. \\
+Observem que imposar que $R$ sigui commutatiu és necessari per a garantir que $af$ sigui un homomorfisme de $R$-mòduls, ja que 
+$$
+(af)(rm)=a(f(rm))=a(r(f(m)))=ar(f(m))
+$$
+Només si $R$ és commutatiu podem continuar: $ar(f(m))=ra(f(m))=r(af(m))$. \\ \\
+Observa també que $\text{End}_R(M)$ és a més un anell, usant la composició de homomorfismes de $R$-mòduls com a producte, i com que hi ha un homomorfisme d'anells $\phi: R\rightarrow \text{End}_R(M)$ induït per $\phi (a)=a1_M$, on $1_M$ denota el homomorfisme identitat de $M$, per l'exemple anterior (7) es dedueix que $\text{End}_r(M)$ és una $R$-àlgebra si $R$ és un anell commutatiu.
+\item Si $G$ és un grup abelià, aleshores $\text{Hom}_{\mathbb{Z}}(\mathbb{Z},G)\cong G$. 
+Per a veure-ho definim $\Phi: \text{Hom}_{\mathbb{Z}}  \rightarrow G $ per $\Phi (f)=f(1)$.\\
+ Veiem que  $\Phi$ és un isomorfisme de $\mathbb{Z}$-mòduls: Hem de veure doncs que $\text{Ker}(\Phi)=0_M$ i que $\text{Im}(\Phi(f))=G$. 
+\\ 
+  El nucli només pot tenir un element, que és l'aplicació que envia tots els elements de $\mathbb{Z}$ a $0$ ja que si $f\in \text{Hom}_{\mathbb{Z}}(\mathbb{Z},G)$ es compleix per definició que $f(1)=0$, i per tant $f(n)=f(1n)=f(1)f(n)=0f(n)=0$. D'altra banda $\text{Im}(\Phi)=G$ ja que per a tot $g\in G$ existeix un homomorfisme $f$ induït per $f(1)=g$. Hem vist que $\Phi$ és bijectiu, falta veure que és un homomorfisme de $\mathbb{Z}$-mòduls. Per una banda $$\Phi(f)+\Phi(g)=f(1)+g(1)=(f+g)(1)=\Phi( f+g )$$
+  D'altra banda 
+  $$
+  \Phi(nf)=\Phi(f+\dots +f)=(f+\dots +f)(1)=nf(1)=n\Phi (f)
+  $$
+  Per tant, $\Phi$ és un isomorfisme de $\mathbb{Z}$-mòduls.
+  \item Generalitzant l'exemple anterior, si $M$ és un $R$-mòdul, aleshores $\text{Hom}_R(R,M)\cong M$ com a $\mathbb{Z}$-mòduls per l'aplicació $\Phi : \text{Hom}_R (R,M)\rightarrow M$ on $\Phi(f)=f(1)$.
+  \item Sigui $R$ un anell commutatiu, sigui $M$ un $R$-mòdul, sigui $S\subset \text{End}_R (M)$ un subanell. Aleshores $M$ és un $S$-mòdul per la multiplicació escalar $S\times M \rightarrow M$ definida per $(f,m)\mapsto f(m)$.
+  \item Sigui $T\in \text{End}_R(M)$, definim un homomorfisme d'anells $\phi : R[X] \rightarrow \text{End}_R(M)$ enviant $X$ a $T$ i $a\in R$ a $a1_M$. Per tant si 
+  $$
+  f(X)=a_0+a_1X+\dots + a_nX^n
+  $$
+  aleshores 
+  $$
+  \phi(f(X))=a_11_M+a_1T+\dots + a_nT^n
+  $$
+  Denotarem $\phi(f(X))$ per $f(T)$ i $\text{Im}(\phi)=R[T]$, és a dir, $R[T]$ és el subanell de $\text{End}_R(M)$ format pels polinomis en $T$. \\  
+  Aleshores $M$ és un $R[T]$-mòdul per la multiplicació $f(T)m=f(T)(m)$. Similarment, usant el homomorfisme $\phi : R[X]\rightarrow R[T]$ tenim que $M$ és un $R[X]$-mòdul usant la multiplicació $f(X)m=f(T)(m)$.
+  \\
+  Aquest exemple és important, dóna la base per aplicar la teoria de mòduls sobre dominis de ideals principals per a l'estudi de transformacions lineals.
+  \item Ara introduirem un exemple concret a l'exemple anterior, sigui $K$ un cos, i $T:K^2\rightarrow K^2$ una transformació lineal definida per $T(u_1,u_2)=(0,u_1)$. Tenim que $T^2=0$, per tant, si $f(X)=a_0+a_1X+\dots+a_mX^m\in K[X]$ tenim $f(T)=a_01_{K^2}+a_1T$. Per tant, l'operació producte $f(X)u$ per $u\in K^2$ ve donada per 
+  $$
+  f(X)\cdot (u_1,u_2)=f(T)(u_1,u_2)=(a_01_{K^2}+a_1T)(u_1,u_2)=(a_0u_1,a_0u_2+a_1u_1)
+  $$
+\end{enumerate}
+\section{Submòduls i Quocients de Mòduls}
+\begin{definition}
+Sigui $R$ un anell i $M$ un $R$-mòdul. Diem que un subconjunt $N\subset M$ és un \textbf{submòdul} (o $R$-submòdul) de $M$ si $N$ és un subgrup del grup additiu $M$ i també és un $R$-mòdul usant la multiplicació escalar a $M$, és a dir, $N$ és un submòdul de $M$ si és un subgrup de $M$ tancat sota la multiplicació escalar. 
+\end{definition}
+
+\begin{lema}[Criteri de Submòdul]
+Si $M$ és un $R$-mòdul i $N$ és un subconjunt de $M$ no buit, aleshores $N$ és un submòdul si i només si $x+ry\in N$ per a tot $x,y\in N$ i tot $r\in R$.
+\end{lema}
+
+\begin{definition} Si $K$ és un cos i $V$ un espai vectorial sobre $K$, un $K$-submòdul de $V$ s'anomena \textbf{subespai vectorial} de $V$.
+\end{definition}
+\textbf{Exemples.}
+\begin{enumerate}[(1)]
+\item Si $R$ és un anell, aleshores els $R$-sumbòduls del $R$-mòdul $R$ són els ideals per l'esquerra de l'anell $R$.
+\item Si $G$ és un grup abelià, aleshores $G$ és un $\mathbb{Z}$-mòdul i els $\mathbb{Z}$-submòduls de $G$ són els subgrups de $G$.
+\item Sigui $f:M\rightarrow N$ un homomorfisme de $R$-mòduls, aleshores $\text{Ker}(f)\subset M$ i $\text{Im}(f)\subset N$ són $R$-submòduls. \\
+Es verifica usant el criteri de submòdul, en primer lloc observem que $\text{Ker}(f)$ i $\text{Im}(f)$ són conjunts no buits ja que $f(0)=0$. Si $x,y\in \text{Ker}(f)$ i $r\in R$, es compleix $f(x+ry)=f(x)+rf(y)=0$, per tant $x+ry\in \text{Ker}(f)$ i per tant $\text{Ker}(f)$ és un $R$-submòdul de $M$. D'altra banda si $x,y\in M$ i $r\in R$, tenim que $f(x)+rf(y)=f(x+ry)$ on $f(x)$ i $f(y)$ són elements arbitraris de $\text{Im}(f)$ i aplicant el criteri de submòdul queda verificat.
+\item Sigui $V$ un espai vectorial sobre un cos $K$ i $T\in \text{End}_K(V)$ una transformació lineal fixada. Denotem per $V_T$ a $V$ amb l'estructura de $K[X]$-mòdul determinada per la transformació lineal $T$.\\
+Aleshores un subconjunt $W\subset V$ és un $K[X]$-submòdul del mòdul $V_T$ si i nomé si $W$ és un subespai vectorial de $V$ i $T(W)\subset W$, és a dir, $W$ ha de ser un $T$-\textbf{subsepai invariant} de V. \\ \\
+Per verificar-ho, observem que $X\cdot w = T(w)$ i si $a\in K$, tenim que $a\cdot w =aw$, és a dir, l'acció del polinomi constant $a\in K[X]$ sobre $V$ és la multiplicació escalar ordinaria, mentre que la acció del polinomi $X$ sobre $V$ és l'acció de $T$ sobre $V$. Per tant, un $K[X]$-submòdul de $V_T$ ha de ser un $T$-subespai invariant de $V$. \\
+Recíprocament, si $W$ és un subespai vectorial de $V$ tal que $T(W)\subset W$, tenim que $T^{m}(W)\subset W$ per a tot $m\geq 1$. Per tant si $f(X)\in F(X)$ i $w\in W$ tenim $f(X)\cdot w=f(T)(w)\in W$ per tant $W$ és tancat sota la multiplicació escalar i per tant, $W$ és un $K[X]$-submòdul de $V$.
+\end{enumerate}
+
+\begin{definition}
+Sigui $M$ un $R$-mòdul i $N\subset M$ un submòdul, aleshores $N$ és un subgrup d'un grup abelià $M$, per tant podem formar el quocient de grups $M/N$. Definim la multiplicació escalar del grup abelià $M/N$ per $a(m+N)=am+N$ per a tot $a\in R$ i $m+N\in M/N$.
+\\ 
+Com que $N$ és un $R$-submòdul de $M$, aquesta operació està ben definida, ja que si $m+N=m'+N$ tenim que $m-m'\in N$ i per tant $am-am'=a(m-m')\in N$ de forma que $am+N=am'+N$. \\
+El $R$-mòdul $M/N$ considerat amb aquesta operació l'anomenem \textbf{mòdul quocient }de $M$ respecte $N$. 
+\end{definition}
+
+Ara introduirem els teoremes d'isomorfia de Noether per a
+ mòduls, que són anàlegs als que hem vist per grups i anells (són conseqüència del Teorema de l'aplicació induïda).
+
+\begin{theorem}[Primer Teorema d'isomorfia]
+Sigui $M$ i $N$ mòduls sobre $R$ i $f:M\rightarrow N$ un homomorfisme de $R$-mòduls. Aleshores $$M/\text{Ker}(f)\cong \text{Im}(f)$$
+\end{theorem}
+
+\begin{proof}
+pel primer Teorema d'isomorfia per a grups, tenim que existeix un isomorfisme de grups abelians $\overline{f}:M/K\rightarrow \text{Im}(f)$ definit per $\overline{f}(m+K)=f(m)$, ens falta veure que $\overline{f}$ és un homomorfisme de $R$-mòduls.  Observem que $\overline{f}(a(m+K))=\overline{f}(am+K)=f(am)=af(m)=a\overline{f}(m+K)$ per a tot $m\in M$ i $a\in R$, que és el que ens faltava veure.
+\end{proof}
+
+\begin{theorem}[Segon Teorema d'isomorfia] \label{2ntiso}
+Sigui $M$ un $R$-mòdul i $N$ i $P$ submòduls. Aleshores hi ha un isomorfisme de $R$-mòduls:
+$$
+(N+P)/P\cong N/(N\cap P)
+$$
+\end{theorem}
+
+\begin{proof} Recorda que per definició $N+P=\{n+p : n\in N, p\in P\}$. \\
+Sigui $\pi : M\rightarrow M/P$ la projecció natural i $\pi_0$ la restricció de $\pi$ sobre $N$. Aleshores $\pi_0$ és un homomorfisme de $R$-mòduls amb $\text{Ker}(\pi_0)=N\cap P$ i $\text{Im}(\pi_0)=(N+P)/P$. Aplicant el primer Teorema d'isomorfia veiem el que volíem.
+\end{proof}
+
+\begin{theorem}[Tercer Teorema d'isomorfia]
+Sigui $M$ un $R$-mòdul i $N$ i $P$ submòduls de $M$ amb $P\subset N$. Aleshores
+$$
+M/N\cong (M/P)/(N/P)
+$$
+\end{theorem}
+\begin{proof} Definim $f: M/P\rightarrow M/N$ per $f(m+P)=m+N$, aquest homomorfisme de $R$-mòduls està ben definit i compleix
+$$
+\text{Ker}(f)=\{m+P : m+N=N \}=\{m+P : m\in N\}=N/P
+$$
+Aplicant el primer Teorema d'isomorfia queda provat.
+\end{proof}
+
+\begin{theorem}[Teorema de correspondència]
+Sigui $M$ un $R$-mòdul, $N$ un submòdul i $\pi: M\rightarrow M/N$ la projecció natural. Aleshores la funció $P\rightarrow P/N$ és una correspondència bijectiva entre el conjunt de tots els submòduls de $M$ que contenen $N$ i el conjunt de tots els submòduls de $M/N$.
+\end{theorem}
+
+
+\section{Mòduls lliures i Bases}
+\begin{definition} Sigui $R$ un anell i $S$ un subconjunt d'un $R$-mòdul $M$. Anomenem \textbf{combinació $R$-lineal} d'elements de $S$ a qualsevol element que s'expressi de la forma $$r_1s_1+\dots +r_n s_n$$ on $n$ és un enter positiu, $r_1,\dots,r_n\in R$ i $s_1,\dots s_n\in S$.\\
+Denotem per a $\langle S \rangle$ al conjunt de totes les combinacions $R$-lineals d'elements de $S$, (considerem $0_M\in \langle S \rangle$ en tots els casos, encara que $S=\emptyset$). Una altra forma equivalent de pensar $\langle S \rangle $ és com la intersecció de tots els submòduls de $M$ que contenen $S$. \\
+En conseqüència diem que $S$ \textbf{genera} $M$ si $\langle S \rangle =M$\\ 
+\end{definition}
+
+\begin{definition}
+Sigui $R$ un anell i $S$ un subconjunt d'un $R$-mòdul $M$, una \textbf{relació $R$-lineal} de $S$ és qualsevol equació 
+$$
+r_1s_1+\dots +r_ns_n=0_M
+$$
+definida a $M$, on $n$ és un enter positiu, $s_1,\dots , s_n$ són $n$ elements diferents de $S$ i $r_1 ,  \dots , r_n$ són elements no nuls de $R$.\\
+\\
+Diem que el \textbf{conjunt $S$ és $R$-linealment independent} si no existeix cap relació $R$-lineal a $S$.\\
+Anomenem per a \textbf{$R$-base} de $M$ a qualsevol conjunt $B\subset M$ $R$-linealment independent que generi $M$.
+\end{definition}
+
+\begin{definition}
+Diem que un \textbf{$R$-mòdul} $M$ és \textbf{lliure} si té una $R$-base.
+\end{definition}
+
+\textbf{Exemples.}\begin{enumerate}[(1)]
+\item Sobre qualsevol anell $R$, el mòdul zero $\{0\}$ és lliure amb el conjunt buit $\emptyset$ com a base.
+\item Si $R$ és un anell no trivial, l'anell de polinomis $R[x]$ és un $R$-mòdul lliure prenent com a base d'infinits elements $\{1,x,x^2,\dots \}$.
+\item Si $R$ és un anell no trivial i $n$ un enter positiu, la suma directa 
+$$
+R^n:=R\oplus \dots \oplus R
+$$
+és un $R$-mòdul lliure amb base $\{e_1, \dots , e_n\}$ on 
+$$
+e_i=(0,\dots 0,1,0\dots , 0)
+$$
+té un 1 a la coordenada $i$-èssima i $0$ a les altres. 
+\\
+Observem que $e_1,\dots,e_n$ generen $R^n$ ja que $(r_1,\dots, r_n)=r_1e_1+\dots+r_ne_n$, i trobar una combinació $R$-lineal entre els es elements $e_1,\dots ,e_n$ és impossible ja que si es compleix $(r_1,\dots,r_n)=(0,\dots,0)$ tenim necessàriament que $r_i=0$ per a cada $i$.
+\item Sigui $R$ un anell no trivial i $S$ un conjunt no buit. Una funció $f:S\rightarrow R$ diem que té \textbf{suport finit} si $f(s)=0_R$ per a tots excepte un nombre finit de $s\in S$. \\ Denotem per  $\oplus_SR$ al conjunt de totes les funcions $f:S\rightarrow R$ amb suport finit. Sota la suma component a component i la multiplicació escalar, $\oplus_SR$ és un $R$-mòdul. \\ Si $s\in S$, denotem per $\hat{s}:S\rightarrow R$ la funció característica de $s$ definida per 
+$$
+\hat{s}(t)=\begin{cases}
+1_R \ \text{si} \ t=s \\
+0_R \ \text{si} \ t\neq s
+\end{cases}
+$$
+El conjunt $\hat{S}=\{ \hat{s} : s\in S \}$ és una base de $\oplus_SR$ ja que si $f\in \oplus_SR$, aleshores 
+$$
+f=\sum_{s\in S}f(s)\hat{s}
+$$
+i una combinació $R$-lineal 
+$$
+\sum_{s\in S}f(s)\hat{s}
+$$
+és l'aplicació zero (= l'element zero de $\oplus_SR$) si i només si $f(s)=0_R$ per a tot $s$. \\
+\\
+Observem que si $S=\{ s_1,\dots , s_n\}$ té $n$ elements, existeix un isomorfisme
+\begin{eqnarray*}
+\oplus_SR &\rightarrow  &R^n \\
+f&\mapsto &(f(s_1),\dots,f(s_n))
+\end{eqnarray*}
+on la base $\hat{s}_1,\dots,\hat{s}_n$, correspon a la base $e_1,\dots e_n$. \\\\
+En el següent Teorema veurem que qualsevol $R$-mòdul lliure és isomorf a un de la forma $\oplus_SR$.
+\end{enumerate}
+
+\begin{theorem}
+Sigui $R$ un anell i $B$ un subconjunt no buit d'un $R$-mòdul $M$. Són equivalents:
+\begin{enumerate}[(i)]
+\item $B$ és una $R$-base de $M$.
+\item L'aplicació $R$-lineal $\phi: \oplus_BR\rightarrow M$, definida per 
+$$
+\phi(f)=\sum_{b\in B}f(b)b
+$$
+és un isomorfisme.
+\item Cada $m\in M$ es pot expressar de la forma
+$$
+m=\sum_{b\in B}f(b)b
+$$
+per un i només un $f\in \oplus_BR$.
+\end{enumerate} 
+\end{theorem}
+
+\begin{proof} El fet que $B$ generi $M$ equival a l'existència de l'expressió (iii) i equival a l'exhaustivitat de $\phi$. \\
+El fet que $B$ sigui $R$-linealment independent, equival a la unicitat de l'expressió (iii) i equival a la injectivitat de $\phi$.
+\\ \\
+Els següent resultat mostra que per a definir un homomorfisme de $R$-mòduls sortint d'un mòdul lliure, és necessari i suficient especificar la imatge dels generadors. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{prop}{(Propietat universal dels $R$-mòduls lliures).} \label{morfismebase} Sigui $M$ un $R$-mòdul i $B$ un subconjunt no buit de $M$. Els següents afirmacions són equivalents:
+\begin{enumerate}[(i)]
+\item $B$ és una base de $M$.
+\item Cada funció $\phi:B\rightarrow N$, de $B$ cap a un $R$-mòdul $N$, té una i només una extensió a una aplicació $R$-lineal $\hat{\phi}:M\rightarrow N$. \\ \\
+Diem que una aplicació és $R$ lineal si compleix:
+\begin{itemize}
+\item $\hat{\phi}(x+y)=\hat{\phi}(x)+\hat{\phi}(y)$ per a qualsevol $x,y \in M$.
+\item $\hat{\phi}(ax)=a\hat{\phi}(x)$ per a tot $a\in R$ i $x\in M$.
+\end{itemize}
+\end{enumerate} 
+\end{prop}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{proof}
+\begin{itemize}
+\item (i) $\Rightarrow$ (ii): Sigui $M$ i $N$ $R$-mòduls, $B$ una base de $M$ i $\phi : B\rightarrow N$ una aplicació. Si $\hat{\phi}:M\rightarrow N$ és una aplicació $R$-lineal que exten $\phi$, cal que 
+\begin{equation} \label{formula1}
+\hat{\phi} \left( \sum_{b\in B}f(b)b \right)=\sum_{b\in B}f(b)\phi(b) \ \ \ \forall f\in  \oplus_BR
+\end{equation}
+per tant, la unicitat de l'extensió queda garantida.
+\item (i) $\Leftarrow$ (ii): Considerem en particular la funció $\phi: B\rightarrow \oplus_BR$ definida per $b \mapsto \hat{b}$ per a tot $b\in B$, on $\hat{b}$ és la funció característica de l'element bàsic $b$. \\
+Aplicant $\hat{\phi}$ a l'equació 
+$$
+\sum_{b\in B}f(b)b=0_M
+$$
+tenim que $f=0\in \oplus_BR$, i en conseqüència no existeix cap relació $R$-lineal a $B$. 
+\\
+\\
+Veiem ara que $M=\langle B\rangle$: Observem que les aplicacions $f$ i la projecció $\overline{\pi}: M \rightarrow M/\langle B \rangle $ (definida per $m \mapsto \overline{m}$) envien tot $b\in B$ a $0+\langle B \rangle$. \\
+Si es compleix (ii), per unicitat d'extensió $f=\overline{\pi}$ són la mateixa aplicació, per tant $M/\langle B \rangle = 0$ i $M=\langle B \rangle $.
+\end{itemize}
+\end{proof}
+
+\begin{corollary}  \label{corol1}
+\begin{enumerate}[(I)]
+\item Si $\psi:M \rightarrow N$ és un isomorfisme de $R$-mòduls i $M$ és lliure amb base $B$, aleshores $N$ és lliure amb base $\psi(B)$.
+\item  Si $M$ és un $R$-mòdul i $n$ és un enter positiu , $M$ té una base de $n$ elements si i només si $M\cong R^n$.
+\item Si $M$ és un $R$-mòdul i $n$ és un enter positiu , hi ha una bijecció entre el conjunt d'isomorfismes $R^n\cong M$ cap al conjunt ordenat de bases de $n$ elements de $M$, donat per 
+$$
+\psi \mapsto (\psi(e_1),\dots , \psi(e_n))
+$$
+\end{enumerate}
+\end{corollary}
+
+\begin{proof} 
+\begin{itemize}
+\item
+Observem que en les condicions de la proposició anterior, una extensió $R$-lineal $\hat{\phi}:M\rightarrow N$ és exhaustiva si i només si $\phi(B)$ genera $N$ , i injectiva si i només si $\phi$ és injectiva i $\phi(B)$ és linealment independent. \\
+(I) és conseqüència d'aquesta constatació, considerant $\psi$ com una extensió $R$-lineal de la seva restricció a $B$.
+\item (II) és conseqüència de (III). 
+\item (III) Denotem per $e_1 , \dots , e_n $  una base de $R^n$. Si $\phi : R^n \rightarrow M$ és un isomorfisme, per (I) tenim que $(\psi (e_1),\dots , \psi (e_n))$ és una base ordenada de $M$. \\  Sigui $\theta : R^n \rightarrow M$ un altre isomorfisme amb $\theta (e_i) = \psi (e_i)$ per a tot $i$, aleshores constatem que són iguals:
+
+$$
+\theta \left( \sum_{i=1}^n r_ie_i \right)=
+\sum_{i=1}^n r_i  \theta (e_i) =
+\sum_{i=1}^n r_i \psi (e_i)
+= \psi \left( \sum_{i=1}^n r_i e_i \right)
+$$
+L'exhaustivitat ve donada per (\ref{formula1}) i (III), ja que si considerem una base ordenada de $M$ formada per $n$ elements $(b_1 , \dots , b_n )$, aleshores existeix un isomorfisme $\psi: R^n \rightarrow M$ amb $\psi (e_i)=b_i$ per a cada $i$.
+
+\end{itemize}
+\end{proof}
+
+El següent resultat ens permet construir a partir d'un conjunt $S$ i un anell $R$, un $R$-mòdul lliure que tingui $S$ com a base.
+ 
+\begin{prop} 
+Si $R$ és un anell no trivial, tot conjunt $S$ és base d'un $R$-mòdul lliure $F_R(S)$.
+\end{prop}
+
+\begin{proof} Si $S$ és buit, és suficient $F_R(S)=\{0_R\}$. Si $S$ és no buit, considerem el $R$-mòdul $\oplus_S R$, a l'exemple anterior hem vist que $\hat{S}$ és una base. 
+ Al ser $R$ no trivial tenim que $1_R \neq 0_R$, per tant la funció $S\rightarrow \hat{S}$ definida per $s\mapsto \hat{s}$ per cada $s\in S$ és bijectiva. Usant bijectivitat podem reemplaçar $\hat{S}$ per $S$ a $\oplus_S R$. Considerem $T:=\oplus_S R - \hat{S}$, es compleix $S\cap T = \emptyset$ i per tant $h: S\cup T \rightarrow \oplus_S R$ definida per 
+ $$
+ h(x)=
+ \begin{cases}
+ x \ \text{si} \ x\in T \\
+ \hat{x} \ \text{si} \ x\in S
+ \end{cases}
+ $$
+ és una bijecció. Observem que $S\cup T$ és un $R$-mòdul sota les operacions
+ \begin{eqnarray*}
+ x+y &=& h^{-1}(h(x)+h(y)) \\
+ rx &=& h^{-1}(rh(x))
+ \end{eqnarray*}
+ per $x,y\in S\cup T$ i $r\in R$. Aleshores definim $F_R(S)$ pel conjunt $S\cup T$ amb aquesta estructura de $R$-mòdul. Observem que $h$ és un isomorfisme $R$-lineal de $F_R(S)$ a $\oplus_S R$, per tant, $h^{-1}$ també és un isomorfisme $R$-lineal, i pel Corol·lari anterior (i) tenim que la base de $F_R(S)$ és $h^{-1}(\hat{S})=S$
+\end{proof}
+
+
+\begin{obs} Donat un conjunt $S$, podem definir un mòdul lliure que tingui $S$ com a base ($F_S(R)$), i donada una funció $\phi: S\rightarrow N$ de $S$ cap a un $R$-mòdul $N$ qualsevol, existeix una i només una extensió a una aplicació $R$-lineal $\hat{\phi}: F_S(R)\rightarrow N$.
+\end{obs}
+
+\begin{cor}
+ Tot $R$-mòdul $M$ és $R$-linealment isomorf a un quocient d'un $R$-modul. Per a tot enter $n$, tot $R$-mòdul generat per a un conjunt de $n$ elements és $R$-linealment isomorf a un quocient de $R^n$.
+\end{cor}
+
+
+\section{Mòduls finitament generats}
+
+\begin{definition} Un $R$-mòdul és \textbf{cíclic} si està generat per un element. Si $M$ és un $R$-mòdul i $m\in M$, el submòdul cíclic generat per $m$ és
+$
+\langle \{ m \} \rangle = \{ rm : r\in R \} \ ,
+$
+el denotem per $Rm$. \\
+Un $R$-mòdul $M$ és \textbf{finitament generat} (f.g) si és generat per a un conjunt finit $\{ m_1,\dots , m_n \}$, o equivalentment, si $M$ és la suma finita de submòduls cícils:
+$$
+M=Rm_1+\dots +Rm_n
+$$
+és a dir 
+$$M=\langle m_1, \dots , m_n \rangle =\text{Span} \{ m_1,\dots , m_n\}=\{0+r_1m_1+\dots +r_nm_n : r_1,\dots, r_k \in R \}$$
+\end{definition}
+
+\begin{lema} Donat un $R$-mòdul $M$ i $a_1,\dots, a_n\in M$ amb $n\in \mathbb{N}$. Tenim que $\langle a_1,\dots, a_n \rangle$ és un submòdul de $M$. 
+\end{lema}
+
+\begin{proof}  Aplicarem el criteri de submòdul, primer observem que $\langle a_1,\dots , a_n\rangle $ no és buit, ja que $0\in\langle a_1,\dots , a_n\rangle$. \\
+Ara considerem $a,b\in \langle a_1,\dots , a_n\rangle$, per definició tenim que $a=r_1a_1+\dots r_na_n$ i $b=s_1a_1+\dots s_na_n$, on $r_i$ i $s_i$ són elements de $R$ per a $i=1,\dots, n$. Aleshores $a+b=(r_1+s_1)a_1+\dots +(r_n+s_n)a_n\in \langle a_1,\dots , a_n\rangle$. 
+\\
+Similarment si $b\in \langle a_1,\dots , a_n\rangle$ i $r\in R$, tenim que $rb=(rs_1)a_1+\dots (rs_n)a_n\in \langle a_1,\dots , a_n\rangle$. \\
+Per tant, com que $a+rb\in R$, podem aplicar el criteri de submòdul i veiem el que volíem.
+\end{proof}
+
+
+\begin{definition} Sigui $S$ un subconjunt d'un $R$-mòdul $M$, aleshores $\langle S \rangle$ denota la intersecció de tots els submòduls de $M$ que contenen $S$. L'anomenem el \textbf{submòdul de $M$ generat per} $S$, i els elements de $S$ els anomenem \textbf{generadors} de $\langle S \rangle$
+com a exemple de generació de mòdul per conjunts. \\
+És a dir, $\langle S \rangle $ és el submòdul de $M$ que conté $S$ i està contingut a tot submodul $M$ que conté $S$, en altres paraules, és el submòdul més petit de $M$ que conté $S$.
+\end{definition}
+
+\textbf{Exemples. } 
+\begin{enumerate}[(1)]
+\item Sigui $R$ un anell, si considerem $R$ com un $R$-mòdul, tenim que $R$ com a mòdul és cíclic, i per tant finitament generat: $\langle 1 \rangle = R$.
+\item Si considerem $R \oplus R$ com a $R$-mòdul veiem que és finitament generat per $\{(1,0),(0,1)\}$.
+\item Tot mòdul finit és finitament generat.
+\item $\mathbb{Q}$ no és finitament generat com a $\mathbb{Z}$-mòdul, veiem-ho, suposem que $\{p_1/q_1,\dots, p_n/q_n\}$ és un conjunt generador de $\mathbb{Q}$, sigui $q$ el mínim comú múltiple dels generadors ($q=\text{mcm}(q_1,\dots, q_n)$). Considerem ara $1/(q+1)$, com que $q+1$ no divideix $q$, $1/(q+1)\not \in (p_1/q_1,\dots, p_k/q_k)$ i per tant, els nombres racionals no són f.g. com a $\mathbb{Z}$-mòdul.
+%http://www.math.utah.edu/~schwede/Notes/UndergradThesis.pdf
+\item El concepte de $R$-mòdul generalitza el concepte de grup ciclic. De forma que, un grup abelià $G$ és cíclic (com a grup abelià) si i només si és cíclic com a $\mathbb{Z}$-mòdul.
+\item Com que els $R$-submòdul $N$ de $R$ són ideals, tenim que si aquest $R$ és un $DIP$, qualsevol $R$-submòdul $N$ ha de ser cíclic.
+\end{enumerate}
+
+En un espai vectorial sobre un cos, dues bases qualsevols d'un mateix espai vectorial tenen el mateix cardinal, en un mòdul sobre un anell, de moment podem afirmar el següent:
+
+\begin{prop} \label{prop2} Si $M$ és un $R$-mòdul lliure no finitament generat, dues bases qualsevols de $M$ tenen el mateix cardinal. 
+\\
+Si $M$ és un mòdul lliure f.g., aleshores tota base de $M$ és finita. 
+\end{prop}
+
+\begin{proof} Sigui $M$ un $R$-mòdul generat pel conjunt $T$, i amb base $B$; per a cada $t\in T$ existeix un subconjunt finit $B(t)\subset B$, tal que $t\in \langle B(t) \rangle $. \\
+Com que $T$ genera $M$, $U:=\cup_{t\in T}B(t)$ també genera $M$ ja que per construcció $\langle T \rangle \subset \langle U \rangle \subset M$. \\
+Observem que tot element de $B-U$, pertany a $M$, i $M=\langle U  \rangle$, per tant, $B=U$.
+\begin{itemize}
+\item Si $M$ no és finitament generat, $T$ és infinit; com que cada $B(t)$ està contingut en un conjunt numerable $\text{card}(U)\leq \text{card} (T)$, i per construcció $(U)\geq \text{card} (T)$, per tant es compleix la igualtat.
+\item Si $M$ és f.g, $T$ és finit, per tant cada $B(t)$ és finit i la base $B=U$ està formada per unió finita de conjunts finits.
+\end{itemize}
+\end{proof}
+  
+ %-------------------------------------------------------
+ %-------------------------------------------------------
+ %-------------------------------------------------------
+

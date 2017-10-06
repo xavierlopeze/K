@@ -1,0 +1,1206 @@
+
+% Chapter 1
+
+\chapter{Construcció del Grup $K_1$} % Main chapter title
+
+\label{Chapter3} % For referencing the chapter elsewhere, use \ref{Chapter1} 
+
+En àlgebra lineal es comença estudiant espais vectorials i la seva dimensió, i es procedeix amb l'estudi de les transformacions lineals i els seus invariants, com el determinant, les formes canòniques... \\
+Similarment en $K$-teoria algebraica comencem estudiant  mòduls projectius i la seva classificació a $K_0$, i continuem estudiant la classificació d'automorfismes de mòduls lliures i projectius, i.e., invariants de matrius invertibles. \\
+Així doncs, la relació entre $K_0$ i $K_1$ és la mateixa que hi ha entre transformacions lineals invertibles i els espais vectorials. \\
+\indent De la mateixa forma que un homomorfisme $K_0(R)\rightarrow G$ correspon a la generalització del concepte de rang, un homomorfisme de grups $K_1(R)\rightarrow G$ correspon a generalitzar el determinant de matrius invertibles sobre $R$. \\
+\indent L'objectiu d'aquest capítol és definir el grup $K_1$ a partir de matrius sobre un anell $R$ i obtenir alguns resultats que ens facilitin el càlcul del grup $K_0(R)$, la construcció exposada segueix en gran part [1], també presentem resultats i observacions interessants de [2] i la resolució de part dels problemes plantejats a [1], com el càlcul de $K_1$ per a $\mathbb{Z}/(m)$, $K[x]$ i $\mathbb{H}$.\\
+A la secció on estudiem el cas dels quaternions, cal mencionar que per a la introducció a l'anell dels quaternions hem usat [3], també hem usat [4] i [5] per a introduir el determinant de Dieudonné. \\
+\indent Començarem per definir $K_1$ a través de matrius invertibles sobre un anell $R$, estudiarem el cas d'un cos i intentarem generalitzar el mateix resultat per a anells de divisió, anells locals i dominis euclidians. També calculem $K_1$ d'alguns anells interessants, en particular hem dedicat una secció al càlcul de $K_1(\mathbb{H})$, ja que no només uso els resultats de les seccions anteriors, sinó que també presento el determinant de Dieudonné per al càlcul de $K_1(R)$. Finalment definirem el grup relatiu $K_1(R,I)$ que ens permetrà formular una successió exacta que relaciona $K_0$ i $K_1$ proveint-nos de més eines per al càlcul de $K$-grups.
+
+\section{Definició de $K_1$}
+\begin{definition}
+Sigui $R$ un anell (amb unitat), anomenarem \textbf{matriu elemental}, i la denotem per $e_{ij}(a)$, a la matriu $n\times n$ formada per $1_R$'s a la diagonal, $a\in R$ a la posició $(i,j)$, on $i\neq j, 1\leq i,$ $j\leq n$, i $0_R$'s a la resta d'entrades.
+\end{definition}
+
+\begin{obs}
+Les matrius elementals són invertibles, en concret $e_{ij}(a)^{-1}=e_{ij}(-a)$, per tant són elements de $GL(n,R)$, i a més generen un subgrup que denotarem $E(n,R)$. A partir de la incrustació usual de $GL(n,R)$ a $GL(n+1,R)$ presentada a la Definició \ref{incrustacio}, podem incrustar $E(n,R)$ a $E(n+1,R)$. La unió finita dels $E(n,R)$ és denotada per $E(R)$ i usualment s'anomena \textbf{grup de matrius elementals}.\footnote{Observem que el grup de matrius elementals és un abús de notació. Ens permetem aquest abús de notació, entenent que el grup de matrius elementals és la unió finita de tants $E(n,R)$ com ens convingui.}
+\end{obs}
+
+\begin{obs}
+Tota matriu elemental es pot expressar com $e_{ij}(r) = I_n + r\epsilon_{ij}$, on $\epsilon_{ij}$ és la matriu amb $1_R$ a la posició $(i,j)$ i zeros a la resta. Observem que el producte compleix
+$$
+\epsilon_{ij}\epsilon_{kl} =
+\begin{cases}
+0 \ \text{si} \ j\neq k \\
+\epsilon_{il} \ \text{si} \ j=k.
+\end{cases}
+$$
+
+Usant les matrius elementals podem causar una de les tres transformacions elementals usades en el mètode de reducció de Gauss, en concret
+
+\begin{equation*}
+e_{ij}(r)(A) = (I+r\epsilon_{ij}) \sum_{k,l} a_{kl} \epsilon_{kl} = \sum_{k,l}a_{kl}\epsilon_{kl} + \sum_l ra_{jl}\epsilon_{il}
+=
+\sum_{k\neq i} \sum_{l}a_{kl}\epsilon_{kl} + \sum_{l}(a_{il}+ra_{jl})\epsilon_{il}
+\end{equation*}
+\textit{i.e.}, multiplicar $e_{ij}(r)$ per l'esquerra de $A$ equival a sumar $r$ vegades la fila $j$ a la fila $i$ de la matriu $A$.  Les altres dues transformacions elementals usades en el mètode de Gauss també es poden expressar com a producte de matrius, en concret multiplicar $P_{i,j}$ per l'esquerra d'$A$ 
+$$
+P_{i,j}=I_n - \epsilon_{ii} - \epsilon_{jj} + \epsilon_{ij} + \epsilon_{ji}
+$$
+canvia de posició les files $i$ i $j$ de la matriu $A$, i finalment si $u\in R^{x}$, el producte de $d_i(u)$ per l'esquera de $A$ multiplica la fila $i$-èssima d'$A$ per $u$.
+$$
+d_i(u)=I_n+(u-1)\epsilon_{ii}
+$$
+Així doncs, les tres transformacions usades en el mètode de Gauss es poden expressar com a producte de matrius invertibles, però només una d'aquestes tres pertany a $E(R)$, a més, només la primera deixa el determinant invariant, per aquest motiu $E(R)$ està íntimament relacionat amb $K_1(R)$. 
+\end{obs}
+
+\begin{lemma} \label{triangular}
+Les matrius triangulars superiors (i triangulars inferiors) sobre un anell $R$ amb 1's a la diagonal pertanyen a $E(R)$.
+\end{lemma}
+
+\begin{proof}
+Sigui $A=(a_{i,j}) \in GL(n,R)$ una matriu triangular superior amb zeros a la diagonal, aleshores
+$$
+A'=(a'_{i,j})=A_{12}(-a_{12})e_{23}(-a_{23})\dots e_{n-1,n}(-a_{n-1,n})
+$$
+és una matriu triangular superior amb 1's a la diagonal i zeros a la diagonal secundària superior. Similarment
+$$
+A''=(a''_{i,j})=A'e_{13}(-a'_{13})e_{24}(-a'_{24})\dots e_{n-2,n}(-a'_{n-2,n})
+$$
+és triangular superior amb 1's a la diagonal i zeros a la primera i segona diagonals secundàries superiors. Continuant el procés per inducció construïm una successió
+$$
+A, \ A', \ A'', \dots , \  A^{(n-1)}
+$$
+de matrius a $GL(n,R)$, on per construcció la matriu $A^{(k)}$ és una matriu $(n\times n)$ triangular superior amb 1's a la diagonal i zeros a $a_{ij}^{(k)}$ amb $0<j-i\leq k$. En particular $A^{(n-1)}$ és la matriu identitat $n\times n$, a més cada matriu de la successió s'obté multiplicant la matriu anterior per una matriu de $E(n,R)$. Per tant existeix una matriu $B\in E(n,R)$ tal que $$A=A^{(n-1)}B=B \in E(n,R),$$ tal com volíem. Un raonament similar es pot usar per al cas diagonal inferior.
+\end{proof}
+
+\begin{cor} \label{matriuElemental}
+Sigui $A\in GL(n,R)$, la matriu $2n\times 2n$ 
+$\left( \begin{matrix}
+  A & 0 \\
+  0 & A^{-1}
+ \end{matrix} \right)$ 
+ pertany a $E(2n,R)$.
+\end{cor}
+
+\begin{proof}
+Recordant la prova del Lema \ref{InvAsc} tenim 
+\begin{equation}
+\left( \begin{matrix}
+  A & 0 \\
+  0 & A^{-1}
+ \end{matrix} \right)
+ =
+ \left( \begin{matrix}
+  1 & A \\
+  0 & 1
+ \end{matrix} \right)
+ \left( \begin{matrix}
+  1 & 0 \\
+  -A^{-1} & 1
+ \end{matrix} \right)
+\left( \begin{matrix}
+  1 & A \\
+  0 & 1
+ \end{matrix} \right)
+\left( \begin{matrix}
+  0 & -1 \\
+  1 & 0
+ \end{matrix} \right) 
+\end{equation}
+aplicant el Lema \ref{triangular} tenim que les primeres tres matrius del costat dret de la igualtat anterior pertanyen a $E(2n,R)$. Per a veure que la darrera matriu també hi pertany, veiem que ve generada per matrius elementals:
+$$
+ \left( \begin{matrix}
+  0 & -1 \\
+  1 & 0
+ \end{matrix} \right)
+ =
+ \left( \begin{matrix}
+  1 & -1 \\
+  0 & 1
+ \end{matrix} \right)
+\left( \begin{matrix}
+  1 & 0 \\
+  1 & 1
+ \end{matrix} \right)
+\left( \begin{matrix}
+  1 & -1 \\
+  0 & 1
+ \end{matrix} \right) .
+$$
+\end{proof}
+
+
+\begin{definition}
+Siguin $x$ i $y$ dos elements d'un grup $G$, definim el \textbf{commutador de la parella d'elements} com $[x,y]:=xyx^{-1}y^{-1}$. Observem que $[x,y]^{-1}=[y,x]$, i per tant, el producte finit de commutadors $[x,y]$ amb $x,y \in G$ formen un subgrup de $G$, el denotem per $[G,G]$ i s'anomena \textbf{subgrup commutador} de $G$. A més es compleix $z[x,y]z^{-1}=[zxz^{-1},zyz^{-1}]$ i per tant $[G,G]$ és un subgrup normal de $G$. Usant aquest fet podem definir el quocient 
+$$
+G_{\text{ab}} = G/[G,G],
+$$
+que s'anomena grup abelianitzat de $G$.
+\end{definition}
+
+\begin{prop}
+Donat un grup $G$, el grup abelianitzat $G_\text{ab}$ és abelià, de fet, és el quocient abelià maximal de $G$, \textit{i.e.}, si $H\vartriangleleft G$ i $G/H$ és abelià aleshores $H$ conté $[G,G]$. \footnote{De fet, el recíproc també és cert, [2] Proposició 9.2.}
+
+\end{prop}
+\begin{proof}
+La commutativitat del grup és deguda a 
+$$
+[x[G,G], y[G,G]] = [x,y][G,G] = [G,G].
+$$
+D'altra banda si $H\vartriangleleft G$ i $G/H$ és abelià, aleshores per a tot $x,y\in G$, $[x,y]H=[xH,yH]=H$ a $G/H$. Per tant $[G,G]\subseteq H$.
+\end{proof}
+
+\begin{obs}
+Les matrius elementals sobre un anell $R$ compleixen la propietat 
+\begin{eqnarray}
+e_{ik}(a)e_{kj}(b)e_{ik}(a)^{-1}e_{kj}(b)^{-1}&=&e_{ij}(ab),  \label{prodMatriusConvenient}
+\end{eqnarray}
+per a $i,j,k$ diferents entre si.
+\end{obs}
+
+\begin{prop}[Lema de Whitehead]
+Sigui $R$ un anell, 
+$$[GL(R),GL(R)] = [E(R),E(R)] = E(R).$$
+\end{prop}
+
+\begin{proof}
+En primer lloc observem que usant l'observació anterior tenim 
+$$
+e_{ij}(a)=[e_{ik}(a),e_{kj}(1)]
+$$
+per $i,j$ i $k$ diferents, i.e., cada generador de $E(R)$ és el commutador de dos elements generadors, per tant $[E(R),E(R)]=E(R)$ . \\ \indent D'altra banda, com que $E(R)\subseteq GL(R)$, $[E(R),E(R)] \subseteq [GL(R), GL(R)]$. Veiem ara el recíproc, siguin $A,  B \in GL(n,R)$. Podem incrustar $GL(n,R)$ a $GL(2n,R)$ i calcular
+$$
+\left( \begin{matrix}
+  ABA^{-1}B^{-1} & 0 \\
+  0 & 1
+ \end{matrix} \right) =  
+ \left( \begin{matrix}
+  AB & 0 \\
+  0 & B^{-1}A^{-1}
+ \end{matrix} \right)
+ %
+ \left( \begin{matrix}
+  A^{-1} & 0 \\
+  0 & A
+ \end{matrix} \right)
+%
+ \left( \begin{matrix}
+  B^{-1} & 0 \\
+  0 & B
+ \end{matrix} \right) 
+ $$
+Usant el Corol·lari \ref{matriuElemental}, totes les matrius del costat dret de la igualtat pertanyen a $E(2n,R)$, per tant 
+$$ABA^{-1}B^{-1}\in E(R)$$
+\end{proof}
+
+\begin{definition}
+Sigui $R$ un anell amb unitat, denotarem per $K_1(R)$ el \textbf{grup abelianitzat} $GL(R)_\text{ab}=GL(R)/E(R)$. 
+\end{definition}
+
+\begin{obs}
+Si $\varphi : R\rightarrow S$ és un homomorfisme d'anells $\varphi : R\rightarrow S$, indueix una aplicació al grup de matrius invertibles de $GL(R)$ a $GL(S)$, i aquest indueix un homomorfisme de $K_1(R)$ a $K_1(S)$. Per tant $R\rightsquigarrow K_1(R)$ és un functor entre la categoria d'anells a la de grups abelians.
+\end{obs}
+
+Podem identificar $K_1(R)$ com el grup de les formes canòniques, sota les transformacions elementals per files i columnes, de matrius invertibles sobre $R$. En particular, si $K_1(R)$ és trivial significa que tota matriu invertible pot ser reduïda per files i columnes a la matriu identitat.
+
+\begin{obs}
+Donades dues matrius invertibles sobre un anell $A,B\in GL(R)$, podem expressar el producte de les classes $[A],[B]\in R$ de la forma intuïtiva $[A]\cdot [B] = [AB]$, tanmateix aquest producte també es pot expressar com 
+$A\oplus B =
+ \left( \begin{matrix}
+  A & 0 \\
+  0 & B
+ \end{matrix} \right)
+$
+ja que aplicant el Corol·lari \ref{matriuElemental} sobre la igualtat
+$$
+\left( \begin{matrix}
+  A & 0 \\
+  0 & B
+ \end{matrix} \right) =  
+ \left( \begin{matrix}
+  AB & 0 \\
+  0 & 1
+ \end{matrix} \right)
+ %
+ \left( \begin{matrix}
+  B^{-1} & 0 \\
+  0 & B
+ \end{matrix} \right)
+ $$
+dóna lloc a la igualtat
+$$
+[A\oplus B] = [AB\oplus 1] = [AB]
+$$
+ \end{obs}
+
+\begin{prop} \label{K1Cartesian}
+Siguin $R_1$ i $R_2$ anells, aleshores 
+$$
+K_1(R)\cong K_1(R_1) \times K_2(R_2).
+$$
+\end{prop}
+\begin{proof}
+Observem que existeix un isomorfisme $GL(R_1\times R_2) \cong GL(R) \times GL(R_2)$ definit per $$((a_{ij},b_{ij})) \mapsto ((a_{ij}),(b_{ij})).$$ Aleshores
+$$
+e_{ij}((r,s)) \mapsto (e_{ij}(r_1),  e_{ij}(r_2)),
+$$
+i per tant l'isomorfisme envia $E(R_1\times R_2)$ a $E(R_1)\times E(R_2)$; a més $(e_{ij}(r_1),  e_{ij}(r_2))$ generen $E(R_1)\times E(R_2)$ i per tant hi ha un isomorfisme induït
+$$
+K_1(R_1\times R_2) \cong \frac{GL(R_1)\times GL(R_2)}{E(R_1)\times E(R_2)} \cong K_1(R_1) \times K_1(R_2)
+$$
+definit per 
+$$
+(a_{ij},b_{ij}) E(R_1\times R_2) \mapsto ((a_{ij})E(R_1), (b_{ij})E(R_2)).
+$$
+
+\end{proof}
+
+\begin{prop}[Invariància de Morita sobre $K_1$] Per a tot anell $R$
+$$
+K_1(R)\cong K_1(M_n(R)).
+$$
+\end{prop}
+\begin{proof}
+L'isomorfisme ve induït per l'isomorfisme $GL(R)\cong GL(M_n(R))$.
+\end{proof}
+ 
+En el cas que $R$ sigui commutatiu, el concepte de determinant està ben definit, a més, ens interessaran particularment les matrius amb determinant unitari.
+
+\begin{definition} Si $R$ és commutatiu, denotarem les matrius de $GL(n,R)$ amb determinant 1 per $SL(n,R)$, i a les de $GL(R)$ per $SL(R)$. Observem que tota matriu elemental té determinant $1$, i per tant té sentit definir el quocient $SL(R)/E(R)$ que el denotarem $SK_1(R)$. 
+\end{definition}
+
+\begin{obs}
+Si $R$ és un anell commutatiu, els homomorfismes
+\begin{eqnarray*}
+&\det: GL_n(R) \rightarrow R^x \\
+&\det: GL(R) \rightarrow R^x \\
+&\overline{\det}: K_1(R) \rightarrow R^x 
+\end{eqnarray*}
+tenen per núclis $SL_n(R)$, $SL(R)$ i $SK_1(R)$ respectivament.
+\end{obs}
+
+
+\begin{prop}
+Si $R$ és un anell commutatiu, existeix una successió exacta curta
+$$
+1 \rightarrow SK_1(R) \rightarrow K_1(R) \rightarrow R^x \rightarrow 1 
+$$
+
+A més, existeix un homomorfisme $s_1: R^x \rightarrow K_1(R)$ de forma que la succesió és escindida.
+
+\end{prop}
+
+\begin{proof}
+Observem que $\det(A\oplus 1) = \det(A)$, per tant els determinants de $GL(n,R)$ són compatibles amb les incrustacions de $GL(n,R)$ dins $GL(m,R)$ amb $n<m$. \\
+\indent Com que $\det(AB) = \det(A)\det(B)$, obtenim un homomorfisme $GL(R)\rightarrow R^x$ el qual ha de factoritzar a través de $GL(R)_\text{ab}$. Per tant el determinant i la incrustació $s:GL(1,R)\rightarrow R$ donen lloc a dues successions escindides: 
+\begin{center}
+\begin{tikzcd}
+    1\arrow{r} & SL(R) \arrow{r}{\subseteq} & GL(R)\arrow{r}{\det}\arrow{d}{\pi} & R^x\arrow{r}\arrow[equal]{d}\arrow[bend left=33]{l}{s} & 1 \\
+    1\arrow{r} & SK_1(R)\arrow{r}{\subseteq} & K_1(R)\arrow{r}{\overline{\det}} & R^x\arrow{r}\arrow[bend left=33]{l}{\overline{s}} & 1
+\end{tikzcd}
+\end{center}
+\end{proof}
+
+
+\begin{cor}
+Sigui $R$ un anell commutatiu. Si $SK_1(R)$ és trivial, $\det : K_1(R) \rightarrow R^\times$ és un isomorfisme.
+\end{cor}
+
+\section{El cas d'un cos}
+\begin{prop} \label{K1Cos}
+Si $F$ és un cos, aleshores $SK_1(F)$ és trivial. És a dir, el determinant indueix un isomorfisme $\det : K_1(F)\rightarrow F^\times$.
+\end{prop}
+
+\begin{proof}
+La prova consisteix en explicitar un procés en el que tota matriu $A\in SL(n,F)$ sigui transformada a la matriu identitat usant transformacions elementals de $E(R)$. \\
+\indent Si l'entrada de la posició $(1,1)$ de la matriu $A$ és diferent de zero podem procedir al següent pas, si és nul·la necessitem col·locar un element no nul en aquesta posició. Sabem que a la primera fila de la matriu $A$ ha d'existir un element no nul (ja que és invertible), suposem sense pèrdua de generalitat que $a_{i1}\neq 0$. Aleshores multiplicant $A$ per $e_{1i}(1)e_{i1}(-1)e_{1i}(1)$ forcem que la matriu resultant tingui un element no nul a la posició $(1,1)$.
+\\
+\indent Per tant podem assumir que $a_{11} \neq 0$. Sumant la primera fila multiplicada per  $-a_{i1}a_{11}^{-1}$ a la fila $i$-èssima $(i=2 \dots n)$, podem forçar que la primera columna de la matriu $A$ tingui zeros a totes les entrades excepte la primera. \\
+Així doncs estem en el cas reduït en que $A$ és de la forma 
+$
+ \left( \begin{matrix}
+  a_{11} & * \\
+  0 & A'
+ \end{matrix} \right)
+ $
+on $A'$ és una matriu $(n-1)\times (n-1)$ i $\det(A)=a_{11}\det(A')$. Repetint el mateix procediment per $A'$ obtenim 
+$$
+ \left( \begin{matrix}
+  a_{11} & * & * \\
+  0 & a_{22} & * \\
+  0 & 0 & A''
+ \end{matrix} \right)
+ $$
+ on $A''$ és una matriu $(n-2)\times (n-2)$. Repetint el procés per inducció tenim que $A$ pot ser transformada a una matriu invertible triangular-superior. \\
+\indent Donada una matriu triangular superior $A$ si afegim múltiples de la darrera fila a les altres podem forçar zeros a tots els elements de la darrera columna excepte $a_{nn}$, similarment afegint múltiples de la fila $(n-1)$ a les altres files podem forçar zeros a totes les entrades de la columna $(n-1)$ excepte $a_{n-1,n-1}$. Continuant per inducció podem reduir mitjançant transformacions elementals la matriu $A$ en una matriu diagonal invertible $D$, amb determinant 1. \\
+\indent Usant el Corol·lari \ref{matriuElemental} tenim que la matriu 
+$$
+\text{diag}(1,\dots , 1 , a, a^{-1} , 1, \dots 1),
+$$
+on $a\in R$, és una matriu elemental, multiplicant tantes vegades com sigui necessari (com a molt $n-1$ vegades) per aquest tipus de matrius transformem qualsevol matriu diagonal amb determinant 1 a la identitat.
+\\
+\indent Amb el mateix procediment si en lloc de prendre $A\in SL(n,F)$ prenem $A\in GL(n,F)$ tenim que tota matriu invertible es pot transformar en una matriu de la forma $\text{diag}(a,\dots , 1, \dots 1)$ mitjançant transformacions elementals.
+\end{proof}
+
+\section{El cas dels anells de divisió}
+
+El problema que neix al intentar estendre el resultat de cossos a anells de divisió rau en que el determinant no està ben definit si $R$ no és commutatiu.
+
+\begin{prop}
+Si $R$ és un anell de divisió, la inclusió 
+$$
+R^x \rightarrow GL(1,R) \hookrightarrow GL(R)
+$$ 
+idueix una aplicació exhaustiva $R^x_{ab} \twoheadrightarrow K_1(R)$.
+\end{prop}
+
+\begin{proof}
+Usant el procediment de la prova anterior tenim que tota matriu $GL(n,R)$ pot ser transformada a partir de transformacions elementals per files en una matriu diagonal de la forma $\text{diag}(a,1,\dots,1)$. En altres paraules, pot ser transformada a la imatge de $GL(1,R)$ dins $GL(n,R)$. Com que $K_1(R)$ és abelià, l'aplicació exhaustiva $R^x \twoheadrightarrow K_1(R)$ factoritza a través de $R^x_{\text{ab}}=R^x/[R^x,R^x]$.
+\end{proof}
+
+\section{El cas dels anells locals}
+\begin{prop}\label{provaInvertibleFila}
+Si $R$ és un anell local (no necessàriament commutatiu), la inclusió $R^x = GL(1,R) \hookrightarrow GL(R)$ indueix una aplicació exhaustiva $R^x_{\text{ab}}\rightarrow K_1(R)$.
+\end{prop}
+
+\begin{proof}
+A la prova anterior només usàvem que $R$ es un anell de divisió al requerir que totes les files d'una matriu $A=(a_{ij})\in GL(n,R)$ hagin de contenir almenys un element invertible, en el cas dels anells locals aquesta propietat no és trivial. Tanmateix es segueix complint, ja que si la fila $i$-èssima d'una matriu $A\in GL(n,R)$ té una fila on totes les seves entrades són elements no invertibles (\textit{i.e.}, pertanyen a l'ideal $\rad R$), per a tota matriu $B\in GL(n,R)$ es compleix que totes les entrades de la fila $i$-èssima de la matriu $AB$ són elements no invertibles, i per tant $A$ no pot ser invertible, en contradicció amb el fet que $A\in GL(n,R)$.
+\end{proof}
+
+\begin{theorem}\label{bigOne}
+Sigui $R$ un anell local no necessàriament commutatiu, aleshores existeix una única aplicació "determinant":  $GL(R)\rightarrow R^x_{\text{ab}}$ amb les següents propietats:
+\begin{enumerate}[a)]
+\item El determinant és invariant sota operacions elementals per files, en altres paraules, si $A\in GL(n,R)$ i $A'$ és la matriu resultant de $A$ a través d'afegir un múltiple per l'esquerra d'una fila a una altra, aleshores $\det (A')=\det \ (A)$.
+\item El determinant de la matriu identitat és 1.
+\item Si $A\in GL(n,R)$, $a\in R^x$, i $A'$ és la matriu obtinguda a partir de multiplicar per $a$ una de les files de $A$,  aleshores $(\overline{a})(\det A)$, on $\overline{a}$ és la imatge de $a$ a $R^x_{ab}$.
+\item Si $A,B\in GL(n,R)$, aleshores $\det(AB) = (\det A) (\det B)$.
+\item Si $A\in GL(n,R)$ i si $A'$ es obtingut a partir de $A$ intercanviant dues files, aleshores $\det A' = (-{\overline{1}})(\det A)$.
+\item El determinant d'una matriu i la seva transposta sempre és el mateix.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+\indent La prova consisteix en diferents parts, començarem per demostrar la unicitat. 
+Després veurem que (d-f) són conseqüència de (a-c), i finalment definirem per inducció sobre $n$ l'aplicació determinant, veurem que està ben definida i que compleix (a-c) per a tot $n$, també veurem que el determinant és compatible amb la incrustació de $GL(n,R)$ a $GL(R)$. \\
+\indent Així doncs comencem veient la unicitat, usant la prova de la Proposició  \ref{provaInvertibleFila} tenim que tota matriu de $GL(n,R)$ es pot diagonalitzar a través de transformacions elementals per files a una matriu de la forma $\text{diag}(a,1,\dots,1)$. Aleshores, usant (a) tenim que $$\det{A} = \det{ \left(\text{diag}(a,1,\dots,1)\right)},$$
+a més, usant (b) i (c) respectivament tenim 
+$$\text{diag}(a,1,\dots,1) = \overline{a}\det{1} = \overline{a}.
+$$ Per tant les propietats (a)-(c) assignen el valor del determinant. \\
+\indent Veiem (d) com a conseqüència de (a-c), sigui $E\in E(n,R)$ la matriu elemental tal que $EA=\text{diag}(a,1,\dots ,1)$, aleshores per (a) tenim que $\det(A)=\overline{a}$. D'altra banda si també usem (c) tenim
+$$
+\det{AB}=\det{((EA)B)} = \overline{a}(\det{B})=(\det{A})(\det{B})
+$$
+la qual cosa prova (d). Per a veure (e) observem que per a tota matriu invertible $A\in GL(n,R)$ amb $i<j\leq n$, la permutació entre les files i-j es pot fer a partir de multiplicar per la matriu elemental $e_{ij}(1)e_{ji}(-1)e_{ij}(1)$ i després multiplicar la fila i-èssima per $-1$. Per tant (e) és conseqüència de (a) i (c). Per a veure (f), en primer lloc observem que usant (b) i (a) tenim que les matrius elementals tenen determinant 1, i usant (d) tenim que tota matriu de $E(R)$ té determinant 1. D'altra banda considera l'aplicació $\det':A\mapsto \det{(A^t)}$; aquesta aplicació clarament compleix (b), a més, la transposada d'una matriu elemental és elemental, i per tant $\det'$ sobre les matrius elementals també és 1. Com que $\det ' $ pren valors sobre el grup abelianitzat, tenim que 
+$$
+\text{det'}(AB)=\det((AB)^t)=\det(B^tA^t) = \det(B^t)\det(A^t)= \text{det'}(B)\text{det'}(A) = \text{det'}(A)\text{det'}(B),
+$$
+i per tant (d) es compleix sobre $\det '$ i en particular tota matriu de $E(R)$ té determinant 1.
+$$
+\det (\text{diag}(1,\dots , 1 , a,1,\dots , 1))= \overline{a}
+$$
+Aleshores, com que $\det '$ val 1 sobre $E(R)$ i $\overline{a}$ sobre $\text{diag}(1,\dots , 1 , a,1,\dots , 1)$ tenim que $\det '$ compleix les propietats (a) i (c). Usant la unicitat de l'aplicació determinant tenim que $\det'=\det$, provant (f).
+
+\indent Ara definirem el determinant $\det_n(A)$ per $A\in GL(n,R)$ per inducció sobre $n$, de tal manera que $\det_{n+m}(A\oplus 1_m) = \det_n A$, i per tant puguem estendre la definició a $GL(R)$.\\
+Si $n=1$ definim $\det a := \overline{a}$, clarament es compleixen les propietats (a)-(c), suposem ara per hipòtesi d'inducció que el determinant $\det_k$ existeix per a $k<n$ de tal manera que es segueixin complint les propietats (a)-(c). Hem de veure que $\det_k$ està definit i compleix les propietats (a)-(c). \\
+Sigui $A\in GL(n,R)$, denotarem les files de $A$ per $A_1 , \dots , A_n$, també denotarem per $b_1 ,\dots , b_n$ a les entrades de la primera fila de la matriu $A^{-1}$. Aleshores com que $A^{-1}A=1_n$ tenim la següent relació 
+$$
+b_1A_1 + \dots + b_n A_n = (1 \ 0 \dots 0).
+$$
+En particular, si denotem $A_j=(a_{j1} Bj)$, on $B_j\in R^{n-1}$, aleshores $\sum_{j}b_jB_j=0$. \\
+Pel mateix argument usat a la prova de la Proposició \ref{provaInvertibleFila} no pot passar que la primera fila de $A^{-1}$ no tingui cap element invertible; suposem sense pèrdua de generalitat que $i$ és la posició on hi ha un d'aquests elements invertibles i aleshores es compleix
+$$
+b_i^{-1}b_1B_1+\dots +b_{i}^{-1}b_{i-1}B_{i-1}+B_i+b_{i}^{-1}b_{i+1}B_{i+1}+\dots + b_i^{-1}b_nB_n = 0.
+$$
+Per tant afegint múltiples de les altres files a $A_i$ i usant la propietat:
+$$
+a_{i1}+\sum_{j\neq i} b_i^{-1}b_ja_{j1} = b_i^{-1}\sum_j b_ja_{j1}=b_i^{-1}
+$$
+podem reduir per files la matriu $A$ a la següent forma:
+$$
+ \left( \begin{matrix}
+  a_{11} & B_1  \\
+  \vdots & \vdots \\
+  a_{i-1,1} & B_{i-1} \\
+  b_i^{-1} & 0 \\
+  a_{i+1,1} & B_{i+1} \\
+  \vdots & \vdots \\
+  a_{nn} & B_n
+ \end{matrix} \right)
+ $$
+aleshores prenem com a definició 
+\begin{equation} \label{determinantDef}
+\text{det}_n(A):=(-1)^{i-1}\overbar{b}^{-1}_i \text{det}_{n-1} \left( \begin{matrix}
+  B_1  \\
+  \vdots \\
+  \hat{B_i} \\
+  \vdots \\
+  B_n 
+ \end{matrix} \right)
+ \end{equation}
+ Cal veure que està ben definit, és a dir hem de veure que el determinant és independent de l'elecció de l'element invertible de la primera fila de $A^{-1}$ que usem per a crear una fila de zeros, i.e.,
+ \begin{equation} \label{determinant}
+ (-1)^i \overbar{b}^{-1}_i \text{det}_{n-1} C_i \stackrel{?}{=} (-1)^j \overbar{b_j}^{-1} \text{det}_{n-1}C_j,
+ \end{equation}
+ 
+ on 
+ $$
+ C_i = \left( \begin{matrix}
+  B_1  \\
+  \vdots \\
+  \hat{B_i} \\
+  \vdots \\
+  B_n 
+ \end{matrix} \right),
+ C_j=\left( \begin{matrix}
+  B_1  \\
+  \vdots \\
+  \hat{B_j} \\
+  \vdots \\
+  B_n 
+ \end{matrix} \right)
+ $$
+Observem que a partir de $C_i$ podem obtenir la matriu $C_j$ aplicant permutacions per files i després canviar $B_j$ per $B_i$. El procediment per a realitzar aquestes transformacions consten en permutar les files $(B_{i+1},\dots , B_j)$, i.e., requereix un total de $j-i-1$ canvis de files, que dóna lloc a la següent matriu
+ $$
+ C=\left( \begin{matrix}
+  B_1  \\
+  \vdots \\
+  B_{i-1} \\
+  B_j \\
+  B_{i+1}\\
+  \vdots \\
+  \hat{B_j}\\
+  \vdots \\
+  B_n 
+ \end{matrix} \right).
+ $$
+Usant el fet que $B_i=-b_i^{-1}b_jB_j$+ (una combinació lineal de files) i aplicant les propietats (a) i (c) de la hipòtesi d'inducció tenim per una banda que 
+$$\text{det}_{n-1}C_j=-\bar{b_i}^{-1}\bar{b_j}\text{det}_{n-1}C$$
+ i per l'altra
+ $$\text{det}_{n-1}C = (-1)^{j-i-1} \det_{n-1}C_i.$$
+Aleshores usant aquests dos darrers resultats es comprova que (\ref{determinant}) es satisfà, i per tant el determinant està ben definit. \\
+\indent Falta veure que el $\det_n$ compleix les propietats (a)-(c). Per començar, (b) és certa per definició, per a veure (a) suposem que $A'$ és friut d'una transformació elemental per files de la matriu $A$, i.e.,  té per files $A'_1 , \dots , A'_n$ amb $A'_j = A_j$ si $j\neq i$ i $A'_i=a_i+aA_k$, on $a\in R^x$ i $i\neq k$. Aleshores existeix una matriu elemental tal que $A' = e_{ik}(a)A$, per tant $(A')^{-1} = A^{-1}e_{ik}(-a)$ i en particular els elements $b_1' , \dots b_n'$ de la primera fila de $(A')^{-1}$ són els mateixos que $b_1 , \dots , b_n$ excepte per $b'_k = b_k - b_i a$. Si $b_j\in R^x$ per algun $j\neq k$ aleshores tenim
+ $$
+ \text{det}_n \ A' = (-1)^{j-1}\bar{b}_j^{-1}\text{det}_{n-1}\left( \begin{matrix}
+  B_1  \\
+  \vdots \\
+  B_{i-1} \\
+  B_i + aB_k \\
+  B_{i+1}\\
+  \vdots \\
+  \hat{B_j} \\
+  \vdots \\
+  B_n 
+ \end{matrix} \right)
+ $$
+i aplicant (a) per a $\det_{n-1}$ tenim $\det_n A' = \det_n A$. Falta considerar el cas en què $b_k$ i $b_k'=b_k - b_i a$ són ambdós invertibles i $b_i \in \rad R$ per $i\neq k$. En aquest cas
+$$
+\text{det}_n \ A' = (-1)^{k-1} \bar{b}_k^{-1}\text{det}_{n-1} \left(\begin{matrix}
+  B_1  \\
+  \vdots \\
+  \hat{B_k} \\
+  \vdots \\
+  B_n 
+ \end{matrix} \right),
+$$
+com que $\bar{b'_k}=\bar{b_k}$ (ja que $b_ia\in \rad R$), i per tant $\det_n A' = \det_n A$.\\
+ \indent Així doncs hem comprovat que (a) es compleix, veiem ara (c), sigui $A'$ la matriu resultant de multiplicar la fila $A_i$ de $A$ per $a\in R$, i.e., $A'$ és la matriu que té per files $A'_1,\dots, A'_n$ amb $A'_j=A_j$ per a tot $j\neq i$ i $A'_i=aA_i$ per a $a\in R^\times$. Aleshores existeix una matriu diagonal $d_i(a)$ formada per 1's a la diagonal excepte a la posició $(i,i)$ que té per valor $a$, tal que $A'=d_i(a)A$. Per tant $A^{-1}=A^{-1}d_i(a^{-1})$ i en particular els elements $b_1,\dots , b_n$ de la primera fila de $A^{-1}$ són els mateixos que $b_1\dots b_n$ excepte per $b_i = b_i a^{-1}$. Així doncs tenim de nou dos casos a considerar. \\
+ Si $b_j \in R^x$ per $j\neq i$, aleshores tenim
+ $$
+ \det_n \ A' = (-1)^{j-1}\bar{b_j}^{-1} \text{det}_{n-1}
+ \left(\begin{matrix}
+  B_1  \\
+  \vdots \\
+ {B_{i-1}} \\
+  {aB_{i}} \\
+   {B_{i+1}} \\
+  \vdots \\
+  \hat{B_j} \\
+  \vdots \\
+  B_n 
+ \end{matrix} \right),
+ $$
+i aplicant (c) per $\det_{n-1}$, tenim que $\det_n A' =\overline{a} \det_n A$. Falta doncs considerar el cas en que $b_i$ és invertible i tots els altres $b_j$ no ho són, i.e., $b_j \in \rad R$ per $j\neq I$, en aquest com que $\bar{b'}_i=\bar{b}_i\bar{a}^{-1}$ tenim
+
+$$
+ \text{det}_n \ A' = (-1)^{j-1}(\overline{b'_ja^{-1}})^{-1} \text{det}_{n-1}
+ \left(\begin{matrix}
+  B_1  \\
+  \vdots \\
+  \hat{B_{i}} \\
+  \vdots \\
+  B_n 
+ \end{matrix} \right)
+ =
+  (-1)^{j-1}(\overline{b_j'})^{-1} \text{det}_{n-1}
+ \left(\begin{matrix}
+  B_1  \\
+  \vdots \\
+  \hat{B_{i}} \\
+  \vdots \\
+  B_n 
+ \end{matrix} \right)
+ =\text{det}_n \ A
+$$
+ i per tant (c) es compleix. \\
+ \indent Per acabar la prova, observem que una matriu de la forma $B\oplus 1$ pot ser transformada a $1\oplus B$ a partir de $2(n-1)$ permutacions per files i columnes, amb $B\in GL(n-1,R)$. Usant (e) tenim que $\det_n(B\oplus 1) = \det_n(1\oplus B) = \det_{n-1}B$.
+\end{proof}
+
+\begin{corollary}\label{mainCorollary}
+Si $R$ és un anell local, no necessàriament commutatiu, aleshores el determinant definit al Teorema \ref{bigOne} indueix un isomorfisme
+$$
+K_1(R)\cong R^\times_{\text{ab}}
+$$
+\end{corollary}
+
+\begin{proof}
+El resultat és conseqüència de la Proposició \ref{provaInvertibleFila} i el Teorema \ref{bigOne}, ja que 
+$$
+GL(1,R)\hookrightarrow GL(R) \overset{{\det}}{ \twoheadrightarrow } R^\times_{\text{ab}}
+$$ 
+és l'aplicació quocient $R^\times \twoheadrightarrow R^\times_\text{ab}$.
+\end{proof}
+
+Ara veurem exemples de càlcul del grup $K_1$.
+
+\begin{prop}Per a tot $m>0$  \label{K1Zm}
+$$
+K_1(\mathbb{Z}/(m)) \cong \left(\frac{\mathbb{Z}}{p_1^{k_1}\mathbb{Z}}\right)^\times \times \dots \times \left(\frac{\mathbb{Z}}{p_n^{k_n}\mathbb{Z}}\right) ^ \times ,
+$$
+on els $p_i$ són fruit de la descomposició en producte de factors primers de $m$ usant el Teorema xinès del residu.
+\end{prop}
+\begin{proof}
+Usant el Teorema xinès del residu tenim que 
+$$
+\frac{\mathbb{Z}}{m\mathbb{Z}} \cong \frac{\mathbb{Z}}{p_1^{k_1}\mathbb{Z}}\times \dots \times \frac{\mathbb{Z}}{p_n^{k_n}\mathbb{Z}}
+$$
+Aleshores usant la Prosposició \ref{K1Cartesian} obtenim
+$$
+K_1(\mathbb{Z}/(m)) \cong K_1(\mathbb{Z}/p_1^{k_1}) \times \dots \times K_1(\mathbb{Z}/p_m^{k_m})
+$$
+Usant la proposició \ref{Zp} tenim que $\mathbb{Z}/m\mathbb{Z}$ descompon en producte cartesià d'anells locals, a més són abelians, i per tant aplicant el Corol·lari \ref{mainCorollary} tenim que 
+$$
+K_1(\mathbb{Z}/(m)) \cong \left(\frac{\mathbb{Z}}{p_1^{k_1}\mathbb{Z}}\right)^\times \times \dots \times \left(\frac{\mathbb{Z}}{p_n^{k_n}\mathbb{Z}}\right) ^ \times
+$$
+\end{proof}
+
+\indent Veiem ara un altre exemple d'anell local i calculem el seu grup $K_1$.
+
+\begin{prop}
+$$
+K_1(K[x]/(x^n)) \cong \{a_1y+\dots + a_{n-1}y^{n-1} \in K[x] ; y = x + (x^n) \}
+$$
+\end{prop}
+\begin{proof}
+Conseqüència dels Corol·laris \ref{mainCorollary},  \ref{K[x]local} i del fet que $K[x]/(x^n)$ és abelià ja que $K$ és un cos.
+\end{proof}
+
+\section{El cas dels Quaternions}
+L'objectiu d'aquesta secció és calcular $K_1(\mathbb{H})$. Començarem per a definir els quaternions, descriure les propietats fonamentals i en particular la norma de quaternions. 
+\\ \indent Després introduirem el concepte de matriu unitària i el grup $SU(2)$ per a veure que $\ker N = [\mathbb{H},\mathbb{H}]$ (on $N$ és la norma dels quaternions), aquest resultat ens permetrà deduir per factorització de $N$ que $\mathbb{H}^\times_\text{ab}\cong \mathbb{R}^\times_+$. \\
+\indent Finalment, observarem que amb els resultats ja introduïts podríem computar $K_1(\mathbb{H})$, no obstant introduirem el determinant de Dieudonné, que ens permetrà computar $K_1$ a través del fet que les matrius elementals sobre els quaternions $E(\mathbb{H})$ són exactament el grup de matrius (invertibles) amb determinant 1.
+ 
+\begin{definition}
+L'àlgebra dels \textbf{quaternions} $\mathbb{H}$ és un espai vectorial real de dimensió quatre amb base $1,i,j,k$:
+$$
+\mathbb{H}=\mathbb{R}1\oplus \mathbb{R}i \oplus \mathbb{R} j \oplus \mathbb{R}k
+$$
+on el producte compleix les relacions:
+$$
+ij=k,\ jk=i, \ ki=j, \ i^2=j^2=k^2=-1.
+$$
+En particular, $\mathbb{H}$ no és un cos, tot i que només falla la commutativitat, per exemple
+$$
+ij=k\neq ji=-k
+$$
+Donat un quaternió $z=(a+bi+cj+dk)\in  \mathbb{H}$ definim el seu \textbf{conjugat} com
+$$
+\overline{z}=a-bi-cj-dk,
+$$
+Per tant, podem caracteritzar els reals com $\mathbb{R}=\{q\in \mathbb{H}: \overline{q}=q\}$, definim la \textbf{part real} d'un quaternió per $\text{Re}(z)=z-\overline{z}$. En interessaran en particular els quaternions amb part real nul·la, que anomenarem \textbf{quaternions purs}. Ens interessa el fet que tot quaternió pot ser escrit com a producte de dos quaternions purs, els conjunt dels quaternions purs formen el conjunt 
+$$\{z\in \mathbb{H} : \text{Re}(z)=0\}=\{z\in \mathbb{H} : z=bi+cj+dk \ \forall b,c,d\in \mathbb{R}\}\cong \mathbb{R}^3$$
+La conjugació compleix que per a tot $p,q\in \mathbb{H}$
+$$
+\overline{pq}=\overline{q}\overline{p}.
+$$
+
+
+Una aplicació que prendrà rellevància és la \textbf{norma} $N(z)=z\overline{z}\in \mathbb{R}$, es comprova que $N(z)=a^2+b^2+c^2+d^2$, per tant $N(z)\geq 0$ on la igualtat es compleix  si i només si $z=0$. Es pot comprovar que per a tot $p,q\in \mathbb{H}$
+$$
+N(pq)=N(p)N(q)
+$$
+Per a tot $z\in \mathbb{H}\setminus \{0\}$ tenim que $N(z)^{-1}\overline{z}$ és el seu invers, i.e., $\mathbb{H}^\times=\mathbb{H}-\{ 0 \}$, així doncs $\mathbb{H}$ no és un cos però és un anell de divisió.\\
+La norma $$N:\mathbb{H}\rightarrow R^x_+$$ és un homomorfisme del grup $\mathbb{H}^\times$ al grup $\mathbb{R}_+^\times$, prenen ambdós casos el producte com a operació. \\
+A més
+\begin{equation*}
+\ker N = \{ q\in \mathbb{H}^\times : z\overline{z}=1 \} = \{z \in \mathbb{H} : a^2+b^2+c^2+d^2=1\},
+\end{equation*}
+podem identificar $\ker N$ amb $S^3\subset \mathbb{R}^4$, per tant existeix una successió exacta curta:
+\begin{equation}\label{commutador}
+1 \rightarrow S^3 \hookrightarrow \mathbb{H^\times} \twoheadrightarrow \mathbb{R}_+^\times \rightarrow 1
+\end{equation}
+
+\end{definition}
+A partir de (\ref{commutador}) tenim que $[\mathbb{H}^\times,\mathbb{H}^\times]\subset \ker N$, volem veure l'altra inclusió, és a dir, volem veure que el commutador de $\mathbb{H}^\times$ és exactament $\ker N$. En veure aquest fet tindrem que $\mathbb{H}_{ab}^x\cong \mathbb{R}^\times_+$
+\begin{definition}
+Diem que una matriu $U \in M_n(\mathbb{C})$ és \textbf{unitària} si $$U^*U = UU^*=I$$
+on $I$ és la matriu identitat i $U^*$ és la transposada conjugada de $U$, i.e, la matriu resultant de la transposició i de la conjugació de totes les entrades.\\ 
+\indent Anomenem \textbf{grup unitari} $U(n)$ a el grup de les matrius invertibles unitàries $n\times n$ amb entrades sobre $\mathbb{C}$, similarment definim el \textbf{grup unitari especial} $SU(n)$ el grup de les matrius invertibles unitàries amb determinant 1.  \\
+Observem que $$SU(n)\subset U(n)\subset GL(n,\mathbb{C})$$
+\end{definition}
+
+%http://isites.harvard.edu/fs/docs/icb.topic731509.files/Homework_4_Benjamin_Dozier_Solutions.pdf
+\begin{lemma}\label{asdf1}
+Si $A\in SU(2)$, existeix una matriu diagonal $D\in SU(2)$ i una matriu unitària $U\in SU(2)$ tal que $D=USU^*$.
+\end{lemma}
+\begin{proof}
+Aplicant el Teorema espectral tenim que tota matriu $A\in SU(2)$ és conjugada d'una matriu diagonal $D\in SU(2)$ per a una matriu unitària $U$, i.e., $D=USU^*$. Hem de veure que aquesta $U$ pot ser escollida de forma que tingui determinant 1. \\
+Com que $U$ és unitària tenim que $UU^*=I$, per tant $$1=\det(UU^*)=\det(U)\det(U^*).$$
+Com que el determinant és el producte dels valors propis, i al prendre el conjugat de la transposada transformem els valors propis als seus transposats, tenim que si $\det(U) = u$ aleshores $\det(U^*)=\overline{u}$. Per tant $u\overline{u}=1$. 
+Observem que la matriu $V:=\overbar{\sqrt{u}} U$ compleix
+$$
+\det(V)=\overline{u} \det (U) = u\overline{u} = 1
+$$ 
+i per tant tenim $D'=VSV^*$ on la diferència entre $D$ i $D'$ és el producte per un escalar.
+\end{proof}
+
+\begin{lemma}\label{s3su2}
+Hi ha una correspondència bijectiva entre $S^3$ i $SU(2)$.
+\end{lemma}
+\begin{proof}
+En primer lloc observem que per a tota   $A\in SU(2)$, tenim $\det(A)=1$ i $A^*A=I$, i per tant $A$ ha de ser de la forma
+$$
+A=\left( \begin{matrix}
+  a+ib & c+id \\
+  -c+id & a-ib
+ \end{matrix} \right)
+$$
+Considera el homomorfisme $\varphi: S^3 \rightarrow \mathbb{H}$ definit per
+$$z=(a+bi+cj+dk) \mapsto
+\left( \begin{matrix}
+  a+ib & c+id \\
+  -c+id & a-ib
+ \end{matrix} \right) = \varphi(z)
+$$
+Observem que per a tot $z\in S^3$ tenim que $a^2+b^2+c^2+d^2=1$, per tant $\det (\varphi(z))=1$, a més aquesta aplicació té una inversa definida per 
+$$
+\left( \begin{matrix}
+  a+ib & c+id \\
+  -c+id & a-ib
+ \end{matrix} \right)
+ \mapsto 
+ a+ib+(c+id)j
+$$
+ a més es pot comprovar que és un homomorfisme de grups, on el producte de $S^3$ és l'heretat de $\mathbb{H}$.
+\end{proof}
+\begin{prop}
+$S^3 \cong [\mathbb{H}^\times, \mathbb{H}^\times]$.
+\end{prop}
+\begin{proof}\label{espectral}
+Gràcies a (\ref{commutador}) tenim que $[\mathbb{H}^\times,\mathbb{H}^\times]\subset S^3$. Hem de veure l'altra inclusió.
+Usant la correspondència bijectiva entre $S^3$ i $SU(2)$ tenim que per a tot $s\in S^3$ podem enviar-lo a $SU(2)$ usant l' isomorfisme $\varphi$ definit al Lema \ref{s3su2}. Com que $\varphi(s)\in SU(2)$, usant el Lema \ref{asdf1} tenim que existeix una matriu $U\in SU(2)$ tal que $\varphi(s)=UDU^*$, on $D$ és una matriu diagonal. Com que   $D\in SU(2)$ tenim que ha de ser de la forma
+$$
+D=\left( \begin{matrix}
+  e^{i\theta} & 0 \\
+  0 & e^{-i\theta}
+ \end{matrix} \right).	
+$$
+ Aleshores aplicant l'antiimatge a $\varphi(s)$ tenim que
+ $$
+ s=\varphi^{-1}(\varphi(s))=\varphi^{-1}(UDU^*)=\varphi^{-1}(U)\varphi^{-1}(D)\varphi^{-1}(U^{-1})=xyx^{-1},
+ $$
+ on $x\in \mathbb{H}$ i $y\in \mathbb{C}\subset \mathbb{H}$. Com que $y\in \mathbb{C}$ podem trobar un $w\in \mathbb{C}$ tal que $y=w^2$. Usant el fet que tot quaternió es pot expressar com a producte de dos quaternions purs, tenim que existeixen $p,q\in S^3$ quaternions purs tals que $pq=w$, podem imposar que $|p|=|q|=1$, a més, al ser quaternions purs han de complir $p^{-1}=-p$ i $q^{-1}=-q$. Aleshores
+ $$
+ s= xpqpqx^{-1}=xpq(-p)(-q)x^{-1}=xpqp^{-1}q^{-1}x^{-1} = (xpx^{-1})(xqx^{-1})(xpx^{-1})^{-1}(xqx^{-1})^{-1}.
+ $$
+ 
+\end{proof}
+
+
+
+
+
+\begin{figure}[!htb]
+    \centering
+    \begin{minipage}{.66\textwidth}
+        \begin{cor} \label{HR}
+$\mathbb{H_\text{ab}^\times}\cong \mathbb{R}^\times_+$
+\end{cor}
+\begin{proof}
+Observem que $\ker N = [\mathbb{H},\mathbb{H}]$, alehores la norma estesa a l'abelianitzat $\mathbb{H}_\text{ab}^\times=\mathbb{H^\times}/[\mathbb{H}^\times,\mathbb{H}^\times] \rightarrow \mathbb{R}^\times_+$ ha de ser un isomorfisme.
+\end{proof}
+        
+    \end{minipage}%
+    \begin{minipage}{0.33\textwidth}
+    \hspace{1cm}
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
+  {
+     \mathbb{H}^\times & \mathbb{R^\times_+} \\
+     \mathbb{H}_\text{ab}^\times &  \\};
+  \path[-stealth]
+  	(m-1-1.east|-m-1-2) edge node [below] {$N$}
+            node [above] {} (m-1-2)
+	(m-1-1) edge node [right] {$i$} (m-2-1)
+	(m-2-1) edge node [left] {} (m-1-2);
+    %edge [dashed,-] (m-2-1);
+	\end{tikzpicture}
+    \end{minipage}
+\end{figure}
+
+Introduirem ara el determinant de Dieudonné, notem però que usant el Corol·lari \ref{mainCorollary}, ja tenim que $K_1(\mathbb{H})\cong \mathbb{R}^\times_+$.
+
+\begin{definition}Per a tot $a\in \mathbb{H}^\times$ denotem $D(a,n)$ a la matriu invertible $n\times n$ la qual té totes les entrades iguals que la matriu identitat excepte l'entrada que ocupa la posició $(n,n)$ que té per valor $a$. Observem que 
+$$
+D(a)D(b)=D(ab)
+$$
+per a tot $a,b\in \mathbb{H}^\times$.
+\end{definition}
+\begin{theorem}\label{BD}
+Tota matriu invertible $A$ es pot expressar de la forma $B\cdot D(\mu)$, on $B\in E(\mathbb{H})$ i $\mu \neq 0$.
+\end{theorem}
+\begin{proof}
+La prova consisteix en aplicar transformacions elementals, segueix un procediment semblant a la prova de la Proposició \ref{K1Cos}, tots els detalls de la prova explícita es troben a [4] Teorema 4.1. 
+\end{proof}
+\begin{definition}
+El \textbf{determinant de Dieudonné} és una aplicació 
+$$
+\det: GL(\mathbb{H})\rightarrow \mathbb{H}^\times_\text{ab},
+$$
+definit a partir del Teorema anterior, $A = BD(\mu) \mapsto \overline{\mu}$. \\
+\indent A [4] s'explicita com el determinant de Dieudonné compleix (a-c) (i per tant també compleix (d-e) del Teorema \ref{bigOne} i per tant és la mateixa aplicació determinant que la descrita al Teorema \ref{bigOne}. \\
+\indent Observem que el determinant de Dieudonné pren valors sobre els reals positius, de fet es comporta com el valor absolut del determinant usual de matrius reals o complexes des de tots els punts de vista (algebraic i analític).
+\end{definition}
+\begin{obs}
+Observem que a $\mathbb{H}^\times_\text{ab}$ tenim que 
+$$
+\overline{ab}=\overline{a}\overline{b}=\overline{b}\overline{a}=\overline{ba}
+$$
+en particular, $\overline{1}=\overline{-1}$.
+
+\end{obs}
+\begin{theorem}
+Si $a,b\in \mathbb{H}^\times$ i $c=aba^{-1}b^{-1}$, aleshores $D(c)$ és unimodal si $n\geq 2$.
+\end{theorem}
+
+\begin{proof}
+Aquest Teorema de fet diu que si $$\overline{c}=1\in \mathbb{H}^\times_\text{ab},$$ aleshores $\det (D(c))=\overline{1}\in \mathbb{H}^\times_\text{ab}$, la prova consisteix en constatar que a partir de transformacions elementals, i.e., multiplicant per matrius de $E(\mathbb{H})$ tenim
+\begin{eqnarray*}
+\left( \begin{matrix}
+  1 & 0 \\
+  0 & 1
+ \end{matrix} \right)
+ &\rightarrow &
+ \left( \begin{matrix}
+  1 & 0 \\
+  a^{-1} & 1
+ \end{matrix} \right)
+ \rightarrow
+ \left( \begin{matrix}
+  0 & -a \\
+  a^{-1} & 1
+ \end{matrix} \right)
+ \rightarrow
+ \left( \begin{matrix}
+  0 & -a \\
+  a^{-1} & b^{-1}
+ \end{matrix} \right)
+ \rightarrow
+ \left( \begin{matrix}
+  aba^{-1} & 0 \\
+  a^{-1} & b^{-1}
+ \end{matrix} \right)
+ \\ &\rightarrow &
+ \left( \begin{matrix}
+  aba^{-1} & 0 \\
+  1 & b^{-1}
+ \end{matrix} \right)
+ \rightarrow 
+  \left( \begin{matrix}
+  0 & -c \\
+  1 & b^{-1}
+ \end{matrix} \right)
+ \rightarrow
+  \left( \begin{matrix}
+  0 & -c \\
+  1 & c
+ \end{matrix} \right)
+ \rightarrow
+  \left( \begin{matrix}
+  1 & 0 \\
+  1 & c
+ \end{matrix} \right)
+ \rightarrow
+  \left( \begin{matrix}
+  1 & 0 \\
+  0 & c
+ \end{matrix} \right).
+\end{eqnarray*}
+on cada fletxa correspon a multiplicar per una matriu de $E(\mathbb{H})$.
+\end{proof}
+
+\begin{prop}
+$E(\mathbb{H})=\{A\in GL(\mathbb{H}) \ ; \ \det(A)=1\}$
+\end{prop}
+\begin{proof}
+Està clar que tots els elements de $E(\mathbb{H})$ tenen determinant 1 , veiem la implicació no trivial, per a tota $A\in GL(\mathbb{H})$ amb $\det A = 1$ tenim que, usant el Teorema \ref{BD} $A=BD(\mu)$ amb $B\in E(\mathbb{H})$ i per tant amb determinant unimodular. Així doncs $\det A = 1$ si i només si  $\overline{\mu}=1$, per tant $\mu \in [\mathbb{H},\mathbb{H}]$, i.e., $D(\mu)\in E(\mathbb{H})$.
+\end{proof}
+
+\begin{theorem}
+$K_1(\mathbb{H})\cong \mathbb{R}^\times_+$
+\end{theorem}
+\begin{proof}
+El determinant de Dieudonné, que de fet coincideix amb el determinant del Teorema \ref{bigOne}, dóna lloc a una aplicació 
+$$
+\det: GL(\mathbb{H}) \rightarrow \mathbb{H}^\times_+
+$$
+Per la proposició anterior, tenim que $\ker (\det ) = E(\mathbb{H})$, i per tant, la factorització al abelianitzat dóna lloc a un isomorfisme $K_1(\mathbb{H})= GL(\mathbb{H})/E(\mathbb{H})\rightarrow \mathbb{H}^\times_\text{ab}$, 
+\begin{center}
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
+  {
+     GL(\mathbb{H}) & \mathbb{H}^\times_\text{ab} \\
+     K_1(\mathbb{H}) &  \\};
+  \path[-stealth]
+  	(m-1-1.east|-m-1-2) edge node [above] {$\det$}
+            node [above] {} (m-1-2)
+	(m-1-1) edge node [right] {$i$} (m-2-1)
+	(m-2-1) edge node [left] {} (m-1-2);
+    %edge [dashed,-] (m-2-1);
+	\end{tikzpicture}
+	\end{center}
+	Usant el Corol·lari \ref{HR}, on hem vist que $ \mathbb{H}^\times_\text{ab} \cong \mathbb{R}_+^\times$, trobem el que buscàvem.
+\end{proof}
+
+\section{El cas dels Dominis Euclidians.}
+Al capítol anterior, en l'estudi de $K_0$, estudiàvem el cas d'un cos, el d'un DIP i el dels anells locals. En aquest capítol, en l'estudi des $K_1$ hem vist el cas d'un cos i dels anells locals, ara ens centrarem en un tipus de DIP's, els dominis Euclidians. 
+
+\begin{definition}
+Un domini d'integritat (anell no trivial sense divisors de zero) commutatiu $R$ es diu \textbf{domini Euclidià} si hi ha una funció norma $||:R\rightarrow \mathbb{N}$ amb les següents propietats:
+\begin{enumerate}[i)]
+\item Si $a\in R$, $|a|=0$ si i només si $a=0$.
+\item Si $a,b\in R$, $|ab| = |a||b|$.
+\item Si $a,b \in R$, $b\neq 0$, aleshores existeix $q,r \in R$, que anomenarem quocient i residu respectivament, els quals compleixen $a=qb+r$ i $0 \leq |r| < |b|$.
+\end{enumerate}
+\end{definition}
+
+\begin{obs}
+Observem que $\mathbb{Z}$, $\mathbb{Z}[i]$, $\mathbb{Z}[\frac{-1+i\sqrt{3}}{2}]$ i $K[t]$ (on $K$ és un cos) són dominis Euclidians, amb aplicacions norma definides per $|a+bi|=a^2+b^2$, $|a+b\frac{-1+i\sqrt{3}}{2}|=a^2-ab+b^2$, i per $|f(t)|=2^{\text{grau }f}$ (amb el conveni que $\text{grau} \ 0 = -\infty)$, respectivament.
+\end{obs}
+
+\begin{prop} \label{EUDesDIP}
+Tot domini Euclidià és un domini d'ideals principals.
+\end{prop}
+\begin{proof}
+Si $R$ és un domini Euclidià, l'ideal $\{0\}$ és clarament principal. Si $I$ és un ideal no nul i $b$ un element no nul d'aquest ideal tal que 
+$$
+|b| = \min \{ |x|, x\in I\backslash 0 \}.
+$$
+Aleshores existeixen $q,r \in R$ tals que $a=qb+r\in I$, amb $0\leq |r|<|b|$. Si $r\neq 0$ tenim contradicció gràcies a la tria de $b$, per tant $r=0$, i en conseqüència $I$ és un ideal principal generat per $b$.
+\end{proof}
+
+\begin{theorem}
+Si $R$ és un domini Euclidià, aleshores $SK_1(R)$ és trivial i $K_1(R)\cong R^x$. De fet, per a tot $n$, $SL(n,R)=E(n,R)$.
+\end{theorem}
+\begin{proof}
+Donada $A=(a_{ij})\in GL(n,R)$, ens agradaria usar el mateix argument que a la Proposició \ref{K1Cos}, però tenim el problema que donada una columna de $A$, no és trivial que existeixi un element invertible en aquesta columna. Considerem la primera columna de $A$, no pot passar que tots els elements siguin zero, ja que és invertible, per tant ha d'existir almenys un element no nul, assumim sense pèrdua de generalitat que $a_{i1}$ compleix la condició que és l'element amb norma mínima entre els elements no nuls d'aquesta columna. Aleshores si $|a_{i1}|=1$, per (iii) existeix una expressió $1=a_{i1}q+r$ amb $|r|<1$, per tant $|r|=0$ i tenim que $a_{i1}$ és invertible. Altrament, si $|a_{i1}|>1$, tenim que $a_{i1}$ no és invertible, i per tant genera un ideal propi $(a_{i1})$. D'altra banda com que $A$ és invertible, l'ideal generat per tots els elements de la primera columna ha de ser tot $R$, i per tant ha d'existir algun $j\neq i$ tal que $a_{j1}\not \in (a_{i1})$. Aleshores usant (iii) tenim que $a_{j1}=qa_{i1}+r$ amb $|r|<|a_{i1}|$, com que $a_{j1}\not \in (a_{i1})$ tenim que $r\neq 0$. Aleshores a partir de restar $q\times ($la fila $i$-èssima de $A)$ la la fila $j$-èssima estem fent decréixer la norma mínima dels elements no nuls de la primera columna. A partir d' iterar aquest procés, tenim una successió de valors naturals estrictament decreixent, i per tant ha de convergir a zero, i.e., aquest procediment ens permet reduir-nos al cas en que hi ha un element invertible a la primera columna. \\ Així doncs, podem transformar la matriu $A$ a la forma $$ \left( \begin{matrix}
+  a_{11} & * \\
+  0 & A'
+ \end{matrix} \right)$$ a través de transformacions elementals per files, on $a_{11}$ és un element invertible i $A'$ una matriu invertible $(n-1)\times (n-1)$. Podem repetir aquest procés per a  $A'$, i acabar la prova amb el mateix argument usat a la Proposició \ref{K1Cos}.
+\end{proof}
+
+\begin{cor} \label{KZ}
+$K_1(\mathbb{Z}) \ \cong \ \{1,-1\}$, $K_1(\mathbb{Z}[i]) \ \cong \ \{1,i, -1, -i\}$,      
+ $K_1(K(x))\cong K^\times $\\ i $K_1(\mathbb{Z}[\frac{-1+i\sqrt{3}}{2}])\cong \{ z\in \mathbb{C} ; z^6 = 1\}$.
+\end{cor}
+\begin{proof}
+Observem que per $(ii)$ tenim que si $R$ és un domini Euclidià, $a\in R$ és invertible si i només si $|a|=1$, és fàcil comprovar quins elements tenen norma 1 dels dominis Euclidians donats.
+\end{proof}
+\section{El grup $K_1$ relatiu i la successió exacta}
+\begin{definition}
+Sigui $R$ un anell (amb unitat) i $I$ un ideal bilàter de $R$. Definim el grup $K_1$ \textbf{relatiu} de l'anell $R$ i l'ideal $I$ com 
+$$
+K_1(R,I) = \ker ((p_1)_* : K_1(D(R,I)) \rightarrow K_1(R))
+$$
+Nota el paral·lelisme amb la definició \ref{K0relatiu}.
+\end{definition}
+
+\begin{definition}
+Sigui $R$ un anell (amb unitat) i $I$ un ideal bilàter de $R$. Anomenarem $GL(R,I)$ al nucli de l'aplicació $GL(R)\rightarrow GL(R/I)$ induida per l'aplicació quocient $R\rightarrow R/I$. definim $E(R,I)$ com el subgrup normal de $E(R)$ més petit tal que contingui les matrius elementals $e_{ij}(a)$ amb $a\in I$.
+\end{definition}
+
+\begin{obs}
+Observem que totes les matrius elementals $e_{ij}(a)$ amb $a\in I$ són congruents a la identitat a $GL(R/I)$, i per tant, $E(R,I)\subset GL(R,I)$.
+\end{obs}
+
+\begin{theorem}[Lema de Whitehead Relatiu]
+Sigui $R$ un anell (amb unitat) i $I$ un ideal bilàter de $R$. Aleshores $E(R,I)$ és un subgrup normal de $GL(R,I)$ i $GL(R)$,
+$$
+GL(R,I)/E(R,I) \cong K_1(R,I),
+$$
+i $GL(R,I)/E(R,I)$ és el centre de $GL(R)/E(R,I)$. A més $E(R,I)=[E(R),E(R,I)]=[GL(R), E(R,I)]$.
+\end{theorem}
+
+\begin{proof}
+Comencem veient que $E(R,I)$ és normal de $GL(R,I)$ (que és normal de $GL(R)$ ja ho hem vist al Lema de Whitehead), siguin $A\in GL(n,R)$ i $B\in E(n,R,I)$, aleshores usant la igualtat ja vista a la demostració del Lema de Whitehead tenim per una banda
+$$
+\left( \begin{matrix}
+  ABA^{-1}B^{-1} & 0 \\
+  0 & 1
+ \end{matrix} \right) =  
+ \left( \begin{matrix}
+  AB & 0 \\
+  0 & B^{-1}A^{-1}
+ \end{matrix} \right)
+ %
+ \left( \begin{matrix}
+  A^{-1} & 0 \\
+  0 & A
+ \end{matrix} \right)
+%
+ \left( \begin{matrix}
+  B^{-1} & 0 \\
+  0 & B
+ \end{matrix} \right). 
+$$
+D'altra banda tenim que  $ \left( \begin{matrix}
+  A^{-1} & 0 \\
+  0 & A
+ \end{matrix} \right)$
+ és  una matriu elemental gràcies al Corol·lari \ref{matriuElemental}, a més, per la definició de $E(R,I)$ tenim que és normal de $E(R)$, i per tant, la part dreta de la igualtat anterior pertany a $E(R,I)$, provant que $E(R,I)$ és normal de $GL(R,I)$. \\
+\indent Per a veure l'isomorfisme primer necessitem fer la següent observació, considerem $(A_1,A_2)\in GL(D(R,I)) \subset GL(R\times R)$ un element tal que pertany al nucli de $(p_1)_*$, i.e., aquesta aplicació l'envia a l'element identitat de $K_1(R)$ i per tant $A_1\in E(R)$, però aleshores $(A_1,A_1)\in E(D(R,I))$ ja que si $A_1=\prod_k e_{i_kj_k}(a_k)$,
+ $$
+ (A_1,A_1) = \prod_k e_{i_k j_k} (a_k, a_k).
+ $$
+Així doncs, multiplicant $(A_1, A_2)$ per $(A_1, A_1)^{-1}$ el podem transformar a la forma $(1,B)$ amb $B\in GL(R)$ sense canviar la seva classe a $K_1$. Com que $(1,B)\in GL(D(R,I))$ tenim que $B \equiv 1 \mod I$ i per tant $B\in GL(R,I)$. Recíprocament tot element $B\in GL(R,I)$ defineix una classe a $GL(D(R,I))$. Per tant, per a mostrar que $GL(R,I)/E(R,I)\cong K_1(R,I)$ només necessitem comprovar que si $B\in GL(R,I)$ aleshores $(1,B)\in E(D(R,I))$ si i només si $B\in E(R,I)$. \\
+Per veure una implicació, observem que $E(R,I)$ ve generat per matrius de la forma $Se_{ij}(a)S^{-1}$ amb $a\in I$, i $S\in E(R)$. Tanmateix
+$$
+(1, Se_{ij}(a))S^{-1}) = (S,S) e_{ij}(0,a)(S^{-1},S^{-1})
+$$
+i tots els tres factors de la part dreta pertanyen a $E(D(R,I))$. Per a veure el recíproc, suposem que
+$$
+(1,B) = \prod_{k=1}^r e_{i_kj_k}(a_k,b_k) \in E(D(R,I)), \hspace{1cm} \prod_k e_{i_kj_k}(a_k)=1\in E(R).
+$$
+Observem que per a cada $k$,
+$$
+e_{i_kj_k}(a_k,b_k) = e_{i_kj_k}(a_k,a_k)e_{i_kj_k}(0,b_k-a_k) = (S_k,S_k)(1,T_k)
+$$
+on
+$$
+S_k = e_{i_kj_k}(a) \in E(R), \hspace{1cm} T_k=e_{i_kj_k}(b_k-a_k), \hspace{1cm} b_k-a_k \in I.
+$$
+Aleshores com que $S_1S_2\dots S_r =1$ tenim
+\begin{eqnarray*}
+\prod_k e_{i_kj_k}(a_k,b_k) &=& \\ \prod_k (S_k, S_kT_k) &=& (S1, S1T_1S_1^{-1})(S_2,S_1,S_2T_2S_2^{-1}S_1^{-1}) 
+\hdots (S_r, S_1S_2\dots S_rT_r) \\
+&=& (1,(S_1T_1S_1^{-1}))(S_1S_2T_sS_2^{-1}S_1^{-1}) \hdots (S_1S_2\hdots S_rT_rS_r^{-1}\hdots S_2^{-1}S_1^{-1}),
+\end{eqnarray*}
+i per tant, hem escrit el nostre element $B$ com a producte de generadors de $E(R,I)$. Així doncs això acaba la demostració de l'isomorfisme. \\
+\indent Veiem ara darrera igualtat, com que $E(R,I)$ és un subgrup normal de $GL(R,I)$ i de $GL(R)$, tenim que  $[E(R), E(R,I)] = [GL(R), E(R,I)] \subset E(R,I)$. Per veure l'altra inclusió observem que, com que $E(R,I)$ ve generat per les matrius de la forma $Se_{ij}S^{-1}$ amb $a\in I$ i $S\in E(R)$, a més
+$$
+Se_{ij}(a)S^{-1} = [S,e_{ij}(a)]e_{ij}(a) = [S,e_{ij}(a)][e_{ik}(1), e_{kj}(a)] \in [E(R), E(R,I)], \ k \neq i,j.
+$$
+\indent Per acabar la prova hem de veure que $GL(R,I)/E(R,I)$ és el centre de $GL(R)/E(R,I)$. Veiem doncs la inclusió $G \subset Z(GL(R,I)/E(R,I))$, si $A\in GL(R,I)$ tenim que 
+$$
+\left( \begin{matrix}
+  A & 0 \\
+  0 & A^{-1}
+ \end{matrix} \right) =  
+ \left( \begin{matrix}
+  1 & A-1 \\
+  0 & 1
+ \end{matrix} \right)
+ %
+ \left \{
+ \left( \begin{matrix}
+  1 & 0 \\
+  1 & 1
+ \end{matrix} \right)
+  \left( \begin{matrix}
+  1 & -A^{-1}(A-1) \\
+  0 & 1
+ \end{matrix} \right)
+  \left( \begin{matrix}
+  1 & 0 \\
+  1 & 1
+ \end{matrix} \right)^{-1}
+%
+\right \}
+ \left( \begin{matrix}
+  1 & 0 \\
+  -(A-1) & 1
+ \end{matrix} \right),
+$$
+i com que les entrades de $A^{-1}$ pertanyen a $I$, tenim que  les matrius 
+$$
+\left( \begin{matrix}
+  1 & A-1 \\
+  0 & 1
+ \end{matrix} \right) 
+ ,\hspace{1cm}
+ \left( \begin{matrix}
+  1 & -A^{-1}(A-1) \\
+  0 & 1
+ \end{matrix} \right) 
+ ,\hspace{1cm} i \hspace{1cm} 
+ \left( \begin{matrix}
+  1 & 0 \\
+  -(A-1) & 1
+ \end{matrix} \right) 
+$$
+pertanyen a $E(R,I)$ i per tant el càlcul anterior mostra que $\left( \begin{matrix}
+  A & 0 \\
+  0 & A^{-1}
+ \end{matrix} \right) $ pertany a $E(R,I)$. Per tant si $B\in GL(R)$, 
+$$
+ \left( \begin{matrix}
+  ABA^{-1}B^{-1} & 0 & 0 \\
+  0 & 1 & 0 \\
+  0 & 0 & 0
+ \end{matrix} \right)
+ =
+ \left[ 
+ \left( \begin{matrix}
+  A & 0 & 0 \\
+  0 & A^{-1} & 0 \\
+  0 & 0 & 1
+ \end{matrix} \right)
+ ,
+ \left( \begin{matrix}
+  B & 0 & 0 \\
+  0 & 1 & 0 \\
+  0 & 0 & B^{-1}
+ \end{matrix} \right)
+ \right] 
+ \in [E(R,I), E(R)] = E(R,I).
+$$ 
+ per tant $GL(R,I)$ i $GL(R)$ commuten mòdul $E(R,I)$. Per a veure l'altra inclusió observem que la imatge sota el homomorfisme induït per l'aplicació quocient $R\twoheadrightarrow R/I$ del centre de $GL(R)/E(R,I)$ ha de ser el centre de $GL(R/I)$ . A més, el centre de $GL(R/I)$ és trivial ja que una matriu del centre ha de ser diagonal amb elements iguals a la diagonal, i com que una matriu qualsevol de $GL$ ha de tenir un nombre finit d'elements diferent de 1 a la diagonal, $Z(GL(S))$ és trivial.
+ Per tant el centre de $GL(R)/E(R,I)$ està contingut en el nucli de l'aplicació a $GL(R/I)$, que és $GL(R,I)/E(R,I)$.
+ \end{proof}
+
+Veiem ara una extensió del Teorema \ref{K0relatiuT}.
+\begin{theorem}
+Sigui $R$ un anell i $I\subset R$ un ideal. Aleshores existeix una successió exacta 
+\begin{equation}\label{super}
+K_1(R,I) \rightarrow K_1(R) \xrightarrow{q_*} K_1(R/I) \xrightarrow{\partial} K_0(R,I) \rightarrow K_0(R) \xrightarrow{q_*} K_0(R/I),
+\end{equation}
+on $q_*$ ve induïda per l'aplicació quocient $q: R\twoheadrightarrow R/I$ i les aplicacions $K_j(R,I) \rightarrow K_j(R)$ venen induïdes per $p_2: D(R,I) \rightarrow R$.
+\end{theorem}
+
+\begin{proof}
+Usarem la mateixa notació que al Teorema \ref{K0relatiuT} en el sentit que si $A$ és una matriu amb entrades a $R$, denotarem per $\dot{A}$ a la matriu $q(A)$, i.e. a la matriu corresponent amb entrades sobre $R/I$. \\
+\indent En primer lloc veurem que la subcadena 
+$$
+K_1(R,I)\rightarrow K_1(R) \xrightarrow{q_*}K_1(R/I)
+$$
+és exacta. Per a veure-ho usarem la mateixa observació usada a la prova anterior, és a dir, usarem que tota classe de de $K_1(R,I)$ es pot representar com
+$$
+(1,B)\in GL(D(R,I)) \subset GL(R\times R)
+$$ 
+amb $B\in GL(R,I)$. Aleshores tenim que $\dot{B}=\dot{1}$ i $q_*[B]=1$ i per tant hem vist una inclusió. Per a veure l'altra inclusió considerem $B\in GL(R)$ i $q_*([B])=1$, aleshores $\dot{B}\in E(R/I)$. Ara si $\dot{a}\in R/I$, tenim que prové d'algun $a\in R$ i $e_{ij}(\dot{a})=q(e_{ij}(a))$. Per tant tot generador de $E(R/I)$ pertany a la imatge de $E(R)$ i en conseqüència $E(R/I)=q(E(R))$. (Aquest argument l'hem usat en el Lema  \ref{matrixlifting}). Per tant $\dot{B}$ ascendeix a una matriu $C\in E(R)$, i $q(BC^{-1})=1$. Aleshores $(1,BC^{-1})\in GL(D(R,I))$ i $[B]=[BC^{-1}]$ a $K_1(R)$ prové de $[(1,BC^{-1})]\in K_1(R,I)$.
+
+\indent A continuació definirem l'aplicació frontera $K_1(R/I)\xrightarrow{\partial}K_0(R,I)$ i provarem l'exactitud de $K_1(R/I)$ i $K_0(R,I)$, un cop vist això el Teorema \ref{K0relatiuT} completarà la prova. Donada una matriu $\dot{A}\in GL(n,R/I)$, on ara $A$ $\dot{A}$ és la imatge d'una matriu $A\in M_n(R)$ no necessàriament invertible, definim
+$$
+R^n \times _{\dot{A}}  R^n := \{ (x,y) \in R^n \times R^n : \dot{y}=\dot{x} \dot{A} \}			
+$$
+pensem pensar $x$ i $y$ com a matrius $1\times n$. A la definició anterior té estructura de mòdul sobre $D(R,I)$ si imposem
+$$
+(r_1,r_2)\cdot (x,y) = (r_1x,r_2y).
+$$
+És compatible ja que, com que $\dot{r_1}=\dot{r_2}$ tenim
+$$
+q(r_2y)=\dot{r_2}\dot{y} = \dot{r_1}(\dot{x}\dot{A}) = q(r_1x)\dot{A}.
+$$
+Aquesta estructura ens permet obtenir un mòdul projectiu sobre $D(R,I)$ a partir de dos mòduls lliures. 
+\\
+Observem que si $\dot{A}=q(A)$ amb $A\in GL(n,R)$, aleshores
+$$
+(x,y)\mapsto (xA,y)\in R^n \times_i R^n \cong D(R,I)^n
+$$
+dóna lloc a un isomorfisme de $R^n\times_{\dot{A}} R^n$ a un mòdul lliure de rang $n$. En particular, com que hem vist que $E(R/I)=q(E(R))$, tenim que $R^n\times_{\dot{A}}R^n$ és lliure de rang $n$ si $\dot{A}$ és elemental. Per a una matriu general $\dot{A}\in GL(n,R/I)$ sempre podem escollir $\dot{B}\in GL(n,R/I)$ de forma que $\dot{A}\oplus \dot{B}$ sigui elemental (per exemple, $\dot{B}=(\dot{A})^{-1}$ funciona pel Lema \ref{matrixlifting}), i aleshores
+$$
+(R^n\times_{\dot{A}} R^n) \oplus (R^n \times_{\dot{B}}R^n) \cong R^{2n}\times_{\dot{A}\oplus\dot{B}}R^{2n} \cong D(R,I)^{2n},
+$$
+per tant $R^n \times_{\dot{A}}R^n$ és un sumand directe d'un mòdul lliure, i.e. d'un mòdul projectiu. Conseqüentment té sentit definir
+$$
+\partial [ \dot{A} ] := [R^n\times_{\dot{A}}R^n]-[D(R,I)^n]\in K_0(D(R,I)).
+$$
+\indent Veurem que $\partial$ és de fet un homomorfisme $K_1(R/I)\rightarrow K_0(R,I)$. Té imatge a $K_0(R,I)=\ker(p_1)_*$ ja que 
+$$
+(p_1)_*(\partial [\dot{A}] = (p_1)_*([R^n \times_{\dot{A}} R^n])
+ - (p_1)_*([D(R,I)])=[R^n]-[R^n]=0$$
+És additiu sota la suma directa de matrius ja que
+$$
+(R^n \times_{\dot{A}}) R^n) \oplus (R^n \times_{\dot{B}}) R^n) \cong R^{2n} \times_{\dot{A}\oplus \dot{B}} R^{2n}, 
+$$
+i envia classes de matrius elementals al $0$ ja que si $\dot{A}$ és una matriu elemental,
+$$
+\partial [\dot[A]] = [R^n \times_{\dot{A}} R^n] - [D(R,I)] \cong [D(R,I)^n]-[D(R,I)^n]=0.
+$$
+Més generalment, està ben definit sobre classes a $K_1$, ja que si $\dot{A}=\dot{BC}$ amb $B\in E(R)$, aleshores
+$$
+(x,y)\mapsto(xB,y)\in R^n \times_{\dot{C}}R^n
+$$
+dóna lloc a un isomorfisme de $R^n \times_{\dot{A}} R^n$ a $R^n\times_{\dot{C}} R^n$. Per tant obtenim un homomorfisme ben definit $K_1(R/I)\rightarrow K_0(R,I)$. A més ja hem vist que la composició
+$$
+K_1(R)\xrightarrow{q_*}K_1(R/I)\xrightarrow{\partial}K_0(R,I)
+$$
+és zero. La composició
+$$
+K_1(R/I)\xrightarrow{\partial} K_0(R,I) \rightarrow K_0(R)
+$$
+és zero ja que 
+$$
+(p_2)_*( \partial [\dot{A}]) = (p_2)_* ([R^n \times_{\dot{A}} R^n]) - (p_2)_*([D(R,I)^n])=[R^n]-[R^n]=0.
+$$
+\indent Només falta comprovar que $\ker \partial \subset q_*(K_1(R))$ i que 
+$$
+\ker \{ (p_2)_* : K_0(R,I) \rightarrow K_0(R) \} \subset \partial (K_1(R/I)).
+$$
+Suposem $\partial ([\dot{A}])=0$, això significa que $R^n\times_{\dot{A}}R^n$ és isomorf a un mòdul lliure de rang $n$, o que per alguna $m$,
+$$
+R^n \times_{\dot{A}}R^n \oplus D(R,I)^m \cong D(R,I)^{n+m}.
+$$
+Després de canviar $A$ per $A\oplus 1_m$, podem assumir que de fet
+$$
+R^n\times_{\dot{A}}R^n \cong D(R,I)^n.
+$$
+Escollim un isomorfisme 
+$$
+\varphi: D(R,I)^n = R^n\times_{i}R^n \rightarrow R^n \times_{\dot{A}} R^n.
+$$
+Aleshores podem definir les matrius $B,C\in M_n(R)$ per $(e_jB,e_jC) = \varphi(e_j,e_j)$, on $e_j$ és el $j$-èssim vector bàsic de $R^n$, en altres paraules prenem les files $j$-èssimes de $B$ i $C$ per a primera i segona coordenada de $\varphi (e_j, e_j)$. Aleshores per linealitat $\varphi (u,v) = (uB, vC)$ per a tot $(u,v)\in D(R,I)^n = R^n \times_{i}R^n$, i aleshores per a aquesta $u$ i $v$, $\dot{u}=\dot{v}$, tenim $\dot{B}\dot{A}=\dot{C}$. Per tant $\varphi$ és invertible, està clar que $B$ i $C$ són invertibles amb $\varphi(x,y)=(xB^{-1},yC^{-1})$ per $(x,y)\in R^n \times_{\dot{A}}R^n$. Per tant $\dot{A}=q(B^{-1}C)$ i per tant $\ker \partial \subset q_* (K_1(R))$. \\
+\indent Finalment, suposem que tenim una classe de $K_0(R,I)$ que va a parar al $0$ de $K_0(R)$. Això significa que tenim una classe a $K_0(D(R,I))$ que va a parar al $0$ a partir de $(p_1)_*$ i de $(p_2)_*$. Representem la classe per $[P]-[D(R,I)^n]$, on $P$ és un $D(R,I)$-mòdul projectiu tal que $(p_1)_*(P)$ i $(p_2)_*(P)$ són isomorfs a $R^n$. Si és necessari, podem afegir-hi un mòdul de rang $k$ a $P$ i canviar $n$ per $n+k$ de forma que $(p_1)_*(P)$ i $(p_2)_*(P)$ siguin ambdós isomorfs a $R^n$. Aleshores està clar que $P$ és de la forma $R^n \times_{\dot{A}} R^n$, i per tant
+$$
+[P]-[D(R,I)^n]=\partial ([\dot{A}]).
+$$
+Això completa la prova.
+\end{proof}
+
+
+\begin{corollary}
+Sigui $R$ un anell, i $I\subset R$ un ideal tal que l'aplicació quocient $q:R\rightarrow R/I$ té una inversa per la dreta, i.e., existeix un homomorfisme d'anells $s:R/I\rightarrow R$ amb $q\circ s = id_{R/I})$. Aleshores
+$$
+0\rightarrow K_0(I) \rightarrow K_0(R) \rightarrow K_0(R/I) \rightarrow 0
+$$
+és una successió exacta escindida.
+\end{corollary}
+
+\begin{proof}
+Per la functorialitat de $K_0$ tenim que existeix una $s_*$ tal que $q_* \circ s_* = id_{K_0(R/I)}$. Així doncs només necessitem veure que $K_0(I)\rightarrow K_0(R)$ és injectiva. La injectivitat es veu a partir de que $s_*: K_1(R/I)\rightarrow K_1(R)$ és inversa per la dreta de $q_*:K_1(R)\rightarrow K_1(R/I)$, per tant $\partial = 0$ a la cadena exacta (\ref{super}).
+\end{proof}
+
+\begin{exemples}
+Aquests darrers resultats ens proporcionen eines per a calcular $K$-grups. Veiem algúns exemples.\\
+\indent Sigui $R=\mathbb{Z}$ i $I=(m)$, amb $m>0$. Recordem que al Corol·lari \ref{KZ} vem veure \\ $K_1(R)\cong \{\pm 1\}$, i a la Proposició \ref{K1Zm} hem calculat $K_1(R/I)$. Aleshores és possible calcular $K_0(I)$ a partir de la cadena exacta. Per exemple suposem $m=2$, aleshores $R/I$ és el cos format per dos elements i $(R/I)^{\times}=\{1\}$. La cadena exacta és
+$$
+K_1(R,I)\rightarrow \{\pm 1\} \rightarrow \{1\} \xrightarrow{\partial} K_0(I) \rightarrow \mathbb{Z} \xrightarrow{\cong} \mathbb{Z},
+$$
+i $K_0(I)=0$. Al mateix temps, tenim que $K_1(R,I)$ ha de ser exhaustiu a $\{\pm 1\}$.\\\\
+\indent Suposem ara que $m=p$ per a $p$ primer senar. Aleshores $R/I$ és un cos $\mathbb{F}_p$ de $p$ elements i $(R/I)^{\times}$ és cyclic d'ordre $p-1$. Per tant la successió exacta esdevé
+$$
+K_1(R,I)\rightarrow \{\pm 1\} \rightarrow \mathbb{F}_p^{\times} \xrightarrow{\partial} K_0(I) \rightarrow \mathbb{Z} \xrightarrow{\cong} \mathbb{Z},
+$$
+i $K_0(I)\cong \mathbb{F}_p^{\times} \backslash \{\pm 1\}$, que és cíclic d'ordre $\frac{p-1}{2}$. En aquest cas, l'aplicació $K_1(R,I)\rightarrow \{\pm 1\}$ és trivial.
+\\ \\
+\indent Suposem ara que $m=2^r$ amb $r>1$. Aleshores $R/I$ és un anell local i $(R/I)^{\times}$ és un grup abelià d'ordre $2^{r-1}$.  Aleshores tenim la cadena exacta
+$$
+K_1(R,I)\rightarrow \{\pm 1\} \rightarrow (R/I)^{\times} \xrightarrow{\partial} K_0(I) \rightarrow \mathbb{Z}\xrightarrow{\cong} \mathbb{Z},
+$$
+i $K_0(I)\cong (R/I)^{\times}$ és un grup abelià d'ordre $2^{r-2}$ no necessàriament cyclic. Per exemple si $m=8$ tenim que $(R/I)^\times \cong (\mathbb{Z}/(2)\cong \mathbb{Z}/(2))$ és el 4-grup de Klein.
+\end{exemples}

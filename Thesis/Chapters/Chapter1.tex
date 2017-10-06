@@ -1,0 +1,407 @@
+% Chapter Template
+
+\chapter{Introducció} % Main chapter title
+
+L'objectiu d'aquest capítol és per una banda introduir els conceptes fonamentals per a la construcció dels grups $K_0$ i $K_1$, en especial $K_0$, i per l'altra exposar la propietat IBN com a plantejament del problema de la generalització del concepte de dimensió sobre $R$-mòduls. \\
+El contingut està basat en {\normalfont [2]} per a les sumes directes, idemopotents, producte tensorial i propietat IBN, i {\normalfont [1]} per a la introducció a mòduls projectius, també hem usat {\normalfont [6]} per a provar que els $R$-mòduls sobre anells commutatius compleixen la propietat IBN.
+\\
+\indent Inicialment l'annex \ref{AppendixA} estava inclòs en aquesta secció, aquest annex té el fi de posar com a protagonista indiscutible del treball la $K$-teoria algebraica i al mateix temps permetre que el treball sigui autocontingut. \\
+En aquest annex es recorden les definicions essencials que s'han vist durant el grau, i conceptes de mòduls, submòduls, mòduls quocients, mòduls lliures, bases i mòduls finitament generats, els quals un graduat recent no hi està necessàriament familiaritzat i que convé tenir presents durant la lectura del treball.
+\label{Chapter1} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
+
+\section{Sumes directes i Idempotents}
+En aquesta secció presentem els conceptes fonamentals de suma directa, interna i externa. Aquests conceptes tenen un rol fonamental al caracteritzar els mòduls projectius, els quals són la font de $K_0$. També s'introdueix la relació entre els idempotents i la suma directa, que també usarem per a caracteritzar $K_0$.
+
+\begin{definition}
+Diem que $M$ és la \textbf{suma directa externa} $L \oplus N$ si $M$ és el producte cartesià $L\times N = \{(x,y) : x\in L, \ y\in N \}$ amb suma component a component $$(x_1,x_2)+(x_2,y_2)=(x_1+x_2,y_1+y_2)$$ i producte escalar $r(x,y)=(rx,ry)$.
+\\
+\indent Diem que $M$ és la suma directa interna $L\overset{\bullet}{\oplus} N$, si $L$ i $N$ són submòduls de $M$, $L+N=M$ i $L\cap N = {0_M}$.  
+\\ \indent
+En qualsevol anell $S$, un \textbf{idempotent} és un element $e\in S$, amb $ee=e$. 
+\end{definition}
+
+\begin{prop} \label{primer}
+Suposem que $L$ i $N$ són submòduls de $M$. Són equivalents:
+\begin{enumerate}[i)]
+\item $M=L\overset{\bullet}{\oplus} N$
+\item Cada $m\in M$ té una i només una expressió de la forma $m=x+y$ amb $x\in L$ i $y\in N$.
+\item Existeix un idempotent $e\in \text{End}_R(M)$ amb imatge $L$ i nucli $N$. 
+\end{enumerate}
+\label{img+ker=M}
+\end{prop}
+
+\begin{proof}
+En les condicions de $i)$, pel fet que $M=L+N$, tenim que tot $m\in M$ té una expressió $m=x+y$, amb $x\in L$ i $y\in N$. Suposem que existeix una expressió diferent $m=x'+y'$ amb $x'\in L$ i $y'\in N$, aleshores $x-x'=y'-y\in L \cap N = \{0_M\}$, per tant $x=x'$ i $y=y'$ provant la unicitat de l'expressió. 
+\\
+\indent En les condicions de $ii)$, a d'existir una aplicació $R$-lineal \\ $e: M \rightarrow M$, tal que $e(x+y)=x$ si $x\in L$ i $y\in N$. Observem que al complir-se que $$(e\circ e)(x+y)=e(x)=e(x+0)=x=e(x+y)$$ queda comprovat que $e$ és un idempotent, amb imatge $L$ i nucli $N$.
+\\
+\indent En les condicions de $iii)$, per cada $m\in M$, $m=e(m)+m-e(m)$ amb $e(m)\in L$ i $m-e(m)\in \text{ker}(e)=N$. Si $x\in L\cap N$, aleshores $x=e(y)$ per algun $y\in M$, i $$0_M=e(x)=e(e(y))=e(y)=x.$$ Per tant, $M=L\overset{\bullet}{\oplus}N$.
+\end{proof}
+
+\begin{prop}
+Siguin $L$, $M$ i $N$ $R$-mòduls. Aleshores $M\cong L \oplus N$ si i només si $M=L' \overset{\bullet}{\oplus} N'$ per $L'$, $N'$ submòduls de $M$ tals que $L'\cong L$ i $N' \cong N$.
+\end{prop}
+
+\begin{proof}
+Si $f: L \oplus N \rightarrow M$ és un isomorfisme, tenim que $L\cong L \oplus 0 \cong f(L\oplus 0)$, $N\cong 0 \oplus N \cong f(0\oplus N)$, i 
+$$
+M=f(L\oplus 0)\overset{\bullet}{\oplus} f(0 \oplus N).
+$$
+Recíprocament, si $\alpha: L \rightarrow L'$, $\beta: N \rightarrow N'$ són isomorfismes i $M=L' \overset{\bullet}{\oplus} N'$, aleshores
+\begin{eqnarray*}
+        f: L \oplus N& \rightarrow M\\
+        (x,y)& \mapsto  \alpha (x)+\beta (y)
+\end{eqnarray*}
+ és $R$-lineal i bijectiva per la proposició anterior.
+\end{proof}
+\section{Producte tensorial}
+
+Si $K$ és un cos, i $J$ el conjunt de classes d'isomorfisme de $K$-espais vectorials, la dimensió sobre $K$ defineix un isomorfisme de monoides $$(J,\oplus) \cong (\mathbb{N},+).$$
+\hspace*{.5cm}Tanmateix $\mathbb{N}$ és un semianell sota les operacions suma i producte, usant l'isomorfisme de dimensió podem donar estructura de semianell a $J$, és a dir si $V$ i $W$ són $K$-espais vectorials de dimensió finita, ha d'existir un espai vectorial $X$ amb $c(V)c(W)=c(X)$ a $J$ amb $\text{dim}_FX = (\text{dim}_FV)(\text{dim}_FW)$. \\
+\hspace*{.5cm}Per a la construcció de $X$ a partir de $V$ i $W$ necessitem una forma de multiplicar elements d'un mòdul per elements d'un altre mòdul. 
+
+\begin{definition}
+Si $R$ és un anell, donats dos $R$-mòduls $M_R$, $_R{N}$ i un grup abelià additiu $A$, l'aplicació $f:M\times N \rightarrow A$ és \textbf{$R$-equilibrada} si compleix:
+\begin{eqnarray*}
+f((m+m',n))=f((m,n))+f((m',n)) \\
+f((m,n+n'))=f((m,n))+f((m,n')) \\
+f((mr,n))=f((m,rn))
+\end{eqnarray*}
+per a tot $m,m'\in M$, $n,n'\in N$ i $r\in R$.
+
+\end{definition}
+
+\indent Hi ha una aplicació universal $R$-equilibrada $M_r \times _R{N} \rightarrow A$ tal que el seu codomini $A$ és el producte de mòduls que busquem, ara la construïm. 
+
+\begin{definition}
+ Si $R$ és un anell, el \textbf{producte tensorial} dels mòduls $M_R$ i $_R{N}$ sobre l'anell $R$ és el grup quocient
+$$
+M \otimes_R N := F_{\mathbb{Z}}(M\times N)/\langle D \rangle 
+$$
+on  $F_{\mathbb{Z}}(M\times N)/\langle D \rangle $ és el $\mathbb{Z}$-mòdul lliure construït per tenir com a base el conjunt $M\times N$, i $D$ el subgrup generat per elements que tinguin una de les següents tres formes:
+\begin{eqnarray*}
+(m+m',n) - (m,n) - (m',n), \\
+(m,n+n') - (m,n) - (m.n'), \\
+(mr,n)-(m,rn),
+\end{eqnarray*}
+per $m,m'\in M$, $n,n'\in N$, i $r\in R$. Si $m\in M$ i $n\in N$, denotem per $m\otimes n:=(m,n)+\langle D \rangle$.\\
+\hspace*{.5cm} Per construcció $M\otimes_R N$ és un grup abelià additiu amb generadors $m\otimes n$ i relacions:
+\begin{eqnarray*}
+(m+m')\otimes n &=& (m \otimes n) + (m'\otimes n),\\
+m\otimes(n+n') &=& (m \otimes n) + (m \otimes n'),\\
+mr\otimes n &=& m \otimes rn
+\end{eqnarray*}
+per $m,m'\in M$, $n,n'\in N$ i $r\in R$. L'aplicació natural 
+\begin{eqnarray*}
+t: M\times N &\rightarrow &M\otimes_R N \\
+(m,n) &\mapsto & m\otimes n
+\end{eqnarray*}
+és equilibrada, de fet, és l'aplicació amb codomini $M\otimes_R N$ que volíem construir.
+\\
+\end{definition}
+
+\begin{prop}
+Si $R$ és un anell amb mòduls $M_R$ i $_R{N}$, aleshores per a cada funció $R$-equilibrada $f:M\times N \rightarrow A$, hi ha un i només un homomorfisme de grups additius:
+$$
+\overline{f}:M\otimes_R N \rightarrow A \hspace{1cm} \text{amb}\hspace{1cm}\overline{f}(m\otimes n) = f((m,n))
+$$ 
+per a tot $m\in M$ i $n\in N$; aquest és el únic homomorfisme de grups $\overline{f}$ tal que fa commutar el triangle:
+
+\begin{center}
+	\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,row sep=4em,column sep=4em,minimum width=2em]
+  {
+     M\times N & M \otimes_R N \\
+      & A \\};
+  \path[->]
+  	(m-1-1.east|-m-1-2) edge node [above] {$t$}
+            node [above] {} (m-1-2)
+	(m-1-2) edge node [right] {$\overline{f}$} (m-2-2)
+	(m-1-1) edge node [left] {$f$} (m-2-2);
+    %edge [dashed,-] (m-2-1);
+	\end{tikzpicture}
+\end{center}
+\end{prop}
+
+\begin{proof}
+El fet que $f$ sigui $R$-equilibrada fa que la seva extensió $\mathbb{Z}$-lineal $F_{\mathbb{Z}}(M\times N)$ enviï $D$ a $0$, per tant l'existència de $\overline{f}$ ve induïda per $\overline{f}(m\otimes n) = f((m,n))$. La unicitat és conseqüència del fet que els elements de la forma $m\otimes n$ generen $M\otimes_RN$.
+\end{proof}
+
+\begin{definition}
+Sigui $R$ i $S$ anells. Diem que un grup abelià additiu $M$ és un \textbf{bimòdul} si és un $R$-mòdul per l'esquerra i un $S$-mòdul per la dreta, i ha de complir $r(ms)=(rm)s$, el denotem $_R{M_S}$.
+\end{definition}
+
+\begin{prop}
+ Donats tres anells $R$,$S$,$T$ i dos bimòduls $_R{M_S}$ i $_S{N_T}$, el producte tensorial sobre $S$ és un bimòdul $_R{M \otimes N}_T$. 
+\end{prop}
+
+\begin{proof}
+Si $r\in R$, la funció 
+\begin{eqnarray*}
+f_r : M\times N &\rightarrow & M\otimes_S N\\
+(m,n) & \mapsto & (rm \otimes n)
+\end{eqnarray*}
+és $S$-equilibrada.
+\\
+\hspace*{.5cm}Observem que a la definició de bimòdul anterior, demanem per definició que un bimòdul compleixi $r(ms)=(rm)s$, aquesta propietat és necessària per a que la funció anterior sigui $S$-equilibrada, en particular, és necessària per a que compleixi $f_r((ms,n))=f_r((m,sn))$. \\
+\\
+Per tant, usant la proposició anterior hi ha un homomorfisme de grups $\mathbb{Z}$-lineal
+$$
+\overline{f}_r: M \otimes_S N \rightarrow M \otimes_S N
+$$
+amb $\overline{f}_r(m\otimes n)=(rm) \otimes n$, per $m\in M$ i $n\in N$. Observem que la funció
+\begin{eqnarray*}
+R\times(M\oplus_SN) & \rightarrow M & \otimes_S N \\
+(r.x) & \mapsto & r \cdot x = \overline{f}_r(x)
+\end{eqnarray*}
+és el producte per escalars que dóna estructura de $R$-mòdul per l'esquerra a $M\otimes_S N$, ja que com que $\overline{f}_r$ és $\mathbb{Z}$-lineal i
+
+\begin{eqnarray*}
+(r+r')\cdot (m\otimes n) &=& ((r+r')m \otimes n)) = (rm+r'm \otimes n)=(rm \otimes n) + (r'm \otimes n),\\
+(rr')\cdot (m\otimes n) &=&r\cdot (r' \cdot  (m\otimes n)),\\
+1\cdot(m\otimes n) &=& m\otimes n
+\end{eqnarray*}
+Sota el producte per escalars, tenim
+$$
+r \cdot \sum_i^k (m_i \otimes n_i) = \sum_{i=1}^{k}(rm_i)\otimes n_i
+$$
+Similarment, $M\otimes_S N$ és un $T$-mòdul per la dreta via 
+$$
+\left( \sum_{i=1}^k (m_i\otimes n_i) \right) \cdot t = \sum_{i=1}^k m_i \otimes (n_i t)
+$$
+Finalment per a provar que $M \otimes_S N$ és un $R,T$-bimòdul, només cal veure que 
+$$
+r\cdot \left(\sum (m_i \otimes n_i) \cdot t \right) = \sum (rm_i) \otimes (n_it) = (r\cdot \sum (m_i \otimes n_i)) \cdot t.
+$$
+\end{proof}
+
+
+%https://en.wikipedia.org/wiki/Tensor_product_of_modules#Properties
+\section{La propietat IBN}
+
+Tot espai vectorial sobre un cos té una base, i dues bases del mateix espai vectorial tenen sempre el mateix nombre d'elements, per tant el concepte de dimensió d'un espai vectorial $V$ està ben definit. A més la dimensió és un invariant que classifica els espais vectorials. \\
+Hom podria pensar que aquest resultat es manté al generalitzar el concepte d'espai vectorial sobre un cos a espai vectorial sobre un anell, i.e., sobre $R$-mòduls, però no és així.\\
+\indent En un $R$-mòdul $M$, l'existència d'una base no està garantida, i en cas de tenir base, podem tenir bases amb diferent cardinal, i.e., el cardinal de la base no és un invariant. L'objectiu d'aquesta subsecció és comprovar aquests fets.
+\\\\
+\indent La millor forma de provar que l'existència de la base no està garantida és trobar un $R$-mòdul que no tingui base.
+\begin{prop}
+Els grup additiu format pels racionals $\mathbb{Q}$ és un $\mathbb{Z}$-mòdul sense base.
+\end{prop}
+\begin{proof}
+En primer lloc observem $\mathbb{Q}$ no és un $\mathbb{Z}$-mòdul cíclic, i.e., no pot estar generat per un únic element. D'altra banda, observem que dos elements qualsevols de $\mathbb{Q}$ són $\mathbb{Z}$-linealment dependents, ja que donats $m,n\in \mathbb{Q}$, existeixen $a,b\in \mathbb{Z}$ tal que es forma una combinació $\mathbb{Z}$-lineal amb $am+bn=0$. \\
+Així doncs aquest $\mathbb{Z}$-mòdul no pot tenir una base formada per un element, ni una base formada per més d'un element.
+\end{proof}
+
+\begin{definition}
+Diem que un anell $R$ compleix la propietat \textbf{IBN} (\textbf{I}nvariant \textbf{B}asis \textbf{N}umber) si per a tot $R$-mòdul $M$, tota parella de bases de $M$ té el mateix cardinal, és a dir, el nombre d'elements bàsics és invariant.
+\end{definition}
+
+Veiem ara que el cardinal de la base no és un invariant sobre $R$-mòduls, en particular trobarem un anell sense la propietat IBN, i.e. un $R$-mòdul amb dues bases de cardinal diferent.
+
+\begin{prop}
+El cardinal de la base no és un invariant sobre tot $R$-mòdul, amb $R$ anell no necessàriament commutatiu.
+\end{prop}
+\begin{proof}
+Per a qualsevol $R$ anell no trivial, considerem $A$ com el conjunt de matrius definides sobre $R$ amb infinites files i columnes, tals que cada columna tingui un nombre finit d'entrades diferents de zero. \\
+Observem que la suma i producte habitual doten $A$ amb l'estructura d'anell. A més, si considerem el conjunt de columnes d'elements de $A$, tenim un $A$-mòdul. En concret si $A\in A$, la columna $j$-èssima de $A$ la denotarem per $ae_j$, al considerar $A$ com a $A$-mòdul tenim que la suma i el producte són calculats per columnes:
+\begin{eqnarray*}
+(a+b)e_j&=ae_j+be_j \\
+(ab)e_j &= a(b e_j)
+\end{eqnarray*}
+
+Així doncs tenim que $A$ és un $A$-mòdul. Per una banda observem que a la matriu identitat, denotada per 
+$$1_{A}=\begin{bmatrix}
+1  & 0 & \hdots  \\
+0  & 1 & \hdots \\
+\vdots & \vdots & \ddots
+\end{bmatrix}, 
+$$
+és una base de $A$, i.e., $A$ té una base formada per un element. \\
+\indent D'altre banda, per a cada $a\in A$, definim $a', a''$ de forma que les columnes de $a'$ siguin les columnes senars de $a$, i les columnes de $a''$ siguin les columnes parells de $a$. \\
+Aleshores la funció $f: A \rightarrow A \oplus A$ definida per $f(a)=(a', a'')$ és un isomorfisme $A$-lineal amb inversa formada per ajuntar les columnes de $a'$ i $a''$. \\
+Usant el fet que la imatge d'elements bàsics és element bàsic, podem veure el resultat al Corol·lari \ref{corol1}, tenim que $A$ té una base formada per dos elements
+
+$$
+f^{-1}(1_A,0_A)=\begin{bmatrix}
+1  & 0 & 0 & 0 & \hdots  \\
+0  & 0 & 1 & 0 & \hdots \\
+\vdots & \vdots & \vdots & \vdots & 
+\end{bmatrix}
+, \hspace{1cm}
+f^{-1}(0_A,1_A)=\begin{bmatrix}
+0  & 1 & 0 & 0 & \hdots  \\
+0  & 0 & 0 & 1 & \hdots \\
+\vdots & \vdots & \vdots & \vdots & 
+\end{bmatrix}
+$$
+\end{proof}
+
+
+Finalment veurem que tot $R$ anell commutatiu no trivial  compleixen la propietat IBN, per a veure aquest resultat veiem el següent Lema.
+
+\begin{lemma}
+Sigui $R$ un anell commutatiu i siguin $m,n$ dos enters qualsevols tals que $m<n$, si hi ha una aplicació lineal exhaustiva $R^m \rightarrow R^n$. Aleshores $1_R=0_R$.
+\end{lemma}
+\begin{proof}
+Sigui $\varphi$ l'aplicació exhaustiva que envia $R^m \rightarrow R^n$. L'exhaustivitat de $\varphi$ garanteix l'existència d'una aplicació $\psi$ \textit{(inversa per la dreta)} tal que $\varphi \circ \psi = \id$. Podem extendre $\varphi$ a $R^n = R^m \oplus R^{n-m}$ de forma que $\varphi(R^{n-m})=0_R$, i considerar $\psi$ com una aplicació sobre $R^n$. \\
+Considerem ara les matrius $A$ i $B$ associades a les aplicacions $\varphi$ i $\psi$ respectivament. Per una banda tenim que $\det (AB) = 1_R$, d'altre banda tenim que $ \det (B)=0$ ja que la darrera fila de $B$ és plena de $0_R$'s per construcció. \\ Usant la propietat $\det(AB)=\det(A)\det(B)$ obtenim el resultat que buscàvem.
+\end{proof}
+Observem que a la prova anterior hem pogut usar l'existència del determinant gràcies al fet que $A$ i $B$ són matrius definides sobre un anell commutatiu.
+
+\begin{corollary}
+Si $R$ és un anell commutatiu no trivial, compleix la propietat IBN, i.e., els $R$-m.ll.f.g. tenen un nombre d'elements bàsics invariant. \footnote{Usem l'abreviatura per $R$-mòdul lliure finitament generat ($R$-m.ll.f.g.).}
+\end{corollary}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%MÒDULS PROJECTIUS%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Mòduls projectius}
+
+Els mòduls projectius tenen un rol fonamental en la construcció de $K_0$, en aquesta secció introduïm la definició dels mòduls projectius i provem la caracterització fonamental dels mòduls projectius usant la suma directa.
+
+\begin{definition}
+ Donat un anell $R$, anomenem \textbf{mòdul projectiu sobre $R$} a un $R$-mòdul $P$ si compleix que, per a tot homomorfisme de $R$-mòduls exhaustiu $\alpha: M \twoheadrightarrow P$ existeix un homomorfisme $\beta: P \rightarrow M$ tal que $\alpha \circ \beta = id_P$, és a dir, tot homomorfisme de $R$-mòduls exhaustiu té una inversa per la dreta.
+\end{definition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{lemma}
+Un $R$-mòdul $P$ és projectiu si i només si tot diagrama de $R$-mòduls com el de la Figura \ref{DR-M} amb $\psi$ exhaustiva
+%---------------------------------------------------
+\begin{figure}[!htb]
+\minipage{0.32\textwidth}
+\begin{flushright}
+ 	\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
+  {
+      & P \\
+     M & N \\};
+  \path[->>]
+    (m-2-1.east|-m-2-2) edge node [below] {$\psi$}
+            node [above] {} (m-2-2);
+    \path[->](m-1-2) edge node [right] {$\phi$} (m-2-2);
+   % \draw[dashed,->] (m-1-2) -- (m-2-1);
+\end{tikzpicture}
+\caption{}
+\label{DR-M}
+\end{flushright}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+\textit{es pot completar fent-lo commutatiu, i.e., existeix una aplicació $\theta$ tal que} 
+
+
+\endminipage\hfill
+\minipage{0.32\textwidth}%
+	\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
+  {
+      & P \\
+     M & N \\};
+ \path[->>]
+    (m-2-1.east|-m-2-2) edge node [below] {$\psi$}
+            node [above] {} (m-2-2);
+    \path[->](m-1-2) edge node [right] {$\phi$} (m-2-2);
+   \draw[dashed,->] (m-1-2) edge node [left] {$\theta$} (m-2-1);
+\end{tikzpicture}
+\endminipage
+\end{figure}
+%--------------------------------------------------
+\end{lemma}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{proof} Suposem que es compleix la propietat de completació de diagrames, sigui $\alpha$ un  homomorfisme exhaustiu de $R$-mòduls $\alpha: M\rightarrow P$, hem de veure que té una inversa per la dreta. podem prendre $N=P$, $\phi = id_P$, i $\psi = \alpha$. Aleshores el $\theta:P \rightarrow M$ resultant de la propietat de completació de diagrames compleix $\alpha \circ \theta = id_P$, i.e. $\beta$ és la inversa per la dreta de $\alpha$.
+\\
+\indent Veiem ara el recíproc, suposem que tot homomorfisme de $R$-mòduls exhaustiu $\alpha : M \rightarrow P$ té una inversa per la dreta $\beta : P \rightarrow M$. Donat un diagrama de $R$-mòduls com el de la Figura \ref{DR-M} , canviant $M \xrightarrow{\psi} N$ per $M \oplus P \xrightarrow{\psi \oplus id_P} N \oplus P$ i $\phi:P\rightarrow N$ per $((\phi, id_P):P \rightarrow N\oplus P)$, podem suposar que $\phi$ és injectiva (Figura \ref{finj}). A més, si canviem $N$ per la imatge de $\phi$ i $M$ per $\psi^{-1}(\phi(P))$, podem suposar que $\phi$ és un isomorfisme (Figura \ref{fbij}). Aleshores, considerant $\beta$ com la inversa per la dreta de $\alpha = \phi^{-1} \circ \psi$ tenim que $\beta : P \rightarrow M$ ens permet completar el diagrama.
+
+
+
+
+
+
+%------------------------------------------------
+%---------------------------------------------------
+\begin{figure}[!htb]
+\minipage{0.22\textwidth}
+
+\begin{center}
+ 	\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
+  {
+      & P \\
+     M & N \\};
+  \path[->>]
+    (m-2-1.east|-m-2-2) edge node [below] {$\psi$}
+            node [above] {} (m-2-2);
+    \path[->](m-1-2) edge node [right] {$\phi$} (m-2-2);
+   % \draw[dashed,->] (m-1-2) -- (m-2-1);
+\end{tikzpicture}
+\end{center}
+\endminipage\hfill
+\minipage{0.32\textwidth}
+\begin{center}
+	\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
+  {
+      & P \\
+     M \oplus P& N \oplus P \\};
+  \path[->>]
+    (m-2-1.east|-m-2-2) edge node [below] {$\psi \oplus id_P$}
+            node [above] {} (m-2-2);
+    \path[->](m-1-2) edge node [right] {$\phi \oplus id_P$} (m-2-2);
+   % \draw[dashed,->] (m-1-2) -- (m-2-1);
+\end{tikzpicture}
+\caption{} \label{finj}
+\end{center}
+
+\endminipage\hfill
+\minipage{0.42\textwidth}%
+\begin{center}
+\begin{tikzpicture}
+  \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em]
+  {
+      & P \\
+     \psi^{-1}(\phi(P)) \oplus P & \phi(P) \oplus P \\};
+  \path[->>] (m-2-1) edge node [below] {$\psi \oplus id_P$}(m-2-2)
+            node [above] {} (m-2-2);
+            
+   \path[->] (m-1-2) edge node [right] {$\phi \oplus id_P$} (m-2-2);
+    %edge [dashed,-] (m-2-1);
+\end{tikzpicture}
+\caption{} \label{fbij}
+\end{center}
+
+\endminipage
+\end{figure}
+%--------------------------------------------------
+%------------------------------------------------
+
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{obs}\label{sumasplit}Observem que si $\alpha : M\rightarrow P$ és exhaustiva i $\beta:P\rightarrow M$ és la seva inversa per la dreta, aleshores $p:=\beta \circ \alpha$ és un endomorfisme idempotent de $M$ ja que 
+\begin{equation} 
+\begin{split}
+(\beta \circ \alpha)^2 & = (\beta \circ \alpha) \circ (\beta \circ \alpha) \\
+ & = \beta \circ (\alpha \circ \beta) \circ \alpha \\
+ &= \beta \circ id_P \circ \alpha  = \beta \circ \alpha
+\end{split}
+\end{equation}
+A més, usant la Proposició \ref{img+ker=M} tenim que $M \cong P \oplus \text{Ker($p$)} = P \oplus (1-p)(M) $
+\end{obs}
+
+\begin{lemma}
+ Sigui $R$ un anell, tot $R$-mòdul lliure és projectiu. 
+\end{lemma}
+\begin{proof} Sigui $F$ un $R$-mòdul lliure, al ser lliure ha de tenir una base $B$. Sigui $\alpha: M \rightarrow F$ un homomorfisme de mòduls exhaustiu,  gràcies a l'exhaustivitat de $\alpha$ per a cada element bàsic $x_i\in B \subset F$ ha d'existir algun $y_i\in M$ tal que $\alpha(y_i)=x_i$. Definim l'aplicació $\beta$ a partir de la imatge dels elements bàsics $\beta(x_i)=y_i$, usant la Proposició \ref{morfismebase} $\beta$ és un morfisme $F\rightarrow M$ ben definit. A més, és inversa per la dreta de $\alpha$.
+\end{proof}
+
+\begin{theorem}[Caracterització fonamenteal dels mòduls projectius] \label{carProj}
+Sigui $R$ un anell. Un $R$-mòdul és projectiu si i només si és isomorf a un sumand directe d'un $R$-mòdul lliure\footnote{i.e. existeix un $R$-mòdul $Q$ i un $R$-mòdul lliure $F$ tal que $F = P \oplus Q$.}. És finitament generat i projectiu si i només si és isomorf a un sumand directe de $R^n$ per algun $n$.
+\end{theorem}
+
+\begin{proof}Si $P$ és un mòdul projectiu, ha de tenir almenys un conjunt generador $G$ (no és necessàriament una base de $P$). Triem un $R$-mòdul $F$ amb base $B$ que ens permeti definir una aplicació bijectiva entre elements de $B$ i $G$. Usant de nou \ref{morfismebase} tenim que $\alpha$ té una extensió a una aplicació $R$-lineal $\hat{\alpha}: F\rightarrow P$. De fet, com que la imatge de $B$ és $P$, $\hat{\alpha}$ és exhaustiva. Usant l'Observació anterior tenim que $P$ és isomorf a una suma directa en un $R$-mòdul lliure, a més, si $P$ és finitament generat, podem escollir que $F$ sigui exactament $R^n$ on $n$ és el nombre d'elements de $G$.
+\\
+Per a veure el recíproc, suposem que $F\cong P\oplus Q$, on $F$ és un mòdul lliure. Donat un homomorfisme de $R$-mòduls exhaustiu $\alpha : M \rightarrow P$, observem que l'homomorfisme de $R$-mòduls $\alpha \oplus id_Q:(M\oplus Q)\rightarrow (P\oplus Q)=F$ també és exhaustiu . A més, com que $F$ és lliure, ha de ser projectiu. Així doncs, usant la projectivitat de $F$ tenim que $\alpha \oplus id_Q$ té una inversa per la dreta. Si restringim la inversa per la dreta a $P$ i la projectem sobre $M$ tenim una inversa per la dreta de $\alpha$. Per acabar, si $F\cong R^n$ amb generadors $x_1,\dots, x_n \in B$, aleshores $P$ ve generat pels $n$ elements $p(x_i)$, on $p$ és la identitat a $P$ i $0$ a $Q$.
+\end{proof}
